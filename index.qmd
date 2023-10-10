@@ -2,6 +2,12 @@
 # callout-appearance: simple
 format:
   revealjs:
+    code-line-numbers: false
+    code-link: false
+    code-copy: false
+    # callout-appearance: simple
+    # syntax-definitions:
+    #   - ./docs/python.xml
     scrollable: true
     title-block-style: none
     slide-number: c
@@ -17,19 +23,30 @@ format:
     preview-links: true
     controls-tutorial: true
     controls: false
-    logo: "./assets/anl.svg"
+    logo: "assets/anl.svg"
     history: false
+    highlight-style: "atom-one"
     # theme: [dark, css/dark.scss]
-    css: [css/default.css, css/callouts-html.css]
-    theme: [css/common.scss, css/light.scss, css/syntax-light.scss]
+    # css: [css/default.css, css/callouts-html.css]
+    css:
+      - css/default.css
+      - css/callouts-html.css
+    # theme: [css/light.scss, css/common.scss, css/syntax-light.scss]
+    theme:
+      - white
+      - css/light.scss
+      - css/common.scss
+      - css/syntax-light.scss
+      # dark:
+      #   - css/dark.scss
+      #   - css/common.scss
+      #   - css/syntax-dark.scss
     # css: [css/default.css, css/callouts.css, css/code-callout.css]
     self-contained: false
     embed-resources: false
     self-contained-math: false
     center: true
-    # highlight-style: "atom-one"
     default-image-extension: svg
-    code-line-numbers: true
     code-overflow: scroll
     html-math-method: katex
     fig-align: center
@@ -38,120 +55,48 @@ format:
   gfm:
     author: Sam Foreman
     output-file: "README.md"
+include-in-header:
+  text: |
+    <script src="https://unpkg.com/shiki"></script>
+    <script>
+      shiki
+        .getHighlighter({
+          theme: 'dracula',
+        })
+        const html = shiki.renderToHTML(tokens, {
+        fg: highlighter.getForegroundColor('nord'), // Set a specific foreground color.
+        bg: highlighter.getBackgroundColor('nord'), // Set a specific background color.
+        // Specified elements override the default elements.
+        elements: {
+          pre({ className, style, children }) {
+            return `${children}`
+          },
+          code({ className, style, children }) {
+          return `${children}`
+        }
+      }
+    })
+    </script>
 ---
 
 # {.centeredslide background-image="./assets/image2.png" loading="lazy"}
+<!-- # {.centeredslide background-image="./assets/massstar_science_highlights_2017_01.png" loading="lazy"} -->
+<!-- # {.centeredslide background-image="./assets/p62_cover-edit_CMYK.jpg" loading="lazy"} -->
+<!-- # {.centeredslide background-image="./assets/tribology_cover_test_image_06m.png" loading="lazy"} -->
+<!-- # {.centeredslide background-image="./assets/6120702714_c9a4cf5d78_o.jpg" loading="lazy"} -->
+<!-- # {.centeredslide background-image="./assets/ccm_s23-50_Ye_03B.png" loading="lazy"} -->
 
 ::: {style="text-shadow: 0px 0px 10px RGBA(0, 0, 0, 0.45); background-color: rgba(8, 42, 123, 0.7); border-radius: 10px; text-align:left; padding: 1.5rem; margin-left: auto; margin-right: auto; line-height: 1.5em!important; box-shadow: RGBA(0, 0, 0, 0.25) 0px 5px 15px;"}
 
 ::: {style="display:flex;"}
 
-[October 10 -- 12, 2023 $\hspace{5pt}$ {{< fa solid shapes >}}]{style="font-size: 1.80em; font-weight: 600; border-bottom: 1px solid white; color: #F8F8F8"} [![](./assets/anl_logo.svg)]{style="display:inline-block;"}
-
-:::
-
-[ALCF Hands-on]{style="font-size: 3.2em; font-weight: 700; color: white"}  
-<br>
-[HPC Workshop]{style="font-size: 3.2em; font-weight: 700; color: #FFFFFF"}  
-
-:::
-
-# {.centeredslide background-image="./assets/massstar_science_highlights_2017_01.png" loading="lazy"}
-
-::: {style="text-shadow: 0px 0px 10px RGBA(0, 0, 0, 0.45); background-color: rgba(8, 42, 123, 0.7); border-radius: 10px; text-align:left; padding: 1.5rem; margin-left: auto; margin-right: auto; line-height: 1.5em!important; box-shadow: RGBA(0, 0, 0, 0.25) 0px 5px 15px;"}
-
-::: {style="display:flex;"}
-
-[October 10 -- 12, 2023 $\hspace{5pt}$ {{< fa solid shapes >}}]{style="font-size: 1.80em; font-weight: 600; border-bottom: 1px solid white; color: #F8F8F8"} [![](./assets/anl_logo.svg)]{style="display:inline-block;"}
-
-:::
-
-[ALCF Hands-on]{style="font-size: 3.2em; font-weight: 700; color: white"}  
-<br>
-[HPC Workshop]{style="font-size: 3.2em; font-weight: 700; color: #FFFFFF"}  
-
-:::
-
-# {.centeredslide background-image="./assets/p62_cover-edit_CMYK.jpg" loading="lazy"}
-
-::: {style="text-shadow: 0px 0px 10px RGBA(0, 0, 0, 0.45); background-color: rgba(8, 42, 123, 0.7); border-radius: 10px; text-align:left; padding: 1.5rem; margin-left: auto; margin-right: auto; line-height: 1.5em!important; box-shadow: RGBA(0, 0, 0, 0.25) 0px 5px 15px;"}
-
-::: {style="display:flex;"}
-
-[October 10 -- 12, 2023 $\hspace{5pt}$ {{< fa solid shapes >}}]{style="font-size: 1.80em; font-weight: 600; border-bottom: 1px solid white; width: 80%; color: #F8F8F8"} [![](./assets/anl_logo.svg)]{style="display:inline-block;"}
-
-:::
-
-[ALCF Hands-on]{style="font-size: 3.2em; font-weight: 700; color: white"}  
-<br>
-[HPC Workshop]{style="font-size: 3.2em; font-weight: 700; color: #FFFFFF"}  
-
-:::
-
-# {.centeredslide background-image="./assets/tribology_cover_test_image_06m.png" loading="lazy"}
-
-::: {style="text-shadow: 0px 0px 10px RGBA(0, 0, 0, 0.45); background-color: rgba(8, 42, 123, 0.7); border-radius: 10px; text-align:left; padding: 1.5rem; margin-left: auto; margin-right: auto; line-height: 1.5em!important; box-shadow: RGBA(0, 0, 0, 0.25) 0px 5px 15px;"}
-
-::: {style="display:flex;"}
-
-[October 10 -- 12, 2023 $\hspace{5pt}$ {{< fa solid shapes >}}]{style="font-size: 1.80em; font-weight: 600; border-bottom: 1px solid white; width: 80%; color: #F8F8F8"} [![](./assets/anl_logo.svg)]{style="display:inline-block;"}
-
-:::
-
-[ALCF Hands-on]{style="font-size: 3.2em; font-weight: 700; color: white"}  
-<br>
-[HPC Workshop]{style="font-size: 3.2em; font-weight: 700; color: #FFFFFF"}  
-
-<!-- ::: footer -->
-<!---->
-<!-- [[{{< fa brands github >}}]{.code-text} <a href="https://github.com/argonne-lcf/ALCF_Hands_on_HPC_Workshop">[argonne-lcf/ALCF_Hands_on_HPC_Workshop]{.code-text}</a>]{style="font-size: 1.5rem; text-shadow: RGBA(0, 0, 0, 0.45) 0px 0px 10px;"} -->
-<!---->
-<!-- ::: -->
-
-:::
-
-
-# {.centeredslide background-image="./assets/6120702714_c9a4cf5d78_o.jpg" loading="lazy"}
-
-::: {style="text-shadow: 0px 0px 10px RGBA(0, 0, 0, 0.45); background-color: rgba(8, 42, 123, 0.7); border-radius: 10px; text-align:left; padding: 1.5rem; margin-left: auto; margin-right: auto; line-height: 1.5em!important; box-shadow: RGBA(0, 0, 0, 0.25) 0px 5px 15px;"}
-
-::: {style="display:flex;"}
-
-[October 10 -- 12, 2023 $\hspace{5pt}$ {{< fa regular triangle >}} {{< fa solid shapes >}}]{style="font-size: 1.75em; border-bottom: 1px solid white; width: 80%; color: #F8F8F8"} [![](./assets/anl_logo.svg)]{style="display:inline-block;"}
+[October 10 -- 12, 2023 $\hspace{5pt}$ {{< fa solid shapes >}}]{style="font-size: 1.75em; font-weight: 600; border-bottom: 1px solid white; color: #F8F8F8"} [![](./assets/anl_logo.svg)]{style="display:inline-block;"}
 
 :::
 
 [ALCF Hands-on]{style="font-size: 3.0em; font-weight: 700; color: white"}  
 <br>
 [HPC Workshop]{style="font-size: 3.0em; font-weight: 700; color: #FFFFFF"}  
-
-<!-- ::: footer -->
-<!---->
-<!-- [[{{< fa brands github >}}]{.code-text} <a href="https://github.com/argonne-lcf/ALCF_Hands_on_HPC_Workshop">[argonne-lcf/ALCF_Hands_on_HPC_Workshop]{.code-text}</a>]{style="font-size: 1.5rem; text-shadow: RGBA(0, 0, 0, 0.45) 0px 0px 10px;"} -->
-<!---->
-<!-- ::: -->
-
-:::
-
-# {.centeredslide background-image="./assets/ccm_s23-50_Ye_03B.png" loading="lazy"}
-
-::: {style="text-shadow: 0px 0px 10px RGBA(0, 0, 0, 0.45); background-color: rgba(8, 42, 123, 0.7); border-radius: 10px; text-align:left; padding: 1.5rem; margin-left: auto; margin-right: auto; line-height: 1.5em!important; box-shadow: RGBA(0, 0, 0, 0.25) 0px 5px 15px;"}
-
-::: {style="display:flex;"}
-
-[October 10 -- 12, 2023 $\hspace{5pt}$ {{< fa regular triangle >}} {{< fa solid shapes >}}]{style="font-size: 1.75em; border-bottom: 1px solid white; width: 80%; color: #F8F8F8"} [![](./assets/anl_logo.svg)]{style="display:inline-block;"}
-
-:::
-
-[ALCF Hands-on]{style="font-size: 3.0em; font-weight: 700; color: white"}  
-<br>
-[HPC Workshop]{style="font-size: 3.0em; font-weight: 700; color: #FFFFFF"}  
-
-<!-- ::: footer -->
-<!---->
-<!-- [[{{< fa brands github >}}]{.code-text} <a href="https://github.com/argonne-lcf/ALCF_Hands_on_HPC_Workshop">[argonne-lcf/ALCF_Hands_on_HPC_Workshop]{.code-text}</a>]{style="font-size: 1.5rem; text-shadow: RGBA(0, 0, 0, 0.45) 0px 0px 10px;"} -->
-<!---->
-<!-- ::: -->
 
 :::
 
@@ -169,32 +114,42 @@ Large Language Models have (LLM)s have taken the ~~NLP community~~ **world** by 
 [^llm-animation]: [{{< fa brands github >}} `Hannibal046/Awesome-LLM`](https://github.com/Hannibal046/Awesome-LLM)
 
 
+# Emergent Abilities {background-color="#FBFBFD"}
+
+::: {width="66%" style="text-align: center;"}
+
+<img src="./assets/emergent-abilities.gif" height="75%" />
+
+[Emergent abilities of Large Language Models](https://arxiv.org/abs/2206.07682) @yao2023tree
+:::
+
+
 # Training LLMs
 
 
-::: {layout="[ 35, -5, 60 ]" layout-valign="bottom"}
-
-
-::: {#fig-hungry}
-
-![](./assets/it_hungers.jpeg)
-
-:::
+::: {layout="[ 60, 40 ]" layout-valign="bottom"}
 
 ::: {#fig-evolution}
 
 ![](https://github.com/Mooler0410/LLMsPracticalGuide/raw/main/imgs/survey-gif-test.gif)
 
+Visualization from @yang2023harnessing
+
 :::
 
+::: {}
+
+![](./assets/it_hungers.jpeg)
+
 
 :::
 
+:::
 
-# Landmark Papers (2017 -- Now) {.scrollable style="font-size:0.8em; max-height: 90%;"}
+# Landmark Papers (2017 -- Now) {.scrollable style="max-height: 90%;"}
 
 
-::: {.table-responsive width="100%" style="max-height: 550px!important; font-size: 0.7rem;" data-quarto-disable-processing="true"}
+::: {.table-responsive width="100%" style="max-height: 550px!important; font-size: 0.9rem;" data-quarto-disable-processing="true"}
 
 |  Date  |       keywords       |    Institute    | Paper                                                                                                                                                                               | Publication |
 | :-----: | :------------------: | :--------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :---------: |
@@ -247,13 +202,640 @@ Large Language Models have (LLM)s have taken the ~~NLP community~~ **world** by 
 | 2023-05 | DPO | Stanford | [Direct Preference Optimization: Your Language Model is Secretly a Reward Model](https://arxiv.org/pdf/2305.18290.pdf) |![Dynamic JSON Badge](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.semanticscholar.org%2Fgraph%2Fv1%2Fpaper%2F0d1c76d45afa012ded7ab741194baf142117c495%3Ffields%3DcitationCount&query=%24.citationCount&label=citation)|
 | 2023-07 | LLaMA 2 | Meta | [Llama 2: Open Foundation and Fine-Tuned Chat Models](https://arxiv.org/pdf/2307.09288.pdf) |![Dynamic JSON Badge](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.semanticscholar.org%2Fgraph%2Fv1%2Fpaper%2F104b0bb1da562d53cbda87aec79ef6a2827d191a%3Ffields%3DcitationCount&query=%24.citationCount&label=citation)|
 
-: Papers, 2017--*
+: Papers, 2017--* {#tbl-papers .striped .hover}
 
 :::
+
+# Life-Cycle of the LLM {auto-animate=true}
+
+::: {layout="[ 45, 55 ]" layout-valign=center}
+
+::: {#column-one}
+
+1. Data collection + preprocessing
+
+2. **Pre-training**
+    - Architecture decisions:  
+      `{model_size, hyperparameters,`  
+       `parallelism, lr_schedule, ...}`
+
+3. Supervised Fine-Tuning
+    - Instruction Tuning
+    - Alignment
+
+4. Deploy (+ monitor, re-evaluate, etc.)
+
+:::
+
+::: {#fig-pretrain-two}
+![](https://jalammar.github.io/images/gpt3/03-gpt3-training-step-back-prop.gif)
+
+[**Pre-training**: Virtually all of the compute used during pretraining phase.]{.dim-text}
+:::
+
+:::
+
+::: footer
+
+::: {style="font-size: 0.7em;"}
+
+1. [Better Language Models and their Implications](https://openai.com/research/better-language-models)  
+2. [{{< fa solid flask-vial >}}]{.green-text} [Progress / Artefacts / Outcomes from 🌸 Bloom BigScience](https://bigscience.notion.site/ebe3760ae1724dcc92f2e6877de0938f?v=2faf85dc00794321be14bc892539dd4f)
+
+:::
+
+:::
+
+# Life-Cycle of the LLM: Pre-training
+
+
+::: {#fig-pretrain-two}
+![](https://jalammar.github.io/images/gpt3/03-gpt3-training-step-back-prop.gif)
+
+**Pre-training**: Virtually all of the compute used during pretraining phase
+:::
+
+
+# Life-Cycle of the LLM: Fine-Tuning
+
+::: {#fig-pretrain-two}
+
+![](https://jalammar.github.io/images/gpt3/10-gpt3-fine-tuning.gif)
+
+**Fine-tuning**: Fine-tuning actually updates the model's weights to make the model better at a certain task.
+:::
+
+# {.centeredslide height="100%" style="height:100%;"}
+
+<!-- # {.centeredslide} -->
+
+![](./assets/diagrams/transformer.svg)
+
+@vaswani2017attention
+
+
+# Transformer Architecture
+
+
+::: {layout="[ 40, -2, 50 ]" layout-valign="center"}
+
+::: {#column-one}
+
+- Sequence-to-sequence mapping with `matmul`s:
+
+  ```python
+  inputs.shape  = [batch, d_model, length]
+  outputs.shape = [batch, d_model, length]
+  ``````
+
+:::
+
+::: {#column-two}
+
+![](./assets/diagrams/transformer.svg)
+Transformer Architecture (@vaswani2017attention)
+
+:::
+
+:::
+
+
+# Data: Input / Output[^picogpt]
+
+- Inputs:
+  - text represented by a sequence of integers that map the **tokens** in the text
+    ```python
+    # integers represent tokens in our text, e.g.
+    # text = "not all heroes wear capes"
+    # tokens = ["not", "all", "heroes", "wear", "capes"]
+    inputs =   [1,     0,     4,        4,      6      ]
+    ```
+
+[^picogpt]: [GPT in 60 Lines of Numpy](https://jaykmody.com/blog/gpt-from-scratch/)
+
+# Data: Input / Output
+
+- Tokens are sub-pieces of the text, which are produced using some kind of **tokenizer**[^language-modeling].
+
+- We can map tokens to integers using a **vocabulary**:
+  ```python
+  vocab = ["all", "not", "heroes", "the", "wear", ".", "capes"]
+  # a pretend tokenizer that tokenizes on whitespace
+  tokenizer = WhitespaceTokenizer(vocab)
+  # encode(s: str) -> list[int]
+  ids = tokenizer.encode("not all heroes wear") # ids = [1, 0, 2, 4]
+  # we can see what the actual tokens are via our vocab mapping
+  # tokens = ["not", "all", "heroes", "wear"]
+  tokens = [tokenizer.vocab[i] for i in ids]
+  # the decode() method converts back a list[int] -> str
+  text = tokenizer.decode(ids) # text = "not all heroes wear"
+  ``````
+
+[^language-modeling]: The task of predicting the next logical word in a
+  sequence is called **language modeling**.
+
+
+# Data: Input / Output
+
+- In short:
+  - There is a `vocab` that maps string tokens to integer indicees
+  - There is an `encode: str -> list[int]`
+  - There is a `decode: list[int] -> str`
+
+- Output:
+  - The output is a **2D Array** where `output[i][j]` is the model's
+    **predicted probability** that the token at `vocab[j]` is the next token
+    `inputs[i+1]`
+
+# Data: Output {style="font-size: 0.9em;"}
+
+```python
+vocab = ["all", "not", "heroes", "the", "wear", ".", "capes"]
+inputs = [1, 0, 2, 4] # "not" "all" "heroes" "wear"
+output = gpt(inputs)
+# ------------ ["all", "not", "heroes", "the", "wear", ".", "capes"]
+# output[0] =  [0.75    0.1     0.0       0.15    0.0   0.0    0.0  ]
+# • given just "not", the model predicts the word
+#   "all" with the highest probability
+# ------------ ["all", "not", "heroes", "the", "wear", ".", "capes"]
+# output[1] =  [0.0     0.0      0.8     0.1    0.0    0.0   0.1  ]
+# • given the sequence ["not", "all"], the model predicts the word
+#   "heroes" with the highest probability
+# ------------ ["all", "not", "heroes", "the", "wear", ".", "capes"]
+# output[-1] = [0.0     0.0     0.0     0.1     0.0    0.05  0.85  ]
+# • given the whole sequence ["not", "all", "heroes", "wear"],
+#   the model predicts the word
+#   "capes" with the highest probability
+``````
+
+# Data: Output
+
+- To get a **next token prediction** for the whole sequence, we simply take the
+  token with the highest probability in `output[-1]`[^greedy]:
+  ```python
+  vocab = ["all", "not", "heroes", "the", "wear", ".", "capes"]
+  inputs = [1, 0, 2, 4] # "not" "all" "heroes" "wear"
+  output = gpt(inputs)
+  next_token_id = np.argmax(output[-1]) # next_token_id = 6
+  next_token = vocab[next_token_id] # next_token = "capes"
+  ```
+
+[^greedy]: Taking the token with the highest probability as our prediction is
+  known as [_greedy
+  decoding_](https://docs.cohere.ai/docs/controlling-generation-with-top-k-top-p#1-pick-the-top-token-greedy-decoding)
+  or _greedy sampling_.
+
+
+# Generating Text
+
+- Auto-regressive
+  - We can generate complete sentences by iteratively generating the next token
+    prediction from our model.
+  - At each iteration,we append the predicted token back into the input:
+
+```python
+def generate(inputs, n_tokens_to_generate):
+    # auto-regressive decode loop
+    for _ in range(n_tokens_to_generate):
+        # model forward pass
+        output = gpt(inputs)
+        # greedy sampling
+        next_id = np.argmax(output[-1])
+        # append prediction to input
+        inputs.append(int(next_id))
+    # only return generated ids
+    return inputs[len(inputs) - n_tokens_to_generate :]
+```
+
+# Generating Text (cont'd)
+
+```python
+# "not" "all"
+input_ids = [1, 0]
+# output_ids = [2, 4, 6]
+output_ids = generate(input_ids, 3)
+# "heroes" "wear" "capes"
+output_tokens = [vocab[i] for i in output_ids]
+```
+
+# Training
+
+```python
+def lm_loss(inputs: list[int], params) -> float:
+    # the labels y are just the input shifted 1 to the left
+    #
+    # inputs = [not,     all,   heros,   wear,   capes]
+    #      x = [not,     all,   heroes,  wear]
+    #      y = [all,  heroes,     wear,  capes]
+    #
+    # of course, we don't have a label for inputs[-1], so we exclude it from x
+    #
+    # as such, for N inputs, we have N - 1 langauge modeling example pairs
+    x, y = inputs[:-1], inputs[1:]
+
+    # forward pass
+    # all the predicted next token probability distributions at each position
+    output = gpt(x, params)
+
+    # cross entropy loss
+    # we take the average over all N-1 examples
+    loss = np.mean(-np.log(output[y]))
+
+    return loss
+```
+
+# Parallelism Overview
+
+::: {.callout-tip title="Current Strategies" collapse="false" style="width: 100%!important;"}
+
+Modern parallelism techniques enable the training of large language models
+
+:::
+
+
+
+# Parallelism Concepts[^hf-mp] {style="font-size: 0.9em;"}
+
+- **DataParallel (DP)**:
+  - The same setup is replicated multiple times, and each being fed a slice
+    of the data. The processing is done in parallel and all setups are
+    synchronized at the end of each training step.
+
+- **TensorParallel (TP)**:
+  - Each tensor is split up into multiple chunks, so instead of having the
+    whole tensor reside on a single gpu, each shard of the tensor resides on
+    its designated gpu. During processing each shard gets processed
+    separately and in parallel on different GPUs and the results are synced
+    at the end of the step. This is what one may call horizontal parallelism,
+    as the splitting happens on horizontal level.
+
+[^hf-mp]: [🤗 Model Parallelism](https://huggingface.co/docs/transformers/v4.15.0/parallelism)
+
+# Parallelism Concepts[^hf-mp] {style="font-size: 0.9em;"}
+
+- **PipelineParallel (PP)**: 
+  - Model is split up vertically (layer-level) across multiple GPUs, so that
+    only one or several layers of the model are places on a single gpu. Each
+    gpu processes in parallel different stages of the pipeline and working on
+    a small chunk of the batch.
+
+- **Zero Redundancy Optimizer (ZeRO)**: 
+  - Also performs sharding of the tensors somewhat similar to TP, except the
+    whole tensor gets reconstructed in time for a forward or backward
+    computation, therefore the model doesn’t need to be modified. It also
+    supports various offloading techniques to compensate for limited GPU
+    memory.
+
+- **Sharded DDP**: 
+  - Another name for the foundational ZeRO concept as used by various other
+    implementations of ZeRO.
+
+[^hf-mp]: [🤗 Model Parallelism](https://huggingface.co/docs/transformers/v4.15.0/parallelism)
+
+# Data Parallelism {style="font-size: 0.9em;"}
+
+- **Data Parallelism**:
+  - The simplest and most common parallelism technique.
+    Workers maintain _identical copies_ of the _complete_ model and work on a
+    _subset of the data_.
+  - `DDP` supported in PyTorch native.
+
+- ZeRO Data Parallel
+  -  ZeRO powered data parallelism is shown below[^zero-dp]
+  
+
+::: {style="text-align: center;"}
+
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-zero.png" width="75%" />
+
+:::
+
+[^zero-dp]: [Blog Post](https://www.microsoft.com/en-us/research/blog/zero-deepspeed-new-system-optimizations-enable-training-models-with-over-100-billion-parameters/)
+
+# Tensor Parallelism[^efficient-large-scale]
+
+- In **Tensor Paralleism** each GPU processes only a slice of a tensor and only aggregates the full tensor for operations that require the whole thing.
+
+  - The main building block of any transformer is a fully connected nn.Linear followed by a nonlinear activation GeLU.
+
+    - `Y = GeLU(XA)`, where X and Y are the input and output vectors, and A is the weight matrix.
+
+  - If we look at the computation in matrix form, it’s easy to see how the matrix multiplication can be split between multiple GPUs:
+
+[^efficient-large-scale]: [Efficient Large-Scale Language Model Training on GPU Clusters](https://arxiv.org/abs/2104.04473)
+
+# Tensor Parallelism {style="font-size: 0.9em;"}
+
+::: {style="text-align: center;"}
+
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-tp-parallel_gemm.png" width="66%" style="text-align: center;" />
+
+:::
+
+::: footer
+
+This information is based on (the much more in-depth) [TP
+Overview](https://github.com/huggingface/transformers/issues/10321#issuecomment-783543530)
+by [@anton-l](https://github.com/anton-l)
+
+:::
+
+# 3D Parallelism
+
+- `DP` + `TP` + `PP` (3D) Parallelism
+
+::: {#fig-3d-parallel-1}
+
+![](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/Blog_DeepSpeed3_Figure-1_highres-2048x1230.png)
+
+:::
+
+
+# 3D Parallelism
+
+- `DP` + `TP` + `PP` (3D) Parallelism
+
+
+::: {#3dparallel}
+
+![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-deepspeed-3d.png)
+
+Figure taken from [3D parallelism: Scaling to trillion-parameter
+models](https://www.microsoft.com/en-us/research/blog/deepspeed-extreme-scale-model-training-for-everyone/)
+
+:::
+
+
+# Loooooooooong Sequence Lengths {style="height:100%; font-size:0.9em;" auto-animate=true}
+
+![](https://saforem2.github.io/assets/ds4sci.svg){width="100%"}
+
+| Sequence Length | Old Megatron-DeepSpeed (TFLOPS) | New Megatron-DeepSpeed (TFLOPS) |
+|:---------------:|:--------------------------------:|:--------------------------------:|
+| 2k              | [25]{style="text-weight:600;"}                       | [68]{style="text-weight:600;"}                  |
+| 4k              | [28]{style="text-weight:600;"}          | [80]{style="text-weight:600;"}                   |
+| 8k              | [OOM]{.red-text}                              | [86]{style="text-weight:600;"}                    |
+| 16k             | [OOM]{.red-text}                              | [92]{style="text-weight:600;"}                    |
+| 32k             | [OOM]{.red-text}                              | [100]{style="text-weight:600;"}                 |
+| 64k             | [OOM]{.red-text}                              | [106]{style="text-weight:600;"}                  |
+| 128k            | [OOM]{.red-text}                              | [119]{style="text-weight:600;"}                  |
+| 256k            | [OOM]{.red-text}                              | [94]{style="text-weight:600;"}                    |
+
+: Long sequence length support from [`microsoft/Megatron-DeepSpeed`](https://github.com/microsoft/Megatron-DeepSpeed) {#tbl-results .striped .hover}
+
+# Loooooooooong Sequence Lengths {style="height:100%; font-size:0.9em;" auto-animate=true}
+
+- Working with [{{< fa brands microsoft >}} Microsoft
+DeepSpeed](https://github.com/microsoft/DeepSpeed) team to enable longer
+sequence lengths (context windows) for LLMs[^long]  
+
+::: {#fig-ds4sci layout="[[1], [1,1]]" style="text-align:center;"}
+
+![](https://saforem2.github.io/assets/ds4sci.svg){width="100%"}
+![25B](https://saforem2.github.io/qmd/dsblog_files/figure-html/cell-4-output-1.svg){width="49%"}
+![33B](https://saforem2.github.io/qmd/dsblog_files/figure-html/cell-4-output-2.svg){width="49%"}
+
+Maximum (achievable) `SEQ_LEN` for both `25B` and `33B` models [$[$WIP$]$]{.red-text} 
+:::
+
+::: footer
+
+[{{< fa brands github >}} `argonne-lcf/Megatron-DeepSpeed`](https://github.com/argonne-lcf/Megatron-DeepSpeed)
+
+:::
+
+[^long]: The described experiments were performed on 4 NVIDIA DGX A100-40GB
+  nodes, all using TPSIZE=32[^tpsize], connected through 8 HDR InfiniBand
+  (200Gb/s per HDR).↩︎
+
+
+# {}
+
+![25B](https://saforem2.github.io/qmd/dsblog_files/figure-html/cell-4-output-1.svg){width="49%"}
+![33B](https://saforem2.github.io/qmd/dsblog_files/figure-html/cell-4-output-2.svg){width="49%"}
+
+
+# Loooooooooong Sequence Lengths {.centeredslide style="height:100%; font-size:0.8em;" auto-animate=true}
+
+- We can evaluate the performance of our model by looking at two different
+  metrics for throughput: `samples_per_sec` and `TFLOPS`.
+  - Explicitly, we see that we are able to scale up to significantly longer
+    sequences:  
+    (`420k / 128k ~ 3.3x`) with only a minimal impact on throughput  
+    performance: (`81 / 105 ~ 77%`)[^tflops-scaling].
+
+::: {style="font-size:0.8em;"}
+
+|  Name  | Sequence Length (k) | (`seq_len / min_seq_len`) |  TFLOPS  | TFLOPS (% of peak) |
+|:------:|:-------------------:|:-----------------------:|:--------:|:------------------:|
+| GPT25B |         420         |         [**3.28125**]{.blue-text}         | 81.77225 |       [**77.867**]{.blue-text}       |
+| GPT25B |         400         |          3.125          |  90.62   |       86.297       |
+| GPT25B |         360         |         2.8125          | 81.6325  |      77.7348       |
+| GPT25B |         360         |         2.8125          | 82.6824  |      78.7346       |
+| GPT25B |         192         |           1.5           | 115.8228 |      110.2927      |
+| GPT25B |         128         |            1            | 106.672  |      101.5788      |
+| GPT25B |         128         |            1            | 105.014  |       100.00       |
+
+: Impact on TFLOPS as a function of increasing sequence length. Table from: [`throughput/TFLOPS`](https://api.wandb.ai/links/l2hmc-qcd/awklywn7) {#tbl-seqlen .striped .hover}
+
+:::
+
+[^tflops-scaling]: [`throughput/TFLOPS`](https://api.wandb.ai/links/l2hmc-qcd/awklywn7)
+
+# Getting Started {style="font-size: 0.85em;"}
+
+- Installation:
+  1. Clone GitHub repo:
+    ```bash
+    git clone https://github.com/argonne-lcf/Megatron-DeepSpeed
+    ```
+  2. Load Conda module:
+     - ThetaGPU:
+       ```bash
+       if [[ "$(hostname)==theta*" ]]; then
+          export MACHINE="ThetaGPU"
+          export CONDA_DATE="2023-01-10"
+          module load conda/${CONDA_DATE}
+          conda activate base
+       fi
+       ```
+     - Polaris:
+       ```bash
+       if [[ "$(hostname)==x3*" ]]; then
+          export MACHINE="ThetaGPU"
+          export CONDA_DATE="2023-10-04"
+          module load conda/${CONDA_DATE}
+          conda activate base
+       fi
+       ```
+
+# Getting Started {style="font-size: 0.9em;"}
+
+3. Setup virtual environment:
+   ```bash
+   cd Megatron-DeepSpeed
+   # create a new virtual environment
+   mkdir -p "venvs/${MACHINE}/${CONDA_DATE}"
+   python3 -m  venv "venvs/${MACHINE}/${CONDA_DATE}" --system-site-packages
+   source "venvs/${MACHINE}/${CONDA_DATE}/bin/activate"
+   ```
+
+4. Create a new folder where we'll install dependencies:
+   ```bash
+   mkdir -p "deps/${MACHINE}"
+   cd "deps/${MACHINE}"
+   ```
+
+# Install Dependencies {.centerdedslide style="height:100%;" auto-animate=true}
+
+
+::: {.panel-tabset style="font-size: 0.8em; width: 100%!important; height: 100%!important;"}
+
+### saforem2/ezpz
+
+::: {#ezpz}
+
+- [{{< fa brands github >}} `saforem2/ezpz`](https://github.com/saforem2/ezpz)
+  ```bash
+  pip install -e "git+https://github.com/saforem2/ezpz.git#egg=ezpz"
+  ```
+
+:::
+
+### NVIDIA/apex
+
+- [{{< fa brands github >}} `NVIDIA/apex`](https://github.com/NVIDIA/apex)
+
+```bash
+git clone https://github.com/NVIDIA/apex
+cd ../apex/
+pip install -v --disable-pip-version-check --no-cache-dir --no-build-isolation --global-option="--cpp_ext" --global-option="--cuda_ext" -e ./
+```
+
+### pybind/pybind11
+
+- [{{< fa brands github >}} `pybind/PyBind11`](https://github.com/pybind/pybind11)
+
+```bash
+pip install pybind11
+```
+
+### Dao-AILab/flash-attention
+
+- [{{< fa brands github >}} `Dao-AILab/flash-attention`](https://github.com/Dao-AILab/flash-attention)
+
+- The new release supports three different implementations of
+  FlashAttention: (`v1.0.4`, `v2.x`, `triton`)
+- FlashAttention `v2.x` may have numerical instability issues.
+  For the best performance, we recommend using FlashAttention + Triton
+
+- [{{< fa brands github >}} `Dao-AILab/flash-attention`](https://github.com/Dao-AILab/flash-attention):
+   - `v1.0.4`:
+     ```bash
+     python3 -m pip install flash-attn==1.0.4
+     ```
+   - `v2.x`:
+     ```bash
+     git clone https://github.com/Dao-AILab/flash-attention
+     cd flash-attention
+     python3 setup.py install
+     ```
+   - `openai/triton`:
+     ```bash
+     git clone -b legacy-backend https://github.com/openai/triton
+     cd triton/python
+     python3 -m pip install cmake
+     python3 -m pip install .
+     ```
+
+:::
+
+# Running
+
+- The
+  [`ALCF/`](https://github.com/argonne-lcf/Megatron-DeepSpeed/tree/main/ALCF)
+  directory contains shell scripts for setting up the environment and
+  specifying options to be used for training.
+
+- Various options can be specified dynamically at runtime by setting them in
+  your environment, e.g.:
+  ```bash
+  # Set env. vars to use:
+  MODEL_SIZE_KEY="GPT25B" SEQ_LEN=128000 USE_FLASH_ATTN=1
+  MICRO_BATCH=1 GAS=1 SP_TYPE="megatron" ZERO_STAGE=1
+  # Launch training:
+  ./ALCF/train-gpt3.sh
+  ``````
+
+# Details
+
+Explicitly:
+
+- [`ALCF/train-gpt3.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/train-gpt3.sh):
+  **Main entry point for training**. This script will:
+  - Source the rest of the required [`ALCF/*.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/) scripts below
+  <!-- - Launch `mpiexec <mpiexec-args> python3` -->
+  <!--   [`pretrain_gpt.py`](https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/pretrain_gpt.py`) -->
+  <!--   `<gpt-args>` -->
+
+- [`ALCF/models.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/models.sh): Contains some example model architectures for GPT3-style models
+- [`ALCF/args.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/args.sh): Logic for parsing / setting up runtime options for Megatron and DeepSpeed
+- [`ALCF/setup.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/args.sh): Locate and activate virtual environment to be used, ensure MPI variables are set properly
+- [`ALCF/launch.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/launch.sh): Identify available resources and build the command to be executed
+  - i.e. figure out how many: `{nodes, GPUs per node, GPUs total}`, to pass to `mpi{run,exec}`
+  - then, use this to launch `mpiexec <mpiexec-args> python3`
+    [`pretrain_gpt.py`](https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/pretrain_gpt.py`)
+    `<gpt-args>`
 
 # References
 
 1. [{{< fa brands github >}} Hannibal046/Awesome-LLM](https://github.com/Hannibal046/Awesome-LLM/blob/main/README.md) [[![Awesome](https://awesome.re/badge.svg)](https://awesome.re)]{.inline-image}
 2. [{{< fa brands github >}} Mooler0410/LLMsPracticalGuide](https://github.com/Mooler0410/LLMsPracticalGuide)
+3. [Large Language Models (in 2023)](https://docs.google.com/presentation/d/1636wKStYdT_yRPbJNrf8MLKpQghuWGDmyHinHhAKeXY/edit#slide=id.g238b2698243_0_734https://docs.google.com/presentation/d/1636wKStYdT_yRPbJNrf8MLKpQghuWGDmyHinHhAKeXY/edit#slide=id.g238b2698243_0_734)
+4. [The Illustrated Transformer](http://jalammar.github.io/illustrated-transformer/)
+5. [Generative AI Exists because of the Transformer](https://ig.ft.com/generative-ai/)
+6. [GPT in 60 Lines of Numpy](https://jaykmody.com/blog/gpt-from-scratch/)
+
+
+# Backup Slides
+
+# Background
+
+
+::: {layout="[ 40, -5, 35 ]"}
+
+::: {#first-column}
+- Large Language models work _autoregressively_
+:::
+
+:::{#second-column}
+::: {#fig-autoregression}
+![](https://miro.medium.com/v2/resize:fit:640/1*3S_Td7UNBT-u8pRnNiZ53w.gif)
+
+Autoregressive generation of tokens by a language model. GIF by [Echo Lu](https://www.linkedin.com/in/echoxlu/), containing a modification of an image by [Annie Surla](https://developer.nvidia.com/blog/author/anniesurla/), adapted from @Montgomery_2023
+:::
+:::
+
+:::
+
+
+## Training
+
+- Let's assume our output vocab has only six words:
+  <img src="http://jalammar.github.io/images/t/vocabulary.png" width="80%">
+
+- How do you compare two probability distributions?
+  - `[cross_entropy, KL-Divergence, ...]`
+
+
+- One-hot encoding of the word "am":
+  <img src="http://jalammar.github.io/images/t/one-hot-vocabulary-example.png" width="80%" />
+
+
+## Training: Loss Function
+
+- Output:  
+  <img src="http://jalammar.github.io/images/t/transformer_logits_output_and_label.png" width="80%" />
+
 
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-html/tabby.min.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -12,7 +13,7 @@
   <meta name="generator" content="quarto-1.3.450">
 
   <meta name="author" content="Sam Foreman">
-  <meta name="dcterms.date" content="2023-10-10">
+  <meta name="dcterms.date" content="2023-10-07">
   <title>LLMs on Polaris</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -31,91 +32,7 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-    /* CSS for syntax highlighting */
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-      }
-    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-    div.sourceCode
-      { color: #383a42;  }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span { color: #383a42; } /* Normal */
-    code span.al { color: #95da4c; background-color: #4d1f24; font-weight: bold; } /* Alert */
-    code span.an { color: #50a14f; } /* Annotation */
-    code span.at { color: #a626a4; } /* Attribute */
-    code span.bn { color: #986801; } /* BaseN */
-    code span.bu { color: #a626a4; } /* BuiltIn */
-    code span.cf { color: #a626a4; } /* ControlFlow */
-    code span.ch { color: #50a14f; } /* Char */
-    code span.cn { color: #986801; } /* Constant */
-    code span.co { color: #a0a1a7; font-style: italic; } /* Comment */
-    code span.cv { color: #e45649; font-style: italic; } /* CommentVar */
-    code span.do { color: #e45649; } /* Documentation */
-    code span.dt { color: #a626a4; } /* DataType */
-    code span.dv { color: #986801; } /* DecVal */
-    code span.er { color: #f44747; text-decoration: underline; } /* Error */
-    code span.ex { color: #4078f2; font-weight: bold; } /* Extension */
-    code span.fl { color: #986801; } /* Float */
-    code span.fu { color: #4078f2; } /* Function */
-    code span.im { color: #50a14f; } /* Import */
-    code span.in { color: #c45b00; } /* Information */
-    code span.kw { color: #a626a4; } /* Keyword */
-    code span.op { color: #a626a4; } /* Operator */
-    code span.ot { color: #27ae60; } /* Other */
-    code span.pp { color: #a626a4; } /* Preprocessor */
-    code span.re { color: #2980b9; background-color: #153042; } /* RegionMarker */
-    code span.sc { color: #0184bc; } /* SpecialChar */
-    code span.ss { color: #da4453; } /* SpecialString */
-    code span.st { color: #50a14f; } /* String */
-    code span.va { color: #e45649; } /* Variable */
-    code span.vs { color: #da4453; } /* VerbatimString */
-    code span.wa { color: #da4453; } /* Warning */
-    /* CSS for citations */
-    div.csl-bib-body { }
-    div.csl-entry {
-      clear: both;
-    }
-    .hanging-indent div.csl-entry {
-      margin-left:2em;
-      text-indent:-2em;
-    }
-    div.csl-left-margin {
-      min-width:2em;
-      float:left;
-    }
-    div.csl-right-inline {
-      margin-left:2em;
-      padding-left:1em;
-    }
-    div.csl-indent {
-      margin-left: 2em;
-    }  </style>
+  </style>
   <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto.css">
   <link rel="stylesheet" href="css/default.css">
   <link rel="stylesheet" href="css/callouts-html.css">
@@ -431,27 +348,19 @@
     shiki
       .getHighlighter({
         theme: 'dracula',
+        langs: ['python', 'html', 'bash', 'markdown', 'js', 'css'],
       })
-      const html = shiki.renderToHTML(tokens, {
-      fg: highlighter.getForegroundColor('nord'), // Set a specific foreground color.
-      bg: highlighter.getBackgroundColor('nord'), // Set a specific background color.
-      // Specified elements override the default elements.
-      elements: {
-        pre({ className, style, children }) {
-          return `${children}`
-        },
-        code({ className, style, children }) {
-        return `${children}`
-      }
-    }
-  })
+      .then(highlighter => {
+        const code = highlighter.codeToHtml(`console.log('shiki');`, { lang: 'js' })
+          document.getElementById('output').innerHTML = code
+      })
   </script>
 <meta name="citation_title" content="LLMs on Polaris">
 <meta name="citation_author" content="Sam Foreman">
-<meta name="citation_publication_date" content="2023-10-10">
-<meta name="citation_cover_date" content="2023-10-10">
+<meta name="citation_publication_date" content="2023-10-07">
+<meta name="citation_cover_date" content="2023-10-07">
 <meta name="citation_year" content="2023">
-<meta name="citation_online_date" content="2023-10-10">
+<meta name="citation_online_date" content="2023-10-07">
 <meta name="citation_language" content="en">
 <meta name="citation_reference" content="citation_title=Progress on (g-2)_\mu from lattice QCD;,citation_author=Hartmut Wittig;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_fulltext_html_url=https://arxiv.org/abs/2306.04165;">
 <meta name="citation_reference" content="citation_title=Hybrid Monte Carlo;,citation_author=S. Duane;,citation_author=A. D. Kennedy;,citation_author=B. J. Pendleton;,citation_author=D. Roweth;,citation_publication_date=1987;,citation_cover_date=1987;,citation_year=1987;,citation_doi=10.1016/0370-2693(87)91197-X;,citation_volume=195;,citation_journal_title=Phys. Lett. B;">
@@ -464,7 +373,6 @@
 <meta name="citation_reference" content="citation_title=Harnessing the power of LLMs in practice: A survey on ChatGPT and beyond;,citation_author=Jingfeng Yang;,citation_author=Hongye Jin;,citation_author=Ruixiang Tang;,citation_author=Xiaotian Han;,citation_author=Qizhang Feng;,citation_author=Haoming Jiang;,citation_author=Bing Yin;,citation_author=Xia Hu;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_fulltext_html_url=https://arxiv.org/abs/2304.13712;">
 <meta name="citation_reference" content="citation_title=Training tips for the transformer model;,citation_author=Martin Popel;,citation_author=Ondřej Bojar;,citation_publication_date=2018-04;,citation_cover_date=2018-04;,citation_year=2018;,citation_fulltext_html_url=https://doi.org/10.2478%2Fpralin-2018-0002;,citation_issue=1;,citation_doi=10.2478/pralin-2018-0002;,citation_volume=110;,citation_journal_title=The Prague Bulletin of Mathematical Linguistics;,citation_publisher=Charles University in Prague, Karolinum Press;">
 <meta name="citation_reference" content="citation_title=Attention is all you need;,citation_author=Ashish Vaswani;,citation_author=Noam Shazeer;,citation_author=Niki Parmar;,citation_author=Jakob Uszkoreit;,citation_author=Llion Jones;,citation_author=Aidan N. Gomez;,citation_author=Lukasz Kaiser;,citation_author=Illia Polosukhin;,citation_publication_date=2017;,citation_cover_date=2017;,citation_year=2017;,citation_fulltext_html_url=https://arxiv.org/abs/1706.03762;">
-<meta name="citation_reference" content="citation_title=Tree of thoughts: Deliberate problem solving with large language models;,citation_author=Shunyu Yao;,citation_author=Dian Yu;,citation_author=Jeffrey Zhao;,citation_author=Izhak Shafran;,citation_author=Thomas L. Griffiths;,citation_author=Yuan Cao;,citation_author=Karthik Narasimhan;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_fulltext_html_url=https://arxiv.org/abs/2305.10601;">
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -489,21 +397,86 @@
     </div>
 </div>
 
-  <p class="date">2023-10-10</p>
+  <p class="date">2023-10-07</p>
 </section>
 <section id="section" class="title-slide slide level1 centeredslide center" data-background-image="./assets/image2.png" loading="lazy">
 <h1></h1>
-<!-- # {.centeredslide background-image="./assets/massstar_science_highlights_2017_01.png" loading="lazy"} -->
-<!-- # {.centeredslide background-image="./assets/p62_cover-edit_CMYK.jpg" loading="lazy"} -->
-<!-- # {.centeredslide background-image="./assets/tribology_cover_test_image_06m.png" loading="lazy"} -->
-<!-- # {.centeredslide background-image="./assets/6120702714_c9a4cf5d78_o.jpg" loading="lazy"} -->
-<!-- # {.centeredslide background-image="./assets/ccm_s23-50_Ye_03B.png" loading="lazy"} -->
 <div style="text-shadow: 0px 0px 10px RGBA(0, 0, 0, 0.45); background-color: rgba(8, 42, 123, 0.7); border-radius: 10px; text-align:left; padding: 1.5rem; margin-left: auto; margin-right: auto; line-height: 1.5em!important; box-shadow: RGBA(0, 0, 0, 0.25) 0px 5px 15px;">
 <div style="display:flex;">
-<p><span style="font-size: 1.75em; font-weight: 600; border-bottom: 1px solid white; color: #F8F8F8">October 10 – 12, 2023 <span class="math inline">\hspace{5pt}</span> <i class="fa-solid fa-shapes" aria-label="shapes"></i></span> <span style="display:inline-block;"><img data-src="./assets/anl_logo.svg"></span></p>
+<p><span style="font-size: 1.80em; font-weight: 600; border-bottom: 1px solid white; color: #F8F8F8">October 10 – 12, 2023 <span class="math inline">\hspace{5pt}</span> <i class="fa-solid fa-shapes" aria-label="shapes"></i></span> <span style="display:inline-block;"><img data-src="./assets/anl_logo.svg"></span></p>
+</div>
+<p><span style="font-size: 3.2em; font-weight: 700; color: white">ALCF Hands-on</span><br>
+<br> <span style="font-size: 3.2em; font-weight: 700; color: #FFFFFF">HPC Workshop</span></p>
+</div>
+</section>
+
+<section id="section-1" class="title-slide slide level1 centeredslide center" data-background-image="./assets/massstar_science_highlights_2017_01.png" loading="lazy">
+<h1></h1>
+<div style="text-shadow: 0px 0px 10px RGBA(0, 0, 0, 0.45); background-color: rgba(8, 42, 123, 0.7); border-radius: 10px; text-align:left; padding: 1.5rem; margin-left: auto; margin-right: auto; line-height: 1.5em!important; box-shadow: RGBA(0, 0, 0, 0.25) 0px 5px 15px;">
+<div style="display:flex;">
+<p><span style="font-size: 1.80em; font-weight: 600; border-bottom: 1px solid white; color: #F8F8F8">October 10 – 12, 2023 <span class="math inline">\hspace{5pt}</span> <i class="fa-solid fa-shapes" aria-label="shapes"></i></span> <span style="display:inline-block;"><img data-src="./assets/anl_logo.svg"></span></p>
+</div>
+<p><span style="font-size: 3.2em; font-weight: 700; color: white">ALCF Hands-on</span><br>
+<br> <span style="font-size: 3.2em; font-weight: 700; color: #FFFFFF">HPC Workshop</span></p>
+</div>
+</section>
+
+<section id="section-2" class="title-slide slide level1 centeredslide center" data-background-image="./assets/p62_cover-edit_CMYK.jpg" loading="lazy">
+<h1></h1>
+<div style="text-shadow: 0px 0px 10px RGBA(0, 0, 0, 0.45); background-color: rgba(8, 42, 123, 0.7); border-radius: 10px; text-align:left; padding: 1.5rem; margin-left: auto; margin-right: auto; line-height: 1.5em!important; box-shadow: RGBA(0, 0, 0, 0.25) 0px 5px 15px;">
+<div style="display:flex;">
+<p><span style="font-size: 1.80em; font-weight: 600; border-bottom: 1px solid white; width: 80%; color: #F8F8F8">October 10 – 12, 2023 <span class="math inline">\hspace{5pt}</span> <i class="fa-solid fa-shapes" aria-label="shapes"></i></span> <span style="display:inline-block;"><img data-src="./assets/anl_logo.svg"></span></p>
+</div>
+<p><span style="font-size: 3.2em; font-weight: 700; color: white">ALCF Hands-on</span><br>
+<br> <span style="font-size: 3.2em; font-weight: 700; color: #FFFFFF">HPC Workshop</span></p>
+</div>
+</section>
+
+<section id="section-3" class="title-slide slide level1 centeredslide center" data-background-image="./assets/tribology_cover_test_image_06m.png" loading="lazy">
+<h1></h1>
+<div style="text-shadow: 0px 0px 10px RGBA(0, 0, 0, 0.45); background-color: rgba(8, 42, 123, 0.7); border-radius: 10px; text-align:left; padding: 1.5rem; margin-left: auto; margin-right: auto; line-height: 1.5em!important; box-shadow: RGBA(0, 0, 0, 0.25) 0px 5px 15px;">
+<div style="display:flex;">
+<p><span style="font-size: 1.80em; font-weight: 600; border-bottom: 1px solid white; width: 80%; color: #F8F8F8">October 10 – 12, 2023 <span class="math inline">\hspace{5pt}</span> <i class="fa-solid fa-shapes" aria-label="shapes"></i></span> <span style="display:inline-block;"><img data-src="./assets/anl_logo.svg"></span></p>
+</div>
+<p><span style="font-size: 3.2em; font-weight: 700; color: white">ALCF Hands-on</span><br>
+<br> <span style="font-size: 3.2em; font-weight: 700; color: #FFFFFF">HPC Workshop</span></p>
+<!-- ::: footer -->
+<!---->
+<!-- [[]{.code-text} <a href="https://github.com/argonne-lcf/ALCF_Hands_on_HPC_Workshop">[argonne-lcf/ALCF_Hands_on_HPC_Workshop]{.code-text}</a>]{style="font-size: 1.5rem; text-shadow: RGBA(0, 0, 0, 0.45) 0px 0px 10px;"} -->
+<!---->
+<!-- ::: -->
+</div>
+</section>
+
+<section id="section-4" class="title-slide slide level1 centeredslide center" data-background-image="./assets/6120702714_c9a4cf5d78_o.jpg" loading="lazy">
+<h1></h1>
+<div style="text-shadow: 0px 0px 10px RGBA(0, 0, 0, 0.45); background-color: rgba(8, 42, 123, 0.7); border-radius: 10px; text-align:left; padding: 1.5rem; margin-left: auto; margin-right: auto; line-height: 1.5em!important; box-shadow: RGBA(0, 0, 0, 0.25) 0px 5px 15px;">
+<div style="display:flex;">
+<p><span style="font-size: 1.75em; border-bottom: 1px solid white; width: 80%; color: #F8F8F8">October 10 – 12, 2023 <span class="math inline">\hspace{5pt}</span> <i class="fa-regular fa-triangle" aria-label="triangle"></i> <i class="fa-solid fa-shapes" aria-label="shapes"></i></span> <span style="display:inline-block;"><img data-src="./assets/anl_logo.svg"></span></p>
 </div>
 <p><span style="font-size: 3.0em; font-weight: 700; color: white">ALCF Hands-on</span><br>
 <br> <span style="font-size: 3.0em; font-weight: 700; color: #FFFFFF">HPC Workshop</span></p>
+<!-- ::: footer -->
+<!---->
+<!-- [[]{.code-text} <a href="https://github.com/argonne-lcf/ALCF_Hands_on_HPC_Workshop">[argonne-lcf/ALCF_Hands_on_HPC_Workshop]{.code-text}</a>]{style="font-size: 1.5rem; text-shadow: RGBA(0, 0, 0, 0.45) 0px 0px 10px;"} -->
+<!---->
+<!-- ::: -->
+</div>
+</section>
+
+<section id="section-5" class="title-slide slide level1 centeredslide center" data-background-image="./assets/ccm_s23-50_Ye_03B.png" loading="lazy">
+<h1></h1>
+<div style="text-shadow: 0px 0px 10px RGBA(0, 0, 0, 0.45); background-color: rgba(8, 42, 123, 0.7); border-radius: 10px; text-align:left; padding: 1.5rem; margin-left: auto; margin-right: auto; line-height: 1.5em!important; box-shadow: RGBA(0, 0, 0, 0.25) 0px 5px 15px;">
+<div style="display:flex;">
+<p><span style="font-size: 1.75em; border-bottom: 1px solid white; width: 80%; color: #F8F8F8">October 10 – 12, 2023 <span class="math inline">\hspace{5pt}</span> <i class="fa-regular fa-triangle" aria-label="triangle"></i> <i class="fa-solid fa-shapes" aria-label="shapes"></i></span> <span style="display:inline-block;"><img data-src="./assets/anl_logo.svg"></span></p>
+</div>
+<p><span style="font-size: 3.0em; font-weight: 700; color: white">ALCF Hands-on</span><br>
+<br> <span style="font-size: 3.0em; font-weight: 700; color: #FFFFFF">HPC Workshop</span></p>
+<!-- ::: footer -->
+<!---->
+<!-- [[]{.code-text} <a href="https://github.com/argonne-lcf/ALCF_Hands_on_HPC_Workshop">[argonne-lcf/ALCF_Hands_on_HPC_Workshop]{.code-text}</a>]{style="font-size: 1.5rem; text-shadow: RGBA(0, 0, 0, 0.45) 0px 0px 10px;"} -->
+<!---->
+<!-- ::: -->
 </div>
 </section>
 
@@ -518,37 +491,34 @@
 <aside><ol class="aside-footnotes"><li id="fn1"><p><a href="https://github.com/Hannibal046/Awesome-LLM"><i class="fa-brands fa-github" aria-label="github"></i> <code>Hannibal046/Awesome-LLM</code></a></p></li></ol></aside></section>
 
 
-<section id="emergent-abilities" class="title-slide slide level1 center" data-background-color="#FBFBFD">
-<h1>Emergent Abilities</h1>
-<div width="66%" style="text-align: center;">
-<p><img src="./assets/emergent-abilities.gif" height="75%"></p>
-<p><a href="https://arxiv.org/abs/2206.07682">Emergent abilities of Large Language Models</a> <span class="citation" data-cites="yao2023tree">Yao et al. (<a href="#/training-loss-function" role="doc-biblioref" onclick="">2023</a>)</span></p>
-</div>
-</section>
-
 <section id="training-llms" class="title-slide slide level1 center">
 <h1>Training LLMs</h1>
 <div class="quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-bottom">
+<div id="fig-hungry" class="quarto-figure quarto-figure-center" style="flex-basis: 35.0%;justify-content: center;">
+<figure>
+<p><img data-src="./assets/it_hungers.jpeg"></p>
+<figcaption>Figure&nbsp;2: <strong>?(caption)</strong></figcaption>
+</figure>
+</div>
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 5.0%;justify-content: center;">
+<p>&nbsp;</p>
+</div>
 <div id="fig-evolution" class="quarto-figure quarto-figure-center" style="flex-basis: 60.0%;justify-content: center;">
 <figure>
 <p><img data-src="https://github.com/Mooler0410/LLMsPracticalGuide/raw/main/imgs/survey-gif-test.gif"></p>
-<figcaption>Figure&nbsp;2: Visualization from <span class="citation" data-cites="yang2023harnessing">Yang et al. (<a href="#/training-loss-function" role="doc-biblioref" onclick="">2023</a>)</span></figcaption>
+<figcaption>Figure&nbsp;3: <strong>?(caption)</strong></figcaption>
 </figure>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 40.0%;justify-content: center;">
-<p><img data-src="./assets/it_hungers.jpeg"></p>
 </div>
 </div>
 </div>
 </section>
 
-<section id="landmark-papers-2017-now" class="title-slide slide level1 scrollable center" style="max-height: 90%;">
+<section id="landmark-papers-2017-now" class="title-slide slide level1 scrollable center" style="font-size:0.8em; max-height: 90%;">
 <h1>Landmark Papers (2017 – Now)</h1>
-<div class="table-responsive" width="100%" style="max-height: 550px!important; font-size: 0.9rem;" data-quarto-disable-processing="true">
-<div id="tbl-papers">
-<table class="table-striped table-hover">
-<caption>Table&nbsp;1: Papers, 2017–*</caption>
+<div class="table-responsive" width="100%" style="max-height: 550px!important; font-size: 0.7rem;" data-quarto-disable-processing="true">
+<table>
+<caption>Papers, 2017–*</caption>
 <thead>
 <tr class="header">
 <th style="text-align: center;">Date</th>
@@ -898,633 +868,6 @@
 </tbody>
 </table>
 </div>
-</div>
-</section>
-
-<section id="life-cycle-of-the-llm" class="title-slide slide level1 center" data-auto-animate="true">
-<h1 data-id="quarto-animate-title">Life-Cycle of the LLM</h1>
-<div class="quarto-layout-panel">
-<div class="quarto-layout-row quarto-layout-valign-center">
-<div id="column-one" class="quarto-layout-cell" style="flex-basis: 45.0%;justify-content: center;">
-<ol type="1">
-<li><p>Data collection + preprocessing</p></li>
-<li><p><strong>Pre-training</strong></p>
-<ul>
-<li>Architecture decisions:<br>
-<code>{model_size, hyperparameters,</code><br>
-<code>parallelism, lr_schedule, ...}</code></li>
-</ul></li>
-<li><p>Supervised Fine-Tuning</p>
-<ul>
-<li>Instruction Tuning</li>
-<li>Alignment</li>
-</ul></li>
-<li><p>Deploy (+ monitor, re-evaluate, etc.)</p></li>
-</ol>
-</div>
-<div id="fig-pretrain-two" class="quarto-figure quarto-figure-center" style="flex-basis: 55.0%;justify-content: center;">
-<figure>
-<p><img data-src="https://jalammar.github.io/images/gpt3/03-gpt3-training-step-back-prop.gif"></p>
-<figcaption>Figure&nbsp;3: <span class="dim-text"><strong>Pre-training</strong>: Virtually all of the compute used during pretraining phase.</span></figcaption>
-</figure>
-</div>
-</div>
-</div>
-<div class="footer">
-<div style="font-size: 0.7em;">
-<ol type="1">
-<li><a href="https://openai.com/research/better-language-models">Better Language Models and their Implications</a><br>
-</li>
-<li><span class="green-text"><i class="fa-solid fa-flask-vial" aria-label="flask-vial"></i></span> <a href="https://bigscience.notion.site/ebe3760ae1724dcc92f2e6877de0938f?v=2faf85dc00794321be14bc892539dd4f">Progress / Artefacts / Outcomes from 🌸 Bloom BigScience</a></li>
-</ol>
-</div>
-</div>
-</section>
-
-<section id="life-cycle-of-the-llm-pre-training" class="title-slide slide level1 center">
-<h1>Life-Cycle of the LLM: Pre-training</h1>
-
-<img data-src="https://jalammar.github.io/images/gpt3/03-gpt3-training-step-back-prop.gif" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;4: <strong>Pre-training</strong>: Virtually all of the compute used during pretraining phase</p></section>
-
-<section id="life-cycle-of-the-llm-fine-tuning" class="title-slide slide level1 center">
-<h1>Life-Cycle of the LLM: Fine-Tuning</h1>
-
-<img data-src="https://jalammar.github.io/images/gpt3/10-gpt3-fine-tuning.gif" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;5: <strong>Fine-tuning</strong>: Fine-tuning actually updates the model’s weights to make the model better at a certain task.</p></section>
-
-<section id="section-1" class="title-slide slide level1 centeredslide center" height="100%" style="height:100%;">
-<h1></h1>
-<!-- # {.centeredslide} -->
-
-<img data-src="./assets/diagrams/transformer.svg" class="r-stretch"><p><span class="citation" data-cites="vaswani2017attention">Vaswani et al. (<a href="#/training-loss-function" role="doc-biblioref" onclick="">2017</a>)</span></p>
-</section>
-
-<section id="transformer-architecture" class="title-slide slide level1 center">
-<h1>Transformer Architecture</h1>
-<div class="quarto-layout-panel">
-<div class="quarto-layout-row quarto-layout-valign-center">
-<div id="column-one" class="quarto-layout-cell" style="flex-basis: 43.5%;justify-content: center;">
-<ul>
-<li><p>Sequence-to-sequence mapping with <code>matmul</code>s:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>inputs.shape  <span class="op">=</span> [batch, d_model, length]</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>outputs.shape <span class="op">=</span> [batch, d_model, length]</span></code></pre></div></li>
-</ul>
-</div>
-<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 2.2%;justify-content: center;">
-<p>&nbsp;</p>
-</div>
-<div id="column-two" class="quarto-layout-cell" style="flex-basis: 54.4%;justify-content: center;">
-<p><img data-src="./assets/diagrams/transformer.svg"> Transformer Architecture (<span class="citation" data-cites="vaswani2017attention">Vaswani et al. (<a href="#/training-loss-function" role="doc-biblioref" onclick="">2017</a>)</span>)</p>
-</div>
-</div>
-</div>
-</section>
-
-<section id="data-input-outputpicogpt" class="title-slide slide level1 center">
-<h1>Data: Input / Output<sup>1</sup></h1>
-<ul>
-<li>Inputs:
-<ul>
-<li><p>text represented by a sequence of integers that map the <strong>tokens</strong> in the text</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># integers represent tokens in our text, e.g.</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># text = "not all heroes wear capes"</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># tokens = ["not", "all", "heroes", "wear", "capes"]</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>inputs <span class="op">=</span>   [<span class="dv">1</span>,     <span class="dv">0</span>,     <span class="dv">4</span>,        <span class="dv">4</span>,      <span class="dv">6</span>      ]</span></code></pre></div></li>
-</ul></li>
-</ul>
-<aside><ol class="aside-footnotes"><li id="fn2"><p><a href="https://jaykmody.com/blog/gpt-from-scratch/">GPT in 60 Lines of Numpy</a></p></li></ol></aside></section>
-
-
-<section id="data-input-output" class="title-slide slide level1 center">
-<h1>Data: Input / Output</h1>
-<ul>
-<li><p>Tokens are sub-pieces of the text, which are produced using some kind of <strong>tokenizer</strong><sup>1</sup>.</p></li>
-<li><p>We can map tokens to integers using a <strong>vocabulary</strong>:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>vocab <span class="op">=</span> [<span class="st">"all"</span>, <span class="st">"not"</span>, <span class="st">"heroes"</span>, <span class="st">"the"</span>, <span class="st">"wear"</span>, <span class="st">"."</span>, <span class="st">"capes"</span>]</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># a pretend tokenizer that tokenizes on whitespace</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>tokenizer <span class="op">=</span> WhitespaceTokenizer(vocab)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># encode(s: str) -&gt; list[int]</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>ids <span class="op">=</span> tokenizer.encode(<span class="st">"not all heroes wear"</span>) <span class="co"># ids = [1, 0, 2, 4]</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># we can see what the actual tokens are via our vocab mapping</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># tokens = ["not", "all", "heroes", "wear"]</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>tokens <span class="op">=</span> [tokenizer.vocab[i] <span class="cf">for</span> i <span class="kw">in</span> ids]</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># the decode() method converts back a list[int] -&gt; str</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> tokenizer.decode(ids) <span class="co"># text = "not all heroes wear"</span></span></code></pre></div></li>
-</ul>
-<aside><ol class="aside-footnotes"><li id="fn3"><p>The task of predicting the next logical word in a sequence is called <strong>language modeling</strong>.</p></li></ol></aside></section>
-
-
-<section id="data-input-output-1" class="title-slide slide level1 center">
-<h1>Data: Input / Output</h1>
-<ul>
-<li>In short:
-<ul>
-<li>There is a <code>vocab</code> that maps string tokens to integer indicees</li>
-<li>There is an <code>encode: str -&gt; list[int]</code></li>
-<li>There is a <code>decode: list[int] -&gt; str</code></li>
-</ul></li>
-<li>Output:
-<ul>
-<li>The output is a <strong>2D Array</strong> where <code>output[i][j]</code> is the model’s <strong>predicted probability</strong> that the token at <code>vocab[j]</code> is the next token <code>inputs[i+1]</code></li>
-</ul></li>
-</ul>
-</section>
-
-<section id="data-output" class="title-slide slide level1 center" style="font-size: 0.9em;">
-<h1>Data: Output</h1>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>vocab <span class="op">=</span> [<span class="st">"all"</span>, <span class="st">"not"</span>, <span class="st">"heroes"</span>, <span class="st">"the"</span>, <span class="st">"wear"</span>, <span class="st">"."</span>, <span class="st">"capes"</span>]</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>inputs <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">4</span>] <span class="co"># "not" "all" "heroes" "wear"</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>output <span class="op">=</span> gpt(inputs)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ------------ ["all", "not", "heroes", "the", "wear", ".", "capes"]</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># output[0] =  [0.75    0.1     0.0       0.15    0.0   0.0    0.0  ]</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># • given just "not", the model predicts the word</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   "all" with the highest probability</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ------------ ["all", "not", "heroes", "the", "wear", ".", "capes"]</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># output[1] =  [0.0     0.0      0.8     0.1    0.0    0.0   0.1  ]</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># • given the sequence ["not", "all"], the model predicts the word</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   "heroes" with the highest probability</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># ------------ ["all", "not", "heroes", "the", "wear", ".", "capes"]</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co"># output[-1] = [0.0     0.0     0.0     0.1     0.0    0.05  0.85  ]</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co"># • given the whole sequence ["not", "all", "heroes", "wear"],</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">#   the model predicts the word</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co">#   "capes" with the highest probability</span></span></code></pre></div>
-</section>
-
-<section id="data-output-1" class="title-slide slide level1 center">
-<h1>Data: Output</h1>
-<ul>
-<li><p>To get a <strong>next token prediction</strong> for the whole sequence, we simply take the token with the highest probability in <code>output[-1]</code><sup>1</sup>:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>vocab <span class="op">=</span> [<span class="st">"all"</span>, <span class="st">"not"</span>, <span class="st">"heroes"</span>, <span class="st">"the"</span>, <span class="st">"wear"</span>, <span class="st">"."</span>, <span class="st">"capes"</span>]</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>inputs <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">4</span>] <span class="co"># "not" "all" "heroes" "wear"</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>output <span class="op">=</span> gpt(inputs)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>next_token_id <span class="op">=</span> np.argmax(output[<span class="op">-</span><span class="dv">1</span>]) <span class="co"># next_token_id = 6</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>next_token <span class="op">=</span> vocab[next_token_id] <span class="co"># next_token = "capes"</span></span></code></pre></div></li>
-</ul>
-<aside><ol class="aside-footnotes"><li id="fn4"><p>Taking the token with the highest probability as our prediction is known as <a href="https://docs.cohere.ai/docs/controlling-generation-with-top-k-top-p#1-pick-the-top-token-greedy-decoding"><em>greedy decoding</em></a> or <em>greedy sampling</em>.</p></li></ol></aside></section>
-
-
-<section id="generating-text" class="title-slide slide level1 center">
-<h1>Generating Text</h1>
-<ul>
-<li>Auto-regressive
-<ul>
-<li>We can generate complete sentences by iteratively generating the next token prediction from our model.</li>
-<li>At each iteration,we append the predicted token back into the input:</li>
-</ul></li>
-</ul>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate(inputs, n_tokens_to_generate):</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># auto-regressive decode loop</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n_tokens_to_generate):</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="co"># model forward pass</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        output <span class="op">=</span> gpt(inputs)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        <span class="co"># greedy sampling</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        next_id <span class="op">=</span> np.argmax(output[<span class="op">-</span><span class="dv">1</span>])</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        <span class="co"># append prediction to input</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        inputs.append(<span class="bu">int</span>(next_id))</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># only return generated ids</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> inputs[<span class="bu">len</span>(inputs) <span class="op">-</span> n_tokens_to_generate :]</span></code></pre></div>
-</section>
-
-<section id="generating-text-contd" class="title-slide slide level1 center">
-<h1>Generating Text (cont’d)</h1>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># "not" "all"</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>input_ids <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">0</span>]</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># output_ids = [2, 4, 6]</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>output_ids <span class="op">=</span> generate(input_ids, <span class="dv">3</span>)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># "heroes" "wear" "capes"</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>output_tokens <span class="op">=</span> [vocab[i] <span class="cf">for</span> i <span class="kw">in</span> output_ids]</span></code></pre></div>
-</section>
-
-<section id="training" class="title-slide slide level1 center">
-<h1>Training</h1>
-<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> lm_loss(inputs: <span class="bu">list</span>[<span class="bu">int</span>], params) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># the labels y are just the input shifted 1 to the left</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">#</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># inputs = [not,     all,   heros,   wear,   capes]</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">#      x = [not,     all,   heroes,  wear]</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">#      y = [all,  heroes,     wear,  capes]</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">#</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># of course, we don't have a label for inputs[-1], so we exclude it from x</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">#</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># as such, for N inputs, we have N - 1 langauge modeling example pairs</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    x, y <span class="op">=</span> inputs[:<span class="op">-</span><span class="dv">1</span>], inputs[<span class="dv">1</span>:]</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># forward pass</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># all the predicted next token probability distributions at each position</span></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    output <span class="op">=</span> gpt(x, params)</span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># cross entropy loss</span></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># we take the average over all N-1 examples</span></span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    loss <span class="op">=</span> np.mean(<span class="op">-</span>np.log(output[y]))</span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> loss</span></code></pre></div>
-</section>
-
-<section id="parallelism-overview" class="title-slide slide level1 center">
-<h1>Parallelism Overview</h1>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Current Strategies</strong></p>
-</div>
-<div class="callout-content">
-<p>Modern parallelism techniques enable the training of large language models</p>
-</div>
-</div>
-</div>
-</section>
-
-<section id="parallelism-conceptshf-mp" class="title-slide slide level1 center" style="font-size: 0.9em;">
-<h1>Parallelism Concepts<sup>1</sup></h1>
-<ul>
-<li><strong>DataParallel (DP)</strong>:
-<ul>
-<li>The same setup is replicated multiple times, and each being fed a slice of the data. The processing is done in parallel and all setups are synchronized at the end of each training step.</li>
-</ul></li>
-<li><strong>TensorParallel (TP)</strong>:
-<ul>
-<li>Each tensor is split up into multiple chunks, so instead of having the whole tensor reside on a single gpu, each shard of the tensor resides on its designated gpu. During processing each shard gets processed separately and in parallel on different GPUs and the results are synced at the end of the step. This is what one may call horizontal parallelism, as the splitting happens on horizontal level.</li>
-</ul></li>
-</ul>
-<aside><ol class="aside-footnotes"><li id="fn5"><p><a href="https://huggingface.co/docs/transformers/v4.15.0/parallelism">🤗 Model Parallelism</a></p></li></ol></aside></section>
-
-
-<section id="parallelism-conceptshf-mp-1" class="title-slide slide level1 center" style="font-size: 0.9em;">
-<h1>Parallelism Concepts<sup>1</sup></h1>
-<ul>
-<li><strong>PipelineParallel (PP)</strong>:
-<ul>
-<li>Model is split up vertically (layer-level) across multiple GPUs, so that only one or several layers of the model are places on a single gpu. Each gpu processes in parallel different stages of the pipeline and working on a small chunk of the batch.</li>
-</ul></li>
-<li><strong>Zero Redundancy Optimizer (ZeRO)</strong>:
-<ul>
-<li>Also performs sharding of the tensors somewhat similar to TP, except the whole tensor gets reconstructed in time for a forward or backward computation, therefore the model doesn’t need to be modified. It also supports various offloading techniques to compensate for limited GPU memory.</li>
-</ul></li>
-<li><strong>Sharded DDP</strong>:
-<ul>
-<li>Another name for the foundational ZeRO concept as used by various other implementations of ZeRO.</li>
-</ul></li>
-</ul>
-<aside><ol class="aside-footnotes"><li id="fn6"><p><a href="https://huggingface.co/docs/transformers/v4.15.0/parallelism">🤗 Model Parallelism</a></p></li></ol></aside></section>
-
-
-<section id="data-parallelism" class="title-slide slide level1 center" style="font-size: 0.9em;">
-<h1>Data Parallelism</h1>
-<ul>
-<li><strong>Data Parallelism</strong>:
-<ul>
-<li>The simplest and most common parallelism technique. Workers maintain <em>identical copies</em> of the <em>complete</em> model and work on a <em>subset of the data</em>.</li>
-<li><code>DDP</code> supported in PyTorch native.</li>
-</ul></li>
-<li>ZeRO Data Parallel
-<ul>
-<li>ZeRO powered data parallelism is shown below<sup>1</sup></li>
-</ul></li>
-</ul>
-<div style="text-align: center;">
-<p><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-zero.png" width="75%"></p>
-</div>
-<aside><ol class="aside-footnotes"><li id="fn7"><p><a href="https://www.microsoft.com/en-us/research/blog/zero-deepspeed-new-system-optimizations-enable-training-models-with-over-100-billion-parameters/">Blog Post</a></p></li></ol></aside></section>
-
-
-<section id="tensor-parallelismefficient-large-scale" class="title-slide slide level1 center">
-<h1>Tensor Parallelism<sup>1</sup></h1>
-<ul>
-<li><p>In <strong>Tensor Paralleism</strong> each GPU processes only a slice of a tensor and only aggregates the full tensor for operations that require the whole thing.</p>
-<ul>
-<li><p>The main building block of any transformer is a fully connected nn.Linear followed by a nonlinear activation GeLU.</p>
-<ul>
-<li><code>Y = GeLU(XA)</code>, where X and Y are the input and output vectors, and A is the weight matrix.</li>
-</ul></li>
-<li><p>If we look at the computation in matrix form, it’s easy to see how the matrix multiplication can be split between multiple GPUs:</p></li>
-</ul></li>
-</ul>
-<aside><ol class="aside-footnotes"><li id="fn8"><p><a href="https://arxiv.org/abs/2104.04473">Efficient Large-Scale Language Model Training on GPU Clusters</a></p></li></ol></aside></section>
-
-
-<section id="tensor-parallelism" class="title-slide slide level1 center" style="font-size: 0.9em;">
-<h1>Tensor Parallelism</h1>
-<div style="text-align: center;">
-<p><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-tp-parallel_gemm.png" width="66%" style="text-align: center;"></p>
-</div>
-<div class="footer">
-<p>This information is based on (the much more in-depth) <a href="https://github.com/huggingface/transformers/issues/10321#issuecomment-783543530">TP Overview</a> by <a href="https://github.com/anton-l"><span class="citation" data-cites="anton-l">(<span><strong>anton-l?</strong></span>)</span></a></p>
-</div>
-</section>
-
-<section id="d-parallelism" class="title-slide slide level1 center">
-<h1>3D Parallelism</h1>
-<ul>
-<li><code>DP</code> + <code>TP</code> + <code>PP</code> (3D) Parallelism</li>
-</ul>
-
-<img data-src="https://www.microsoft.com/en-us/research/uploads/prod/2020/09/Blog_DeepSpeed3_Figure-1_highres-2048x1230.png" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;6: <strong>?(caption)</strong></p></section>
-
-<section id="d-parallelism-1" class="title-slide slide level1 center">
-<h1>3D Parallelism</h1>
-<ul>
-<li><code>DP</code> + <code>TP</code> + <code>PP</code> (3D) Parallelism</li>
-</ul>
-<div id="3dparallel">
-<p><img data-src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-deepspeed-3d.png"></p>
-<p>Figure taken from <a href="https://www.microsoft.com/en-us/research/blog/deepspeed-extreme-scale-model-training-for-everyone/">3D parallelism: Scaling to trillion-parameter models</a></p>
-</div>
-</section>
-
-<section id="loooooooooong-sequence-lengths" class="title-slide slide level1 center" style="height:100%; font-size:0.9em;" data-auto-animate="true">
-<h1 data-id="quarto-animate-title">Loooooooooong Sequence Lengths</h1>
-
-<img data-src="https://saforem2.github.io/assets/ds4sci.svg" style="width:100.0%" class="r-stretch"><div id="tbl-results">
-<table class="table-striped table-hover">
-<caption>Table&nbsp;2: Long sequence length support from <a href="https://github.com/microsoft/Megatron-DeepSpeed"><code>microsoft/Megatron-DeepSpeed</code></a></caption>
-<thead>
-<tr class="header">
-<th style="text-align: center;">Sequence Length</th>
-<th style="text-align: center;">Old Megatron-DeepSpeed (TFLOPS)</th>
-<th style="text-align: center;">New Megatron-DeepSpeed (TFLOPS)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">2k</td>
-<td style="text-align: center;"><span style="text-weight:600;">25</span></td>
-<td style="text-align: center;"><span style="text-weight:600;">68</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">4k</td>
-<td style="text-align: center;"><span style="text-weight:600;">28</span></td>
-<td style="text-align: center;"><span style="text-weight:600;">80</span></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">8k</td>
-<td style="text-align: center;"><span class="red-text">OOM</span></td>
-<td style="text-align: center;"><span style="text-weight:600;">86</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">16k</td>
-<td style="text-align: center;"><span class="red-text">OOM</span></td>
-<td style="text-align: center;"><span style="text-weight:600;">92</span></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">32k</td>
-<td style="text-align: center;"><span class="red-text">OOM</span></td>
-<td style="text-align: center;"><span style="text-weight:600;">100</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">64k</td>
-<td style="text-align: center;"><span class="red-text">OOM</span></td>
-<td style="text-align: center;"><span style="text-weight:600;">106</span></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">128k</td>
-<td style="text-align: center;"><span class="red-text">OOM</span></td>
-<td style="text-align: center;"><span style="text-weight:600;">119</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">256k</td>
-<td style="text-align: center;"><span class="red-text">OOM</span></td>
-<td style="text-align: center;"><span style="text-weight:600;">94</span></td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-
-<section id="loooooooooong-sequence-lengths-1" class="title-slide slide level1 center" style="height:100%; font-size:0.9em;" data-auto-animate="true">
-<h1 data-id="quarto-animate-title">Loooooooooong Sequence Lengths</h1>
-<ul>
-<li>Working with <a href="https://github.com/microsoft/DeepSpeed"><i class="fa-brands fa-microsoft" aria-label="microsoft"></i> Microsoft DeepSpeed</a> team to enable longer sequence lengths (context windows) for LLMs<sup>1</sup></li>
-</ul>
-<div id="fig-ds4sci" class="quarto-layout-panel" style="text-align:center;">
-<figure>
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
-<p><img data-src="https://saforem2.github.io/assets/ds4sci.svg" style="width:100.0%"> <img data-src="https://saforem2.github.io/qmd/dsblog_files/figure-html/cell-4-output-1.svg" style="width:49.0%" alt="25B"> <img data-src="https://saforem2.github.io/qmd/dsblog_files/figure-html/cell-4-output-2.svg" style="width:49.0%" alt="33B"></p>
-</div>
-</div>
-<p></p><figcaption>Figure&nbsp;7: Maximum (achievable) <code>SEQ_LEN</code> for both <code>25B</code> and <code>33B</code> models <span class="red-text"><span class="math inline">[</span>WIP<span class="math inline">]</span></span></figcaption><p></p>
-</figure>
-</div>
-<div class="footer">
-<p><a href="https://github.com/argonne-lcf/Megatron-DeepSpeed"><i class="fa-brands fa-github" aria-label="github"></i> <code>argonne-lcf/Megatron-DeepSpeed</code></a></p>
-</div>
-<aside><ol class="aside-footnotes"><li id="fn9"><p>The described experiments were performed on 4 NVIDIA DGX A100-40GB nodes, all using TPSIZE=32[^tpsize], connected through 8 HDR InfiniBand (200Gb/s per HDR).↩︎</p></li></ol></aside></section>
-
-
-<section id="section-2" class="title-slide slide level1 center">
-<h1></h1>
-<p><img data-src="https://saforem2.github.io/qmd/dsblog_files/figure-html/cell-4-output-1.svg" style="width:49.0%" alt="25B"> <img data-src="https://saforem2.github.io/qmd/dsblog_files/figure-html/cell-4-output-2.svg" style="width:49.0%" alt="33B"></p>
-</section>
-
-<section id="loooooooooong-sequence-lengths-2" class="title-slide slide level1 centeredslide center" style="height:100%; font-size:0.8em;" data-auto-animate="true">
-<h1 data-id="quarto-animate-title">Loooooooooong Sequence Lengths</h1>
-<ul>
-<li>We can evaluate the performance of our model by looking at two different metrics for throughput: <code>samples_per_sec</code> and <code>TFLOPS</code>.
-<ul>
-<li>Explicitly, we see that we are able to scale up to significantly longer sequences:<br>
-(<code>420k / 128k ~ 3.3x</code>) with only a minimal impact on throughput<br>
-performance: (<code>81 / 105 ~ 77%</code>)<sup>1</sup>.</li>
-</ul></li>
-</ul>
-<div style="font-size:0.8em;">
-<div id="tbl-seqlen">
-<table class="table-striped table-hover">
-<caption>Table&nbsp;3: Impact on TFLOPS as a function of increasing sequence length. Table from: <a href="https://api.wandb.ai/links/l2hmc-qcd/awklywn7"><code>throughput/TFLOPS</code></a></caption>
-<thead>
-<tr class="header">
-<th style="text-align: center;">Name</th>
-<th style="text-align: center;">Sequence Length (k)</th>
-<th style="text-align: center;">(<code>seq_len / min_seq_len</code>)</th>
-<th style="text-align: center;">TFLOPS</th>
-<th style="text-align: center;">TFLOPS (% of peak)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">GPT25B</td>
-<td style="text-align: center;">420</td>
-<td style="text-align: center;"><span class="blue-text"><strong>3.28125</strong></span></td>
-<td style="text-align: center;">81.77225</td>
-<td style="text-align: center;"><span class="blue-text"><strong>77.867</strong></span></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">GPT25B</td>
-<td style="text-align: center;">400</td>
-<td style="text-align: center;">3.125</td>
-<td style="text-align: center;">90.62</td>
-<td style="text-align: center;">86.297</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">GPT25B</td>
-<td style="text-align: center;">360</td>
-<td style="text-align: center;">2.8125</td>
-<td style="text-align: center;">81.6325</td>
-<td style="text-align: center;">77.7348</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">GPT25B</td>
-<td style="text-align: center;">360</td>
-<td style="text-align: center;">2.8125</td>
-<td style="text-align: center;">82.6824</td>
-<td style="text-align: center;">78.7346</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">GPT25B</td>
-<td style="text-align: center;">192</td>
-<td style="text-align: center;">1.5</td>
-<td style="text-align: center;">115.8228</td>
-<td style="text-align: center;">110.2927</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">GPT25B</td>
-<td style="text-align: center;">128</td>
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">106.672</td>
-<td style="text-align: center;">101.5788</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">GPT25B</td>
-<td style="text-align: center;">128</td>
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">105.014</td>
-<td style="text-align: center;">100.00</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<aside><ol class="aside-footnotes"><li id="fn10"><p><a href="https://api.wandb.ai/links/l2hmc-qcd/awklywn7"><code>throughput/TFLOPS</code></a></p></li></ol></aside></section>
-
-
-<section id="getting-started" class="title-slide slide level1 center" style="font-size: 0.85em;">
-<h1>Getting Started</h1>
-<ul>
-<li>Installation:
-<ol type="1">
-<li>Clone GitHub repo:</li>
-</ol>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/argonne-lcf/Megatron-DeepSpeed</span></code></pre></div>
-<ol start="2" type="1">
-<li>Load Conda module:
-<ul>
-<li><p>ThetaGPU:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">[[</span> <span class="st">"</span><span class="va">$(</span><span class="fu">hostname</span><span class="va">)</span><span class="st">==theta*"</span> <span class="kw">]];</span> <span class="cf">then</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>   <span class="bu">export</span> <span class="va">MACHINE</span><span class="op">=</span><span class="st">"ThetaGPU"</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>   <span class="bu">export</span> <span class="va">CONDA_DATE</span><span class="op">=</span><span class="st">"2023-01-10"</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>   <span class="ex">module</span> load conda/<span class="va">${CONDA_DATE}</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>   <span class="ex">conda</span> activate base</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span></code></pre></div></li>
-<li><p>Polaris:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">[[</span> <span class="st">"</span><span class="va">$(</span><span class="fu">hostname</span><span class="va">)</span><span class="st">==x3*"</span> <span class="kw">]];</span> <span class="cf">then</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>   <span class="bu">export</span> <span class="va">MACHINE</span><span class="op">=</span><span class="st">"ThetaGPU"</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>   <span class="bu">export</span> <span class="va">CONDA_DATE</span><span class="op">=</span><span class="st">"2023-10-04"</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>   <span class="ex">module</span> load conda/<span class="va">${CONDA_DATE}</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>   <span class="ex">conda</span> activate base</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span></code></pre></div></li>
-</ul></li>
-</ol></li>
-</ul>
-</section>
-
-<section id="getting-started-1" class="title-slide slide level1 center" style="font-size: 0.9em;">
-<h1>Getting Started</h1>
-<ol start="3" type="1">
-<li><p>Setup virtual environment:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> Megatron-DeepSpeed</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># create a new virtual environment</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> <span class="st">"venvs/</span><span class="va">${MACHINE}</span><span class="st">/</span><span class="va">${CONDA_DATE}</span><span class="st">"</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span>  venv <span class="st">"venvs/</span><span class="va">${MACHINE}</span><span class="st">/</span><span class="va">${CONDA_DATE}</span><span class="st">"</span> <span class="at">--system-site-packages</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> <span class="st">"venvs/</span><span class="va">${MACHINE}</span><span class="st">/</span><span class="va">${CONDA_DATE}</span><span class="st">/bin/activate"</span></span></code></pre></div></li>
-<li><p>Create a new folder where we’ll install dependencies:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> <span class="st">"deps/</span><span class="va">${MACHINE}</span><span class="st">"</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="st">"deps/</span><span class="va">${MACHINE}</span><span class="st">"</span></span></code></pre></div></li>
-</ol>
-</section>
-
-<section id="install-dependencies" class="title-slide slide level1 centerdedslide center" style="height:100%;" data-auto-animate="true">
-<h1 data-id="quarto-animate-title">Install Dependencies</h1>
-<div class="panel-tabset" style="font-size: 0.8em; width: 100%!important; height: 100%!important;">
-<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">saforem2/ezpz</a></li><li><a href="#tabset-1-2">NVIDIA/apex</a></li><li><a href="#tabset-1-3">pybind/pybind11</a></li><li><a href="#tabset-1-4">Dao-AILab/flash-attention</a></li></ul>
-<div class="tab-content" style="font-size: 0.8em; width: 100%!important; height: 100%!important;">
-<div id="tabset-1-1">
-<div id="ezpz">
-<ul>
-<li><p><a href="https://github.com/saforem2/ezpz"><i class="fa-brands fa-github" aria-label="github"></i> <code>saforem2/ezpz</code></a></p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-e</span> <span class="st">"git+https://github.com/saforem2/ezpz.git#egg=ezpz"</span></span></code></pre></div></li>
-</ul>
-</div>
-</div>
-<div id="tabset-1-2">
-<ul>
-<li><a href="https://github.com/NVIDIA/apex"><i class="fa-brands fa-github" aria-label="github"></i> <code>NVIDIA/apex</code></a></li>
-</ul>
-<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/NVIDIA/apex</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../apex/</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-v</span> <span class="at">--disable-pip-version-check</span> <span class="at">--no-cache-dir</span> <span class="at">--no-build-isolation</span> <span class="at">--global-option</span><span class="op">=</span><span class="st">"--cpp_ext"</span> <span class="at">--global-option</span><span class="op">=</span><span class="st">"--cuda_ext"</span> <span class="at">-e</span> ./</span></code></pre></div>
-</div>
-<div id="tabset-1-3">
-<ul>
-<li><a href="https://github.com/pybind/pybind11"><i class="fa-brands fa-github" aria-label="github"></i> <code>pybind/PyBind11</code></a></li>
-</ul>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install pybind11</span></code></pre></div>
-</div>
-<div id="tabset-1-4">
-<ul>
-<li><p><a href="https://github.com/Dao-AILab/flash-attention"><i class="fa-brands fa-github" aria-label="github"></i> <code>Dao-AILab/flash-attention</code></a></p></li>
-<li><p>The new release supports three different implementations of FlashAttention: (<code>v1.0.4</code>, <code>v2.x</code>, <code>triton</code>)</p></li>
-<li><p>FlashAttention <code>v2.x</code> may have numerical instability issues. For the best performance, we recommend using FlashAttention + Triton</p></li>
-<li><p><a href="https://github.com/Dao-AILab/flash-attention"><i class="fa-brands fa-github" aria-label="github"></i> <code>Dao-AILab/flash-attention</code></a>:</p>
-<ul>
-<li><p><code>v1.0.4</code>:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span> pip install flash-attn==1.0.4</span></code></pre></div></li>
-<li><p><code>v2.x</code>:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/Dao-AILab/flash-attention</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> flash-attention</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> setup.py install</span></code></pre></div></li>
-<li><p><code>openai/triton</code>:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="at">-b</span> legacy-backend https://github.com/openai/triton</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> triton/python</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span> pip install cmake</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span> pip install .</span></code></pre></div></li>
-</ul></li>
-</ul>
-</div>
-</div>
-</div>
-</section>
-
-<section id="running" class="title-slide slide level1 center">
-<h1>Running</h1>
-<ul>
-<li><p>The <a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/tree/main/ALCF"><code>ALCF/</code></a> directory contains shell scripts for setting up the environment and specifying options to be used for training.</p></li>
-<li><p>Various options can be specified dynamically at runtime by setting them in your environment, e.g.:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set env. vars to use:</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="va">MODEL_SIZE_KEY</span><span class="op">=</span><span class="st">"GPT25B"</span> <span class="va">SEQ_LEN</span><span class="op">=</span>128000 <span class="va">USE_FLASH_ATTN</span><span class="op">=</span>1</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="va">MICRO_BATCH</span><span class="op">=</span>1 <span class="va">GAS</span><span class="op">=</span>1 <span class="va">SP_TYPE</span><span class="op">=</span><span class="st">"megatron"</span> <span class="va">ZERO_STAGE</span><span class="op">=</span>1</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Launch training:</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="ex">./ALCF/train-gpt3.sh</span></span></code></pre></div></li>
-</ul>
-</section>
-
-<section id="details" class="title-slide slide level1 center">
-<h1>Details</h1>
-<p>Explicitly:</p>
-<ul>
-<li><a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/train-gpt3.sh"><code>ALCF/train-gpt3.sh</code></a>: <strong>Main entry point for training</strong>. This script will:
-<ul>
-<li>Source the rest of the required <a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/"><code>ALCF/*.sh</code></a> scripts below <!-- - Launch `mpiexec <mpiexec-args> python3` --> <!--   [`pretrain_gpt.py`](https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/pretrain_gpt.py`) --> <!--   `<gpt-args>` --></li>
-</ul></li>
-<li><a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/models.sh"><code>ALCF/models.sh</code></a>: Contains some example model architectures for GPT3-style models</li>
-<li><a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/args.sh"><code>ALCF/args.sh</code></a>: Logic for parsing / setting up runtime options for Megatron and DeepSpeed</li>
-<li><a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/args.sh"><code>ALCF/setup.sh</code></a>: Locate and activate virtual environment to be used, ensure MPI variables are set properly</li>
-<li><a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/launch.sh"><code>ALCF/launch.sh</code></a>: Identify available resources and build the command to be executed
-<ul>
-<li>i.e.&nbsp;figure out how many: <code>{nodes, GPUs per node, GPUs total}</code>, to pass to <code>mpi{run,exec}</code></li>
-<li>then, use this to launch <code>mpiexec &lt;mpiexec-args&gt; python3</code> <a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/pretrain_gpt.py%60"><code>pretrain_gpt.py</code></a> <code>&lt;gpt-args&gt;</code></li>
-</ul></li>
-</ul>
 </section>
 
 <section id="references" class="title-slide slide level1 center">
@@ -1532,77 +875,13 @@ performance: (<code>81 / 105 ~ 77%</code>)<sup>1</sup>.</li>
 <ol type="1">
 <li><a href="https://github.com/Hannibal046/Awesome-LLM/blob/main/README.md"><i class="fa-brands fa-github" aria-label="github"></i> Hannibal046/Awesome-LLM</a> <span class="inline-image"><a href="https://awesome.re"><img data-src="https://awesome.re/badge.svg" alt="Awesome"></a></span></li>
 <li><a href="https://github.com/Mooler0410/LLMsPracticalGuide"><i class="fa-brands fa-github" aria-label="github"></i> Mooler0410/LLMsPracticalGuide</a></li>
-<li><a href="https://docs.google.com/presentation/d/1636wKStYdT_yRPbJNrf8MLKpQghuWGDmyHinHhAKeXY/edit#slide=id.g238b2698243_0_734https://docs.google.com/presentation/d/1636wKStYdT_yRPbJNrf8MLKpQghuWGDmyHinHhAKeXY/edit#slide=id.g238b2698243_0_734">Large Language Models (in 2023)</a></li>
-<li><a href="http://jalammar.github.io/illustrated-transformer/">The Illustrated Transformer</a></li>
-<li><a href="https://ig.ft.com/generative-ai/">Generative AI Exists because of the Transformer</a></li>
-<li><a href="https://jaykmody.com/blog/gpt-from-scratch/">GPT in 60 Lines of Numpy</a></li>
 </ol>
-</section>
 
-<section id="backup-slides" class="title-slide slide level1 center">
-<h1>Backup Slides</h1>
-
-</section>
-
-<section>
-<section id="background" class="title-slide slide level1 center">
-<h1>Background</h1>
-<div class="quarto-layout-panel">
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div id="first-column" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<ul>
-<li>Large Language models work <em>autoregressively</em></li>
-</ul>
-</div>
-<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 6.3%;justify-content: center;">
-<p>&nbsp;</p>
-</div>
-<div id="fig-autoregression" class="quarto-figure quarto-figure-center" style="flex-basis: 43.8%;justify-content: center;">
-<figure>
-<p><img data-src="https://miro.medium.com/v2/resize:fit:640/1*3S_Td7UNBT-u8pRnNiZ53w.gif"></p>
-<figcaption>Figure&nbsp;8: Autoregressive generation of tokens by a language model. GIF by <a href="https://www.linkedin.com/in/echoxlu/">Echo Lu</a>, containing a modification of an image by <a href="https://developer.nvidia.com/blog/author/anniesurla/">Annie Surla</a>, adapted from <span class="citation" data-cites="Montgomery_2023">Montgomery (<a href="#/training-loss-function" role="doc-biblioref" onclick="">2023</a>)</span></figcaption>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="training-1" class="slide level2 center">
-<h2>Training</h2>
-<ul>
-<li><p>Let’s assume our output vocab has only six words: <img src="http://jalammar.github.io/images/t/vocabulary.png" width="80%"></p></li>
-<li><p>How do you compare two probability distributions?</p>
-<ul>
-<li><code>[cross_entropy, KL-Divergence, ...]</code></li>
-</ul></li>
-<li><p>One-hot encoding of the word “am”: <img src="http://jalammar.github.io/images/t/one-hot-vocabulary-example.png" width="80%"></p></li>
-</ul>
-</section>
-<section id="training-loss-function" class="slide level2 smaller scrollable">
-<h2>Training: Loss Function</h2>
-<ul>
-<li>Output:<br>
-<img src="http://jalammar.github.io/images/t/transformer_logits_output_and_label.png" width="80%"></li>
-</ul>
-
-<p><img src="assets/anl.svg" class="slide-logo"></p>
+<p><img src="./assets/anl.svg" class="slide-logo"></p>
 <div class="footer footer-default">
 
 </div>
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
-<div id="ref-Montgomery_2023" class="csl-entry" role="listitem">
-Montgomery, Samuel. 2023. <span>“Mastering Language Models.”</span> <em>Medium</em>. Towards Data Science. <a href="https://towardsdatascience.com/mastering-language-models-32e1d891511a">https://towardsdatascience.com/mastering-language-models-32e1d891511a</a>.
-</div>
-<div id="ref-vaswani2017attention" class="csl-entry" role="listitem">
-Vaswani, Ashish, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, and Illia Polosukhin. 2017. <span>“Attention Is All You Need.”</span> <a href="https://arxiv.org/abs/1706.03762">https://arxiv.org/abs/1706.03762</a>.
-</div>
-<div id="ref-yang2023harnessing" class="csl-entry" role="listitem">
-Yang, Jingfeng, Hongye Jin, Ruixiang Tang, Xiaotian Han, Qizhang Feng, Haoming Jiang, Bing Yin, and Xia Hu. 2023. <span>“Harnessing the Power of LLMs in Practice: A Survey on ChatGPT and Beyond.”</span> <a href="https://arxiv.org/abs/2304.13712">https://arxiv.org/abs/2304.13712</a>.
-</div>
-<div id="ref-yao2023tree" class="csl-entry" role="listitem">
-Yao, Shunyu, Dian Yu, Jeffrey Zhao, Izhak Shafran, Thomas L. Griffiths, Yuan Cao, and Karthik Narasimhan. 2023. <span>“Tree of Thoughts: Deliberate Problem Solving with Large Language Models.”</span> <a href="https://arxiv.org/abs/2305.10601">https://arxiv.org/abs/2305.10601</a>.
-</div>
-</div>
-</section></section>
+</section>
     </div>
   </div>
 
@@ -1820,6 +1099,58 @@ Yao, Shunyu, Dian Yu, Jeffrey Zhao, Izhak Shafran, Thomas L. Griffiths, Yuan Cao
       const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
       tabsets.forEach(function(tabset) {
         const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button', {
+        text: function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+      });
+      clipboard.on('success', function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
       });
       function tippyHover(el, contentFn) {
         const config = {
