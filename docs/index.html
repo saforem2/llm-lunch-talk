@@ -426,26 +426,6 @@
       margin-right: 0; 
     }
   </style>
-  <script src="https://unpkg.com/shiki"></script>
-  <script>
-    shiki
-      .getHighlighter({
-        theme: 'dracula',
-      })
-      const html = shiki.renderToHTML(tokens, {
-      fg: highlighter.getForegroundColor('nord'), // Set a specific foreground color.
-      bg: highlighter.getBackgroundColor('nord'), // Set a specific background color.
-      // Specified elements override the default elements.
-      elements: {
-        pre({ className, style, children }) {
-          return `${children}`
-        },
-        code({ className, style, children }) {
-        return `${children}`
-      }
-    }
-  })
-  </script>
 <meta name="citation_title" content="LLMs on Polaris">
 <meta name="citation_author" content="Sam Foreman">
 <meta name="citation_publication_date" content="2023-10-10">
@@ -1151,7 +1131,7 @@
 <aside><ol class="aside-footnotes"><li id="fn5"><p><a href="https://huggingface.co/docs/transformers/v4.15.0/parallelism">🤗 Model Parallelism</a></p></li></ol></aside></section>
 
 
-<section id="parallelism-conceptshf-mp-1" class="title-slide slide level1 center" style="font-size: 0.9em;">
+<section id="parallelism-conceptshf-mp1" class="title-slide slide level1 center" style="font-size: 0.9em;">
 <h1>Parallelism Concepts<sup>1</sup></h1>
 <ul>
 <li><strong>PipelineParallel (PP)</strong>:
@@ -1210,7 +1190,7 @@
 <p><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-tp-parallel_gemm.png" width="66%" style="text-align: center;"></p>
 </div>
 <div class="footer">
-<p>This information is based on (the much more in-depth) <a href="https://github.com/huggingface/transformers/issues/10321#issuecomment-783543530">TP Overview</a> by <a href="https://github.com/anton-l"><span class="citation" data-cites="anton-l">(<span><strong>anton-l?</strong></span>)</span></a></p>
+<p>This information is based on (the much more in-depth) <a href="https://github.com/huggingface/transformers/issues/10321#issuecomment-783543530">TP Overview</a> by <a href="https://github.com/anton-l">@anton-l</a></p>
 </div>
 </section>
 

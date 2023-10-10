@@ -2,28 +2,6 @@
 Sam Foreman
 2023-10-10
 
-<script src="https://unpkg.com/shiki"></script>
-<script>
-  shiki
-    .getHighlighter({
-      theme: 'dracula',
-    })
-    const html = shiki.renderToHTML(tokens, {
-    fg: highlighter.getForegroundColor('nord'), // Set a specific foreground color.
-    bg: highlighter.getBackgroundColor('nord'), // Set a specific background color.
-    // Specified elements override the default elements.
-    elements: {
-      pre({ className, style, children }) {
-        return `${children}`
-      },
-      code({ className, style, children }) {
-      return `${children}`
-    }
-  }
-})
-</script>
-
-
 # 
 
 <!-- # {.centeredslide background-image="./assets/massstar_science_highlights_2017_01.png" loading="lazy"} -->
@@ -512,7 +490,7 @@ def lm_loss(inputs: list[int], params) -> float:
 
 This information is based on (the much more in-depth) [TP
 Overview](https://github.com/huggingface/transformers/issues/10321#issuecomment-783543530)
-by [(**anton-l?**)](https://github.com/anton-l)
+by [@anton-l](https://github.com/anton-l)
 
 </div>
 

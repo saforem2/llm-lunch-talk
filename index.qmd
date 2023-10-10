@@ -55,28 +55,6 @@ format:
   gfm:
     author: Sam Foreman
     output-file: "README.md"
-include-in-header:
-  text: |
-    <script src="https://unpkg.com/shiki"></script>
-    <script>
-      shiki
-        .getHighlighter({
-          theme: 'dracula',
-        })
-        const html = shiki.renderToHTML(tokens, {
-        fg: highlighter.getForegroundColor('nord'), // Set a specific foreground color.
-        bg: highlighter.getBackgroundColor('nord'), // Set a specific background color.
-        // Specified elements override the default elements.
-        elements: {
-          pre({ className, style, children }) {
-            return `${children}`
-          },
-          code({ className, style, children }) {
-          return `${children}`
-        }
-      }
-    })
-    </script>
 ---
 
 # {.centeredslide background-image="./assets/image2.png" loading="lazy"}
@@ -471,7 +449,7 @@ Modern parallelism techniques enable the training of large language models
 
 [^hf-mp]: [🤗 Model Parallelism](https://huggingface.co/docs/transformers/v4.15.0/parallelism)
 
-# Parallelism Concepts[^hf-mp] {style="font-size: 0.9em;"}
+# Parallelism Concepts[^hf-mp1] {style="font-size: 0.9em;"}
 
 - **PipelineParallel (PP)**: 
   - Model is split up vertically (layer-level) across multiple GPUs, so that
@@ -490,7 +468,7 @@ Modern parallelism techniques enable the training of large language models
   - Another name for the foundational ZeRO concept as used by various other
     implementations of ZeRO.
 
-[^hf-mp]: [🤗 Model Parallelism](https://huggingface.co/docs/transformers/v4.15.0/parallelism)
+[^hf-mp1]: [🤗 Model Parallelism](https://huggingface.co/docs/transformers/v4.15.0/parallelism)
 
 # Data Parallelism {style="font-size: 0.9em;"}
 
@@ -536,7 +514,7 @@ Modern parallelism techniques enable the training of large language models
 
 This information is based on (the much more in-depth) [TP
 Overview](https://github.com/huggingface/transformers/issues/10321#issuecomment-783543530)
-by [@anton-l](https://github.com/anton-l)
+by [\@anton-l](https://github.com/anton-l)
 
 :::
 

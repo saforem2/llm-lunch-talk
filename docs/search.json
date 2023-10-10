@@ -1,7 +1,7 @@
 [
   {
-    "objectID": "index.html#training",
-    "href": "index.html#training",
+    "objectID": "index.html#training-1",
+    "href": "index.html#training-1",
     "title": "LLMs on Polaris",
     "section": "Training",
     "text": "Training\n\nLet’s assume our output vocab has only six words: \nHow do you compare two probability distributions?\n\n[cross_entropy, KL-Divergence, ...]\n\nOne-hot encoding of the word “am”:"
@@ -12,12 +12,5 @@
     "title": "LLMs on Polaris",
     "section": "Training: Loss Function",
     "text": "Training: Loss Function\n\nOutput:\n\n\n\n\n\n\n\n\n\nMontgomery, Samuel. 2023. “Mastering Language Models.” Medium. Towards Data Science. https://towardsdatascience.com/mastering-language-models-32e1d891511a.\n\n\nVaswani, Ashish, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, and Illia Polosukhin. 2017. “Attention Is All You Need.” https://arxiv.org/abs/1706.03762.\n\n\nYang, Jingfeng, Hongye Jin, Ruixiang Tang, Xiaotian Han, Qizhang Feng, Haoming Jiang, Bing Yin, and Xia Hu. 2023. “Harnessing the Power of LLMs in Practice: A Survey on ChatGPT and Beyond.” https://arxiv.org/abs/2304.13712.\n\n\nYao, Shunyu, Dian Yu, Jeffrey Zhao, Izhak Shafran, Thomas L. Griffiths, Yuan Cao, and Karthik Narasimhan. 2023. “Tree of Thoughts: Deliberate Problem Solving with Large Language Models.” https://arxiv.org/abs/2305.10601."
-  },
-  {
-    "objectID": "index.html#training-1",
-    "href": "index.html#training-1",
-    "title": "LLMs on Polaris",
-    "section": "Training",
-    "text": "Training\n\nLet’s assume our output vocab has only six words: \nHow do you compare two probability distributions?\n\n[cross_entropy, KL-Divergence, ...]\n\nOne-hot encoding of the word “am”:"
   }
 ]
