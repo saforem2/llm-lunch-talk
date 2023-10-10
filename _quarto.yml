@@ -7,6 +7,7 @@ project:
 title: "LLMs on Polaris"
 date: today
 date-modified: last-modified
+favicon: "./favicon.svg"
 author-title: ""
 affiliation-title: ""
 published-title: ""
@@ -15,11 +16,17 @@ title-block-categories: false
 number-sections: false
 bibliography: references.bib
 appendix-cite-as: display
-favicon: "./assets/favicon.svg"
+google-scholar: true
+google-analytics: G-XVM2Y822Y1
+# favicon: "./assets/favicon.svg"
 # format:
 #   html:
 #     syntax-definitions:
 #       - ./docs/python.xml
+#
+website:
+  favicon: "./favicon.svg"
+
 author:
   name: Sam Foreman
   url: https://samforeman.me
@@ -30,6 +37,8 @@ author:
 citation:
    author: Sam Foreman
    type: speech
+   title: "LLMs at ALCF"
+   url: https://saforem2.github.io/llm-lunch-talk
 format:
   html:
     callout-appearance: simple
@@ -110,8 +119,6 @@ format:
   # doi: "10.23915/reprodocs.00010"
   # url: https://example.com/summarizing-output
   # -----------------------
-google-scholar: true
-google-analytics: G-XVM2Y822Y1
 
 #
 #

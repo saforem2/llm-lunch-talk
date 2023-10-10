@@ -1,5 +1,6 @@
 ---
 # callout-appearance: simple
+# favicon: "./favicon.svg"
 format:
   revealjs:
     code-line-numbers: false
@@ -195,7 +196,7 @@ Visualization from @yang2023harnessing
 2. **Pre-training**
     - Architecture decisions:  
       `{model_size, hyperparameters,`  
-       `parallelism, lr_schedule, ...}`
+      `parallelism, lr_schedule, ...}`
 
 3. Supervised Fine-Tuning
     - Instruction Tuning
@@ -206,9 +207,10 @@ Visualization from @yang2023harnessing
 :::
 
 ::: {#fig-pretrain-two}
+
 ![](https://jalammar.github.io/images/gpt3/03-gpt3-training-step-back-prop.gif)
 
-[**Pre-training**: Virtually all of the compute used during pretraining phase.]{.dim-text}
+**Pre-training**: Virtually all of the compute used during pretraining phase.
 :::
 
 :::
@@ -228,6 +230,7 @@ Visualization from @yang2023harnessing
 
 
 ::: {#fig-pretrain-two}
+
 ![](https://jalammar.github.io/images/gpt3/03-gpt3-training-step-back-prop.gif)
 
 **Pre-training**: Virtually all of the compute used during pretraining phase
@@ -287,7 +290,7 @@ Transformer Architecture (@vaswani2017attention)
     # text = "not all heroes wear capes"
     # tokens = ["not", "all", "heroes", "wear", "capes"]
     inputs =   [1,     0,     4,        4,      6      ]
-    ```
+```
 
 [^picogpt]: [GPT in 60 Lines of Numpy](https://jaykmody.com/blog/gpt-from-scratch/)
 
@@ -356,7 +359,7 @@ output = gpt(inputs)
   output = gpt(inputs)
   next_token_id = np.argmax(output[-1]) # next_token_id = 6
   next_token = vocab[next_token_id] # next_token = "capes"
-  ```
+```
 
 [^greedy]: Taking the token with the highest probability as our prediction is
   known as [_greedy
@@ -373,16 +376,16 @@ output = gpt(inputs)
 
 ```python
 def generate(inputs, n_tokens_to_generate):
-    # auto-regressive decode loop
-    for _ in range(n_tokens_to_generate):
-        # model forward pass
-        output = gpt(inputs)
-        # greedy sampling
-        next_id = np.argmax(output[-1])
-        # append prediction to input
-        inputs.append(int(next_id))
-    # only return generated ids
-    return inputs[len(inputs) - n_tokens_to_generate :]
+# auto-regressive decode loop
+for _ in range(n_tokens_to_generate):
+# model forward pass
+output = gpt(inputs)
+# greedy sampling
+next_id = np.argmax(output[-1])
+# append prediction to input
+inputs.append(int(next_id))
+# only return generated ids
+return inputs[len(inputs) - n_tokens_to_generate :]
 ```
 
 # Generating Text (cont'd)
@@ -424,12 +427,7 @@ def lm_loss(inputs: list[int], params) -> float:
 
 # Parallelism Overview
 
-::: {.callout-tip title="Current Strategies" collapse="false" style="width: 100%!important;"}
-
-Modern parallelism techniques enable the training of large language models
-
-:::
-
+> _**Modern parallelism techniques** enables the training of large language models_
 
 
 # Parallelism Concepts[^hf-mp] {style="font-size: 0.9em;"}
@@ -480,7 +478,7 @@ Modern parallelism techniques enable the training of large language models
 
 - ZeRO Data Parallel
   -  ZeRO powered data parallelism is shown below[^zero-dp]
-  
+
 
 ::: {style="text-align: center;"}
 
@@ -564,8 +562,8 @@ models](https://www.microsoft.com/en-us/research/blog/deepspeed-extreme-scale-mo
 # Loooooooooong Sequence Lengths {style="height:100%; font-size:0.9em;" auto-animate=true}
 
 - Working with [{{< fa brands microsoft >}} Microsoft
-DeepSpeed](https://github.com/microsoft/DeepSpeed) team to enable longer
-sequence lengths (context windows) for LLMs[^long]  
+  DeepSpeed](https://github.com/microsoft/DeepSpeed) team to enable longer
+  sequence lengths (context windows) for LLMs[^long]  
 
 ::: {#fig-ds4sci layout="[[1], [1,1]]" style="text-align:center;"}
 
@@ -624,26 +622,26 @@ Maximum (achievable) `SEQ_LEN` for both `25B` and `33B` models [$[$WIP$]$]{.red-
 
 - Installation:
   1. Clone GitHub repo:
-    ```bash
-    git clone https://github.com/argonne-lcf/Megatron-DeepSpeed
-    ```
+     ```bash
+     git clone https://github.com/argonne-lcf/Megatron-DeepSpeed
+     ```
   2. Load Conda module:
      - ThetaGPU:
        ```bash
        if [[ "$(hostname)==theta*" ]]; then
-          export MACHINE="ThetaGPU"
-          export CONDA_DATE="2023-01-10"
-          module load conda/${CONDA_DATE}
-          conda activate base
+           export MACHINE="ThetaGPU"
+           export CONDA_DATE="2023-01-10"
+           module load conda/${CONDA_DATE}
+           conda activate base
        fi
        ```
      - Polaris:
        ```bash
        if [[ "$(hostname)==x3*" ]]; then
-          export MACHINE="ThetaGPU"
-          export CONDA_DATE="2023-10-04"
-          module load conda/${CONDA_DATE}
-          conda activate base
+           export MACHINE="ThetaGPU"
+           export CONDA_DATE="2023-10-04"
+           module load conda/${CONDA_DATE}
+           conda activate base
        fi
        ```
 
@@ -676,27 +674,25 @@ Maximum (achievable) `SEQ_LEN` for both `25B` and `33B` models [$[$WIP$]$]{.red-
 - [{{< fa brands github >}} `saforem2/ezpz`](https://github.com/saforem2/ezpz)
   ```bash
   pip install -e "git+https://github.com/saforem2/ezpz.git#egg=ezpz"
-  ```
+   ```
 
 :::
 
 ### NVIDIA/apex
 
 - [{{< fa brands github >}} `NVIDIA/apex`](https://github.com/NVIDIA/apex)
-
-```bash
-git clone https://github.com/NVIDIA/apex
-cd ../apex/
-pip install -v --disable-pip-version-check --no-cache-dir --no-build-isolation --global-option="--cpp_ext" --global-option="--cuda_ext" -e ./
-```
+  ```bash
+  git clone https://github.com/NVIDIA/apex
+  cd ../apex/
+  pip install -v --disable-pip-version-check --no-cache-dir --no-build-isolation --global-option="--cpp_ext" --global-option="--cuda_ext" -e ./
+  ```
 
 ### pybind/pybind11
 
 - [{{< fa brands github >}} `pybind/PyBind11`](https://github.com/pybind/pybind11)
-
-```bash
-pip install pybind11
-```
+  ```bash
+  pip install pybind11
+  ```
 
 ### Dao-AILab/flash-attention
 
@@ -743,26 +739,26 @@ pip install pybind11
   MICRO_BATCH=1 GAS=1 SP_TYPE="megatron" ZERO_STAGE=1
   # Launch training:
   ./ALCF/train-gpt3.sh
-  ``````
+  ```
 
-# Details
+# Details {style="font-size: 0.9em;"}
 
 Explicitly:
 
-- [`ALCF/train-gpt3.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/train-gpt3.sh):
+- [{{< fa brands github >}} `ALCF/train-gpt3.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/train-gpt3.sh):
   **Main entry point for training**. This script will:
-  - Source the rest of the required [`ALCF/*.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/) scripts below
-  <!-- - Launch `mpiexec <mpiexec-args> python3` -->
-  <!--   [`pretrain_gpt.py`](https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/pretrain_gpt.py`) -->
-  <!--   `<gpt-args>` -->
+  - Source the rest of the required [`ALCF/*.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/) scripts below
+    <!-- - Launch `mpiexec <mpiexec-args> python3` -->
+    <!--   [`pretrain_gpt.py`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/pretrain_gpt.py`) -->
+    <!--   `<gpt-args>` -->
 
-- [`ALCF/models.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/models.sh): Contains some example model architectures for GPT3-style models
-- [`ALCF/args.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/args.sh): Logic for parsing / setting up runtime options for Megatron and DeepSpeed
-- [`ALCF/setup.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/args.sh): Locate and activate virtual environment to be used, ensure MPI variables are set properly
-- [`ALCF/launch.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/launch.sh): Identify available resources and build the command to be executed
+- [{{< fa brands github >}} `ALCF/models.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/models.sh): Contains some example model architectures for GPT3-style models
+- [{{< fa brands github >}} `ALCF/args.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/args.sh): Logic for parsing / setting up runtime options for Megatron and DeepSpeed
+- [{{< fa brands github >}} `ALCF/setup.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/args.sh): Locate and activate virtual environment to be used, ensure MPI variables are set properly
+- [{{< fa brands github >}} `ALCF/launch.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/launch.sh): Identify available resources and build the command to be executed
   - i.e. figure out how many: `{nodes, GPUs per node, GPUs total}`, to pass to `mpi{run,exec}`
   - then, use this to launch `mpiexec <mpiexec-args> python3`
-    [`pretrain_gpt.py`](https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/pretrain_gpt.py`)
+    [`pretrain_gpt.py`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/pretrain_gpt.py`)
     `<gpt-args>`
 
 # References
@@ -784,7 +780,7 @@ Explicitly:
 
 ::: {#first-column}
 - Large Language models work _autoregressively_
-:::
+  :::
 
 :::{#second-column}
 ::: {#fig-autoregression}

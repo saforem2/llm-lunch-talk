@@ -178,8 +178,8 @@ data-layout-align="center" data-fig.extended="false">
 <p><img
 src="https://jalammar.github.io/images/gpt3/03-gpt3-training-step-back-prop.gif"
 data-fig.extended="false" /></p>
-<p>Figure 3: <span class="dim-text"><strong>Pre-training</strong>:
-Virtually all of the compute used during pretraining phase.</span></p>
+<p>Figure 3: <strong>Pre-training</strong>: Virtually all of the compute
+used during pretraining phase.</p>
 </div></td>
 </tr>
 </tbody>
@@ -355,16 +355,16 @@ output = gpt(inputs)
 
 ``` python
 def generate(inputs, n_tokens_to_generate):
-    # auto-regressive decode loop
-    for _ in range(n_tokens_to_generate):
-        # model forward pass
-        output = gpt(inputs)
-        # greedy sampling
-        next_id = np.argmax(output[-1])
-        # append prediction to input
-        inputs.append(int(next_id))
-    # only return generated ids
-    return inputs[len(inputs) - n_tokens_to_generate :]
+# auto-regressive decode loop
+for _ in range(n_tokens_to_generate):
+# model forward pass
+output = gpt(inputs)
+# greedy sampling
+next_id = np.argmax(output[-1])
+# append prediction to input
+inputs.append(int(next_id))
+# only return generated ids
+return inputs[len(inputs) - n_tokens_to_generate :]
 ```
 
 # Generating Text (cont’d)
@@ -406,14 +406,8 @@ def lm_loss(inputs: list[int], params) -> float:
 
 # Parallelism Overview
 
-<div>
-
-> **Current Strategies**
->
-> Modern parallelism techniques enable the training of large language
-> models
-
-</div>
+> ***Modern parallelism techniques** enables the training of large
+> language models*
 
 # Parallelism Concepts[^5]
 
@@ -625,19 +619,20 @@ Table from:
 - Installation:
   1.  Clone GitHub repo:
 
-  ``` bash
-  git clone https://github.com/argonne-lcf/Megatron-DeepSpeed
-  ```
+      ``` bash
+      git clone https://github.com/argonne-lcf/Megatron-DeepSpeed
+      ```
 
   2.  Load Conda module:
+
       - ThetaGPU:
 
         ``` bash
         if [[ "$(hostname)==theta*" ]]; then
-           export MACHINE="ThetaGPU"
-           export CONDA_DATE="2023-01-10"
-           module load conda/${CONDA_DATE}
-           conda activate base
+            export MACHINE="ThetaGPU"
+            export CONDA_DATE="2023-01-10"
+            module load conda/${CONDA_DATE}
+            conda activate base
         fi
         ```
 
@@ -645,10 +640,10 @@ Table from:
 
         ``` bash
         if [[ "$(hostname)==x3*" ]]; then
-           export MACHINE="ThetaGPU"
-           export CONDA_DATE="2023-10-04"
-           module load conda/${CONDA_DATE}
-           conda activate base
+            export MACHINE="ThetaGPU"
+            export CONDA_DATE="2023-10-04"
+            module load conda/${CONDA_DATE}
+            conda activate base
         fi
         ```
 
@@ -692,19 +687,19 @@ style="font-size: 0.8em; width: 100%!important; height: 100%!important;">
 
 - [ `NVIDIA/apex`](https://github.com/NVIDIA/apex)
 
-``` bash
-git clone https://github.com/NVIDIA/apex
-cd ../apex/
-pip install -v --disable-pip-version-check --no-cache-dir --no-build-isolation --global-option="--cpp_ext" --global-option="--cuda_ext" -e ./
-```
+  ``` bash
+  git clone https://github.com/NVIDIA/apex
+  cd ../apex/
+  pip install -v --disable-pip-version-check --no-cache-dir --no-build-isolation --global-option="--cpp_ext" --global-option="--cuda_ext" -e ./
+  ```
 
 ### pybind/pybind11
 
 - [ `pybind/PyBind11`](https://github.com/pybind/pybind11)
 
-``` bash
-pip install pybind11
-```
+  ``` bash
+  pip install pybind11
+  ```
 
 ### Dao-AILab/flash-attention
 
@@ -767,27 +762,32 @@ pip install pybind11
 
 Explicitly:
 
-- [`ALCF/train-gpt3.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/train-gpt3.sh):
+- [
+  `ALCF/train-gpt3.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/train-gpt3.sh):
   **Main entry point for training**. This script will:
   - Source the rest of the required
-    [`ALCF/*.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/)
+    [`ALCF/*.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/)
     scripts below <!-- - Launch `mpiexec <mpiexec-args> python3` -->
-    <!--   [`pretrain_gpt.py`](https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/pretrain_gpt.py`) -->
+    <!--   [`pretrain_gpt.py`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/pretrain_gpt.py`) -->
     <!--   `<gpt-args>` -->
-- [`ALCF/models.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/models.sh):
+- [
+  `ALCF/models.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/models.sh):
   Contains some example model architectures for GPT3-style models
-- [`ALCF/args.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/args.sh):
+- [
+  `ALCF/args.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/args.sh):
   Logic for parsing / setting up runtime options for Megatron and
   DeepSpeed
-- [`ALCF/setup.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/args.sh):
+- [
+  `ALCF/setup.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/args.sh):
   Locate and activate virtual environment to be used, ensure MPI
   variables are set properly
-- [`ALCF/launch.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/launch.sh):
+- [
+  `ALCF/launch.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/launch.sh):
   Identify available resources and build the command to be executed
   - i.e. figure out how many: `{nodes, GPUs per node, GPUs total}`, to
     pass to `mpi{run,exec}`
   - then, use this to launch `mpiexec <mpiexec-args> python3`
-    [`pretrain_gpt.py`](https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/pretrain_gpt.py%60)
+    [`pretrain_gpt.py`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/pretrain_gpt.py%60)
     `<gpt-args>`
 
 # References
@@ -810,41 +810,29 @@ Explicitly:
 
 # Background
 
-<div>
+::: {layout=“\[ 40, -5, 35 \]”}
 
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 6%" />
-<col style="width: 43%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><div id="first-column" width="50.0%"
-data-layout-align="center">
-<ul>
-<li>Large Language models work <em>autoregressively</em></li>
-</ul>
-</div></td>
-<td style="text-align: center;"><div class="quarto-figure-spacer"
-width="6.3%" data-layout-align="center">
-<p> </p>
-</div></td>
-<td style="text-align: center;"><div id="fig-autoregression"
-width="43.8%" data-layout-align="center" data-fig.extended="false">
-<p><img
-src="https://miro.medium.com/v2/resize:fit:640/1*3S_Td7UNBT-u8pRnNiZ53w.gif"
-data-fig.extended="false" /></p>
-<p>Figure 8: Autoregressive generation of tokens by a language model.
-GIF by <a href="https://www.linkedin.com/in/echoxlu/">Echo Lu</a>,
-containing a modification of an image by <a
-href="https://developer.nvidia.com/blog/author/anniesurla/">Annie
-Surla</a>, adapted from <span class="citation"
-data-cites="Montgomery_2023">Montgomery (2023)</span></p>
-</div></td>
-</tr>
-</tbody>
-</table>
+<div id="first-column">
+
+- Large Language models work *autoregressively*
+
+  :::
+
+<div id="second-column">
+
+<div id="fig-autoregression">
+
+![](https://miro.medium.com/v2/resize:fit:640/1*3S_Td7UNBT-u8pRnNiZ53w.gif)
+
+Figure 8: Autoregressive generation of tokens by a language model. GIF
+by [Echo Lu](https://www.linkedin.com/in/echoxlu/), containing a
+modification of an image by [Annie
+Surla](https://developer.nvidia.com/blog/author/anniesurla/), adapted
+from Montgomery (2023)
+
+</div>
+
+</div>
 
 </div>
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head>
+<link href="././favicon.svg" rel="icon" type="image/svg+xml">
 <script src="site_libs/quarto-html/tabby.min.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -426,12 +427,13 @@
       margin-right: 0; 
     }
   </style>
-<meta name="citation_title" content="LLMs on Polaris">
+<meta name="citation_title" content="LLMs at ALCF">
 <meta name="citation_author" content="Sam Foreman">
 <meta name="citation_publication_date" content="2023-10-10">
 <meta name="citation_cover_date" content="2023-10-10">
 <meta name="citation_year" content="2023">
 <meta name="citation_online_date" content="2023-10-10">
+<meta name="citation_fulltext_html_url" content="https://saforem2.github.io/llm-lunch-talk">
 <meta name="citation_language" content="en">
 <meta name="citation_reference" content="citation_title=Progress on (g-2)_\mu from lattice QCD;,citation_author=Hartmut Wittig;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_fulltext_html_url=https://arxiv.org/abs/2306.04165;">
 <meta name="citation_reference" content="citation_title=Hybrid Monte Carlo;,citation_author=S. Duane;,citation_author=A. D. Kennedy;,citation_author=B. J. Pendleton;,citation_author=D. Roweth;,citation_publication_date=1987;,citation_cover_date=1987;,citation_year=1987;,citation_doi=10.1016/0370-2693(87)91197-X;,citation_volume=195;,citation_journal_title=Phys. Lett. B;">
@@ -905,7 +907,7 @@
 <div id="fig-pretrain-two" class="quarto-figure quarto-figure-center" style="flex-basis: 55.0%;justify-content: center;">
 <figure>
 <p><img data-src="https://jalammar.github.io/images/gpt3/03-gpt3-training-step-back-prop.gif"></p>
-<figcaption>Figure&nbsp;3: <span class="dim-text"><strong>Pre-training</strong>: Virtually all of the compute used during pretraining phase.</span></figcaption>
+<figcaption>Figure&nbsp;3: <strong>Pre-training</strong>: Virtually all of the compute used during pretraining phase.</figcaption>
 </figure>
 </div>
 </div>
@@ -1052,16 +1054,16 @@
 </ul></li>
 </ul>
 <div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate(inputs, n_tokens_to_generate):</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># auto-regressive decode loop</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n_tokens_to_generate):</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="co"># model forward pass</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        output <span class="op">=</span> gpt(inputs)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        <span class="co"># greedy sampling</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        next_id <span class="op">=</span> np.argmax(output[<span class="op">-</span><span class="dv">1</span>])</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        <span class="co"># append prediction to input</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        inputs.append(<span class="bu">int</span>(next_id))</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># only return generated ids</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> inputs[<span class="bu">len</span>(inputs) <span class="op">-</span> n_tokens_to_generate :]</span></code></pre></div>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># auto-regressive decode loop</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n_tokens_to_generate):</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># model forward pass</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>output <span class="op">=</span> gpt(inputs)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># greedy sampling</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>next_id <span class="op">=</span> np.argmax(output[<span class="op">-</span><span class="dv">1</span>])</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># append prediction to input</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>inputs.append(<span class="bu">int</span>(next_id))</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># only return generated ids</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> inputs[<span class="bu">len</span>(inputs) <span class="op">-</span> n_tokens_to_generate :]</span></code></pre></div>
 </section>
 
 <section id="generating-text-contd" class="title-slide slide level1 center">
@@ -1101,19 +1103,9 @@
 
 <section id="parallelism-overview" class="title-slide slide level1 center">
 <h1>Parallelism Overview</h1>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Current Strategies</strong></p>
-</div>
-<div class="callout-content">
-<p>Modern parallelism techniques enable the training of large language models</p>
-</div>
-</div>
-</div>
+<blockquote>
+<p><em><strong>Modern parallelism techniques</strong> enables the training of large language models</em></p>
+</blockquote>
 </section>
 
 <section id="parallelism-conceptshf-mp" class="title-slide slide level1 center" style="font-size: 0.9em;">
@@ -1383,25 +1375,23 @@ performance: (<code>81 / 105 ~ 77%</code>)<sup>1</sup>.</li>
 <ul>
 <li>Installation:
 <ol type="1">
-<li>Clone GitHub repo:</li>
-</ol>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/argonne-lcf/Megatron-DeepSpeed</span></code></pre></div>
-<ol start="2" type="1">
-<li>Load Conda module:
+<li><p>Clone GitHub repo:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/argonne-lcf/Megatron-DeepSpeed</span></code></pre></div></li>
+<li><p>Load Conda module:</p>
 <ul>
 <li><p>ThetaGPU:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">[[</span> <span class="st">"</span><span class="va">$(</span><span class="fu">hostname</span><span class="va">)</span><span class="st">==theta*"</span> <span class="kw">]];</span> <span class="cf">then</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>   <span class="bu">export</span> <span class="va">MACHINE</span><span class="op">=</span><span class="st">"ThetaGPU"</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>   <span class="bu">export</span> <span class="va">CONDA_DATE</span><span class="op">=</span><span class="st">"2023-01-10"</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>   <span class="ex">module</span> load conda/<span class="va">${CONDA_DATE}</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>   <span class="ex">conda</span> activate base</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">export</span> <span class="va">MACHINE</span><span class="op">=</span><span class="st">"ThetaGPU"</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">export</span> <span class="va">CONDA_DATE</span><span class="op">=</span><span class="st">"2023-01-10"</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">module</span> load conda/<span class="va">${CONDA_DATE}</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">conda</span> activate base</span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span></code></pre></div></li>
 <li><p>Polaris:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">[[</span> <span class="st">"</span><span class="va">$(</span><span class="fu">hostname</span><span class="va">)</span><span class="st">==x3*"</span> <span class="kw">]];</span> <span class="cf">then</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>   <span class="bu">export</span> <span class="va">MACHINE</span><span class="op">=</span><span class="st">"ThetaGPU"</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>   <span class="bu">export</span> <span class="va">CONDA_DATE</span><span class="op">=</span><span class="st">"2023-10-04"</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>   <span class="ex">module</span> load conda/<span class="va">${CONDA_DATE}</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>   <span class="ex">conda</span> activate base</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">export</span> <span class="va">MACHINE</span><span class="op">=</span><span class="st">"ThetaGPU"</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">export</span> <span class="va">CONDA_DATE</span><span class="op">=</span><span class="st">"2023-10-04"</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">module</span> load conda/<span class="va">${CONDA_DATE}</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">conda</span> activate base</span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span></code></pre></div></li>
 </ul></li>
 </ol></li>
@@ -1438,17 +1428,17 @@ performance: (<code>81 / 105 ~ 77%</code>)<sup>1</sup>.</li>
 </div>
 <div id="tabset-1-2">
 <ul>
-<li><a href="https://github.com/NVIDIA/apex"><i class="fa-brands fa-github" aria-label="github"></i> <code>NVIDIA/apex</code></a></li>
-</ul>
+<li><p><a href="https://github.com/NVIDIA/apex"><i class="fa-brands fa-github" aria-label="github"></i> <code>NVIDIA/apex</code></a></p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/NVIDIA/apex</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../apex/</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-v</span> <span class="at">--disable-pip-version-check</span> <span class="at">--no-cache-dir</span> <span class="at">--no-build-isolation</span> <span class="at">--global-option</span><span class="op">=</span><span class="st">"--cpp_ext"</span> <span class="at">--global-option</span><span class="op">=</span><span class="st">"--cuda_ext"</span> <span class="at">-e</span> ./</span></code></pre></div>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-v</span> <span class="at">--disable-pip-version-check</span> <span class="at">--no-cache-dir</span> <span class="at">--no-build-isolation</span> <span class="at">--global-option</span><span class="op">=</span><span class="st">"--cpp_ext"</span> <span class="at">--global-option</span><span class="op">=</span><span class="st">"--cuda_ext"</span> <span class="at">-e</span> ./</span></code></pre></div></li>
+</ul>
 </div>
 <div id="tabset-1-3">
 <ul>
-<li><a href="https://github.com/pybind/pybind11"><i class="fa-brands fa-github" aria-label="github"></i> <code>pybind/PyBind11</code></a></li>
+<li><p><a href="https://github.com/pybind/pybind11"><i class="fa-brands fa-github" aria-label="github"></i> <code>pybind/PyBind11</code></a></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install pybind11</span></code></pre></div></li>
 </ul>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install pybind11</span></code></pre></div>
 </div>
 <div id="tabset-1-4">
 <ul>
@@ -1488,21 +1478,21 @@ performance: (<code>81 / 105 ~ 77%</code>)<sup>1</sup>.</li>
 </ul>
 </section>
 
-<section id="details" class="title-slide slide level1 center">
+<section id="details" class="title-slide slide level1 center" style="font-size: 0.9em;">
 <h1>Details</h1>
 <p>Explicitly:</p>
 <ul>
-<li><a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/train-gpt3.sh"><code>ALCF/train-gpt3.sh</code></a>: <strong>Main entry point for training</strong>. This script will:
+<li><a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/train-gpt3.sh"><i class="fa-brands fa-github" aria-label="github"></i> <code>ALCF/train-gpt3.sh</code></a>: <strong>Main entry point for training</strong>. This script will:
 <ul>
-<li>Source the rest of the required <a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/"><code>ALCF/*.sh</code></a> scripts below <!-- - Launch `mpiexec <mpiexec-args> python3` --> <!--   [`pretrain_gpt.py`](https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/pretrain_gpt.py`) --> <!--   `<gpt-args>` --></li>
+<li>Source the rest of the required <a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/"><code>ALCF/*.sh</code></a> scripts below <!-- - Launch `mpiexec <mpiexec-args> python3` --> <!--   [`pretrain_gpt.py`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/pretrain_gpt.py`) --> <!--   `<gpt-args>` --></li>
 </ul></li>
-<li><a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/models.sh"><code>ALCF/models.sh</code></a>: Contains some example model architectures for GPT3-style models</li>
-<li><a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/args.sh"><code>ALCF/args.sh</code></a>: Logic for parsing / setting up runtime options for Megatron and DeepSpeed</li>
-<li><a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/args.sh"><code>ALCF/setup.sh</code></a>: Locate and activate virtual environment to be used, ensure MPI variables are set properly</li>
-<li><a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/launch.sh"><code>ALCF/launch.sh</code></a>: Identify available resources and build the command to be executed
+<li><a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/models.sh"><i class="fa-brands fa-github" aria-label="github"></i> <code>ALCF/models.sh</code></a>: Contains some example model architectures for GPT3-style models</li>
+<li><a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/args.sh"><i class="fa-brands fa-github" aria-label="github"></i> <code>ALCF/args.sh</code></a>: Logic for parsing / setting up runtime options for Megatron and DeepSpeed</li>
+<li><a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/args.sh"><i class="fa-brands fa-github" aria-label="github"></i> <code>ALCF/setup.sh</code></a>: Locate and activate virtual environment to be used, ensure MPI variables are set properly</li>
+<li><a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/launch.sh"><i class="fa-brands fa-github" aria-label="github"></i> <code>ALCF/launch.sh</code></a>: Identify available resources and build the command to be executed
 <ul>
 <li>i.e.&nbsp;figure out how many: <code>{nodes, GPUs per node, GPUs total}</code>, to pass to <code>mpi{run,exec}</code></li>
-<li>then, use this to launch <code>mpiexec &lt;mpiexec-args&gt; python3</code> <a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/ALCF/pretrain_gpt.py%60"><code>pretrain_gpt.py</code></a> <code>&lt;gpt-args&gt;</code></li>
+<li>then, use this to launch <code>mpiexec &lt;mpiexec-args&gt; python3</code> <a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/pretrain_gpt.py%60"><code>pretrain_gpt.py</code></a> <code>&lt;gpt-args&gt;</code></li>
 </ul></li>
 </ul>
 </section>
@@ -1527,17 +1517,14 @@ performance: (<code>81 / 105 ~ 77%</code>)<sup>1</sup>.</li>
 <section>
 <section id="background" class="title-slide slide level1 center">
 <h1>Background</h1>
-<div class="quarto-layout-panel">
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div id="first-column" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p>::: {layout=“[ 40, -5, 35 ]”}</p>
+<div id="first-column">
 <ul>
-<li>Large Language models work <em>autoregressively</em></li>
+<li><p>Large Language models work <em>autoregressively</em></p>
+<p>:::</p></li>
 </ul>
-</div>
-<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 6.3%;justify-content: center;">
-<p>&nbsp;</p>
-</div>
-<div id="fig-autoregression" class="quarto-figure quarto-figure-center" style="flex-basis: 43.8%;justify-content: center;">
+<div id="second-column">
+<div id="fig-autoregression" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="https://miro.medium.com/v2/resize:fit:640/1*3S_Td7UNBT-u8pRnNiZ53w.gif"></p>
 <figcaption>Figure&nbsp;8: Autoregressive generation of tokens by a language model. GIF by <a href="https://www.linkedin.com/in/echoxlu/">Echo Lu</a>, containing a modification of an image by <a href="https://developer.nvidia.com/blog/author/anniesurla/">Annie Surla</a>, adapted from <span class="citation" data-cites="Montgomery_2023">Montgomery (<a href="#/training-loss-function" role="doc-biblioref" onclick="">2023</a>)</span></figcaption>
