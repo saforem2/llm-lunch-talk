@@ -246,7 +246,7 @@ Visualization from @yang2023harnessing
 **Fine-tuning**: Fine-tuning actually updates the model's weights to make the model better at a certain task.
 :::
 
-# {.centeredslide height="100%" style="height:100%;"}
+# Transformer Architecture {.centeredslide height="100%" style="height:100%; font-size: 0.8em;"}
 
 <!-- # {.centeredslide} -->
 
@@ -347,7 +347,7 @@ output = gpt(inputs)
 # • given the whole sequence ["not", "all", "heroes", "wear"],
 #   the model predicts the word
 #   "capes" with the highest probability
-``````
+```
 
 # Data: Output
 
@@ -359,7 +359,7 @@ output = gpt(inputs)
   output = gpt(inputs)
   next_token_id = np.argmax(output[-1]) # next_token_id = 6
   next_token = vocab[next_token_id] # next_token = "capes"
-```
+  ```
 
 [^greedy]: Taking the token with the highest probability as our prediction is
   known as [_greedy
@@ -376,16 +376,16 @@ output = gpt(inputs)
 
 ```python
 def generate(inputs, n_tokens_to_generate):
-# auto-regressive decode loop
-for _ in range(n_tokens_to_generate):
-# model forward pass
-output = gpt(inputs)
-# greedy sampling
-next_id = np.argmax(output[-1])
-# append prediction to input
-inputs.append(int(next_id))
-# only return generated ids
-return inputs[len(inputs) - n_tokens_to_generate :]
+    # auto-regressive decode loop
+    for _ in range(n_tokens_to_generate):
+    # model forward pass
+    output = gpt(inputs)
+    # greedy sampling
+    next_id = np.argmax(output[-1])
+    # append prediction to input
+    inputs.append(int(next_id))
+    # only return generated ids
+    return inputs[len(inputs) - n_tokens_to_generate :]
 ```
 
 # Generating Text (cont'd)

@@ -933,14 +933,14 @@
 
 <img data-src="https://jalammar.github.io/images/gpt3/10-gpt3-fine-tuning.gif" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;5: <strong>Fine-tuning</strong>: Fine-tuning actually updates the model’s weights to make the model better at a certain task.</p></section>
 
-<section id="section-1" class="title-slide slide level1 centeredslide center" height="100%" style="height:100%;">
-<h1></h1>
+<section id="transformer-architecture" class="title-slide slide level1 centeredslide center" height="100%" style="height:100%; font-size: 0.8em;">
+<h1>Transformer Architecture</h1>
 <!-- # {.centeredslide} -->
 
 <img data-src="./assets/diagrams/transformer.svg" class="r-stretch"><p><span class="citation" data-cites="vaswani2017attention">Vaswani et al. (<a href="#/training-loss-function" role="doc-biblioref" onclick="">2017</a>)</span></p>
 </section>
 
-<section id="transformer-architecture" class="title-slide slide level1 center">
+<section id="transformer-architecture-1" class="title-slide slide level1 center">
 <h1>Transformer Architecture</h1>
 <div class="quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-center">
@@ -1054,16 +1054,16 @@
 </ul></li>
 </ul>
 <div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate(inputs, n_tokens_to_generate):</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># auto-regressive decode loop</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n_tokens_to_generate):</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># model forward pass</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>output <span class="op">=</span> gpt(inputs)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># greedy sampling</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>next_id <span class="op">=</span> np.argmax(output[<span class="op">-</span><span class="dv">1</span>])</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># append prediction to input</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>inputs.append(<span class="bu">int</span>(next_id))</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># only return generated ids</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> inputs[<span class="bu">len</span>(inputs) <span class="op">-</span> n_tokens_to_generate :]</span></code></pre></div>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># auto-regressive decode loop</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n_tokens_to_generate):</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># model forward pass</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    output <span class="op">=</span> gpt(inputs)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># greedy sampling</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    next_id <span class="op">=</span> np.argmax(output[<span class="op">-</span><span class="dv">1</span>])</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># append prediction to input</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    inputs.append(<span class="bu">int</span>(next_id))</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># only return generated ids</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> inputs[<span class="bu">len</span>(inputs) <span class="op">-</span> n_tokens_to_generate :]</span></code></pre></div>
 </section>
 
 <section id="generating-text-contd" class="title-slide slide level1 center">
@@ -1285,7 +1285,7 @@
 <aside><ol class="aside-footnotes"><li id="fn9"><p>The described experiments were performed on 4 NVIDIA DGX A100-40GB nodes, all using TPSIZE=32[^tpsize], connected through 8 HDR InfiniBand (200Gb/s per HDR).↩︎</p></li></ol></aside></section>
 
 
-<section id="section-2" class="title-slide slide level1 center">
+<section id="section-1" class="title-slide slide level1 center">
 <h1></h1>
 <p><img data-src="https://saforem2.github.io/qmd/dsblog_files/figure-html/cell-4-output-1.svg" style="width:49.0%" alt="25B"> <img data-src="https://saforem2.github.io/qmd/dsblog_files/figure-html/cell-4-output-2.svg" style="width:49.0%" alt="33B"></p>
 </section>
