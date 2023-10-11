@@ -57,12 +57,12 @@ Models](https://arxiv.org/abs/2206.07682) Yao et al. (2023)
 
 <table>
 <colgroup>
-<col style="width: 60%" />
-<col style="width: 40%" />
+<col style="width: 55%" />
+<col style="width: 45%" />
 </colgroup>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;"><div id="fig-evolution" width="60.0%"
+<td style="text-align: center;"><div id="fig-evolution" width="55.0%"
 data-layout-align="center" data-fig.extended="false">
 <p><img
 src="https://github.com/Mooler0410/LLMsPracticalGuide/raw/main/imgs/survey-gif-test.gif"
@@ -70,7 +70,7 @@ data-fig.extended="false" /></p>
 <p>Figure 2: Visualization from <span class="citation"
 data-cites="yang2023harnessing">Yang et al. (2023)</span></p>
 </div></td>
-<td style="text-align: center;"><div width="40.0%"
+<td style="text-align: center;"><div width="45.0%"
 data-layout-align="center">
 <p><img src="./assets/it_hungers.jpeg" data-fig.extended="false" /></p>
 </div></td>
@@ -363,13 +363,11 @@ by [@anton-l](https://github.com/anton-l)
 
 - `DP` + `TP` + `PP` (3D) Parallelism
 
-<div id="fig-3d-parallel-1">
+::: {style=“text-align:center!important; width: 90%;}
 
-![](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/Blog_DeepSpeed3_Figure-1_highres-2048x1230.png)
+<img src="https://www.microsoft.com/en-us/research/uploads/prod/2020/09/Blog_DeepSpeed3_Figure-1_highres-2048x1230.png" align="center" />
 
-Figure 8: **?(caption)**
-
-</div>
+:::
 
 # 3D Parallelism
 
@@ -384,9 +382,113 @@ models](https://www.microsoft.com/en-us/research/blog/deepspeed-extreme-scale-mo
 
 </div>
 
+# Running on ALCF
+
+- We’ve provided a virtual environment complete with all dependencies
+  for running  
+  [
+  `argonne-lcf/Megatron-DeepSpeed`](https://github.com/argonne-lcf/Megatron-DeepSpeed)
+
+  ``` bash
+  # navigate to directory
+  WORKSHOP_DIR="/lus/grand/projects/fallwkshp23/"
+  PROJECTS_DIR="${WORKSHOP_DIR}/foremans/locations/polaris/projects/"
+  PROJECT_DIR="${PROJECTS_DIR}/argonne-lcf/Megatron-DeepSpeed"
+  cd "${PROJECT_DIR}"
+  # load conda module and activate venv
+  module load conda/2023-10-04; conda activate base
+  source venvs/polaris/2023-10-04/bin/activate
+  # set runtime environment variables
+  export IBV_FORK_SAFE=1
+  export CUDA_DEVICE_MAX_CONNECTIONS=1
+  # set environment variables for running
+  MODEL_SIZE_KEY="GPT1_5B"
+  SEQ_LEN=1024
+  MICRO_BATCH=1
+  SP_TYPE="megatron" 
+  # launch training
+  ./ALCF/train-gpt3.sh 
+  ```
+
+# Running on ALCF
+
+- Executable:
+
+  ``` bash
+  MODEL_SIZE_KEY="GPT1_5B" SEQ_LEN=1024 MICRO_BATCH=1 SP_TYPE="megatron" ./ALCF/train-gpt3.sh
+  ```
+
+<details open>
+<summary>
+<b>Output</b>
+</summary>
+
+``` bash
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ALCF_DIR: /lus/grand/projects/fallwkshp23/foremans/locations/polaris/projects/argonne-lcf/Megatron-DeepSpeed/ALCF
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+source-ing /lus/grand/projects/fallwkshp23/foremans/locations/polaris/projects/argonne-lcf/Megatron-DeepSpeed/ALCF/setup.sh
+Setting up MPI on Polaris from x3210c0s1b0n0
+++ SetupMPI() +++++++++++++++++++++++++++++++++
+Using HOSTFILE: /var/spool/pbs/aux/1126584.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov
+NHOSTS: 2
+NGPU_PER_HOST: 4
+NGPUS: 8
++++++++++++++++++++++++++++++++++++++++++++++++
+Skipping setupThetaGPU() on x3210c0s1b0n0
+Setting up MPI on Polaris from x3210c0s1b0n0
+USING PYTHON: /lus/grand/projects/fallwkshp23/foremans/locations/polaris/projects/argonne-lcf/Megatron-DeepSpeed/venvs/polaris/2023-10-04/bin/python3
+[...]
+```
+
+</details>
+
+# Running on ALCF
+
+Once the text has *finally* stopped printing, you should see output
+similar to the following:
+
+<div class="code" style="font-size:0.8em;">
+
+``` bash
+Job started at: 2023-10-11-092906 on x3210c0s1b0n0
+[...]
+Writing logs to: /lus/grand/projects/fallwkshp23/foremans/locations/polaris/projects/argonne-lcf/Megatron-DeepSpeed/outputs/gpt_SP_actCkpt_GPT13B_z1_seqlen1024_mp8_pp1_sp1_nl40_hs5120_gb1_mb1
+to view output: tail -f $(tail -1 logfiles)
+i.e. tail -f /lus/grand/projects/fallwkshp23/foremans/locations/polaris/projects/argonne-lcf/Megatron-DeepSpeed/outputs/gpt_SP_actCkpt_GPT13B_z1_seqlen1024_mp8_pp1_sp1_nl40_hs5120_gb1_mb1/logs/foremans-x3210c0s1b0n0-nhosts2-ngpu8-2023-10-11-092906.log
+```
+
+</div>
+
+- To watch / view the output:
+
+  ``` bash
+  tail -fn 1000 $(tail -1 logfiles) | less
+  ```
+
+- will look like[^6]:
+
+<div class="code" style="font-size:0.8em;">
+
+``` bash
+Job started at: 2023-10-11-092906 on x3210c0s1b0n0
+Training GPT-3 with GPT13B parameters
+Writing logs to: /lus/grand/projects/fallwkshp23/foremans/locations/polaris/projects/argonne-lcf/Megatron-DeepSpeed/outputs/gpt_SP_actCkpt_GPT13B_z1_seqlen1024_mp8_pp1_sp1_nl40_hs5120_gb1_mb1
+to view output: tail -f $(tail -1 logfiles)
+i.e. tail -f /lus/grand/projects/fallwkshp23/foremans/locations/polaris/projects/argonne-lcf/Megatron-DeepSpeed/outputs/gpt_SP_actCkpt_GPT13B_z1_seqlen1024_mp8_pp1_sp1_nl40_hs5120_gb1_mb1/logs/foremans-x3210c0s1b0n0-nhosts2-ngpu8-2023-10-11-092906.log
+using: /lus/grand/projects/fallwkshp23/foremans/locations/polaris/projects/argonne-lcf/Megatron-DeepSpeed/venvs/polaris/2023-10-04/bin/python3
+[...]
+```
+
+</div>
+
 # Getting Started at ALCF
 
+- We provide below the **details** for installing / getting started on
+  ALCF (Polaris)
+
 - Installation:
+
   1.   Clone GitHub repo:
 
   ``` bash
@@ -418,7 +520,7 @@ models](https://www.microsoft.com/en-us/research/blog/deepspeed-extreme-scale-mo
 
 # Getting Started
 
-3.  Setup virtual environment[^6]:
+3.  Setup virtual environment[^7]:
 
     ``` bash
     cd Megatron-DeepSpeed
@@ -537,8 +639,8 @@ on Polaris.</p>
 
 # Running
 
-- The
-  [`ALCF/`](https://github.com/argonne-lcf/Megatron-DeepSpeed/tree/main/ALCF)
+- The [
+  `ALCF/`](https://github.com/argonne-lcf/Megatron-DeepSpeed/tree/main/ALCF)
   directory contains shell scripts for setting up the environment and
   specifying options to be used for training.
 
@@ -684,7 +786,9 @@ Table 2: Long sequence length support from
 
 - Working with [ Microsoft
   DeepSpeed](https://github.com/microsoft/DeepSpeed) team to enable
-  longer sequence lengths (context windows) for LLMs[^7]
+  longer sequence lengths (context windows) for LLMs[^8]
+  - [Release: **DeepSpeed4Science Overview and
+    Tutorial**](https://www.deepspeed.ai/deepspeed4science/)
 
 <div id="fig-ds4sci" style="text-align:center;">
 
@@ -697,7 +801,7 @@ Table 2: Long sequence length support from
 <td style="text-align: center;"><div width="100.0%"
 data-layout-align="center">
 <p><img src="https://saforem2.github.io/assets/ds4sci.svg"
-style="width:100.0%" /> <img
+style="width:90.0%" /> <img
 src="https://saforem2.github.io/qmd/dsblog_files/figure-html/cell-4-output-1.svg"
 style="width:49.0%" alt="25B" /> <img
 src="https://saforem2.github.io/qmd/dsblog_files/figure-html/cell-4-output-2.svg"
@@ -707,7 +811,7 @@ style="width:49.0%" alt="33B" /></p>
 </tbody>
 </table>
 
-Figure 9: Maximum (achievable) `SEQ_LEN` for both `25B` and `33B` models
+Figure 8: Maximum (achievable) `SEQ_LEN` for both `25B` and `33B` models
 <span class="red-text">$[$WIP$]$</span>
 
 </div>
@@ -719,14 +823,6 @@ Figure 9: Maximum (achievable) `SEQ_LEN` for both `25B` and `33B` models
 
 </div>
 
-# 
-
-<img
-src="https://saforem2.github.io/qmd/dsblog_files/figure-html/cell-4-output-1.svg"
-style="width:49.0%" alt="25B" /> <img
-src="https://saforem2.github.io/qmd/dsblog_files/figure-html/cell-4-output-2.svg"
-style="width:49.0%" alt="33B" />
-
 # Loooooooooong Sequence Lengths
 
 - We can evaluate the performance of our model by looking at two
@@ -734,7 +830,7 @@ style="width:49.0%" alt="33B" />
   - Explicitly, we see that we are able to scale up to significantly
     longer sequences:  
     (`420k / 128k ~ 3.3x`) with only a minimal impact on throughput  
-    performance: (`81 / 105 ~ 77%`)[^8].
+    performance: (`81 / 105 ~ 77%`)[^9].
 
 <div style="font-size:0.8em;">
 
@@ -758,7 +854,7 @@ Table from:
 
 </div>
 
-# References
+# Links
 
 1.  [
     Hannibal046/Awesome-LLM](https://github.com/Hannibal046/Awesome-LLM/blob/main/README.md)
@@ -778,6 +874,19 @@ Table from:
 8.  <span class="green-text"></span> [Progress / Artefacts / Outcomes
     from 🌸 Bloom
     BigScience](https://bigscience.notion.site/ebe3760ae1724dcc92f2e6877de0938f?v=2faf85dc00794321be14bc892539dd4f)
+
+<div>
+
+> **Acknowledgements**
+>
+> This research used resources of the Argonne Leadership Computing
+> Facility,  
+> which is a DOE Office of Science User Facility supported under
+> Contract DE-AC02-06CH11357.
+
+</div>
+
+# References
 
 <div id="refs" class="references csl-bib-body hanging-indent">
 
@@ -824,11 +933,14 @@ Problem Solving with Large Language Models.”
 [^5]: [Efficient Large-Scale Language Model Training on GPU
     Clusters](https://arxiv.org/abs/2104.04473)
 
-[^6]: **On-top of** the base `conda` environment
+[^6]: [🚀 W&B Run:
+    `soft-wave-264`](https://wandb.ai/l2hmc-qcd/GenSLM-Megatron-DS/runs/1uve3tdk?workspace=user-saforem2)
+
+[^7]: **On-top of** the base `conda` environment
     (`--system-site-packages`)
 
-[^7]: The described experiments were performed on 4 NVIDIA DGX A100-40GB
+[^8]: The described experiments were performed on 4 NVIDIA DGX A100-40GB
     nodes, all using TPSIZE=32\[^tpsize\], connected through 8 HDR
     InfiniBand (200Gb/s per HDR).↩︎
 
-[^8]: [`throughput/TFLOPS`](https://api.wandb.ai/links/l2hmc-qcd/awklywn7)
+[^9]: [`throughput/TFLOPS`](https://api.wandb.ai/links/l2hmc-qcd/awklywn7)

@@ -378,14 +378,16 @@ by [\@anton-l](https://github.com/anton-l)
 
 :::
 
-# 3D Parallelism
+# 3D Parallelism {style="font-size:0.9em;"}
 
 - `DP` + `TP` + `PP` (3D) Parallelism
 
-::: {#fig-3d-parallel-1}
 
+::: {#3dparallel-1 style="text-align:center!important; width:90%;"}
 ![](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/Blog_DeepSpeed3_Figure-1_highres-2048x1230.png)
 
+
+3D Parallelism illustration. Figure from: [https://www.deepspeed.ai/](https://www.deepspeed.ai/)
 :::
 
 
@@ -394,7 +396,7 @@ by [\@anton-l](https://github.com/anton-l)
 - `DP` + `TP` + `PP` (3D) Parallelism
 
 
-::: {#3dparallel}
+::: {#3dparallel style="text-align:center!important;"}
 
 ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-deepspeed-3d.png)
 
@@ -403,7 +405,108 @@ models](https://www.microsoft.com/en-us/research/blog/deepspeed-extreme-scale-mo
 
 :::
 
-# Getting Started at ALCF {style="font-size: 0.85em;"}
+# Running on ALCF {style="font-size: 0.8em; width:100%;"}
+
+- We've provided a virtual environment complete with all dependencies for
+  running  
+  [{{< fa brands github >}} `argonne-lcf/Megatron-DeepSpeed`](https://github.com/argonne-lcf/Megatron-DeepSpeed)
+
+  ```bash
+  # navigate to directory
+  WORKSHOP_DIR="/lus/grand/projects/fallwkshp23/"
+  PROJECTS_DIR="${WORKSHOP_DIR}/foremans/locations/polaris/projects/"
+  PROJECT_DIR="${PROJECTS_DIR}/argonne-lcf/Megatron-DeepSpeed"
+  cd "${PROJECT_DIR}"
+  # load conda module and activate venv
+  module load conda/2023-10-04; conda activate base
+  source venvs/polaris/2023-10-04/bin/activate
+  # set runtime environment variables
+  export IBV_FORK_SAFE=1
+  export CUDA_DEVICE_MAX_CONNECTIONS=1
+  # set environment variables for running
+  MODEL_SIZE_KEY="GPT1_5B"
+  SEQ_LEN=1024
+  MICRO_BATCH=1
+  SP_TYPE="megatron" 
+  # launch training
+  ./ALCF/train-gpt3.sh 
+  ```
+
+# Running on ALCF {style="font-size: 0.8em;"}
+
+- Executable:
+  ```bash
+  MODEL_SIZE_KEY="GPT1_5B" SEQ_LEN=1024 MICRO_BATCH=1 SP_TYPE="megatron" ./ALCF/train-gpt3.sh
+  ```
+
+<details open><summary><b>Output</b></summary>
+
+```bash
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ALCF_DIR: /lus/grand/projects/fallwkshp23/foremans/locations/polaris/projects/argonne-lcf/Megatron-DeepSpeed/ALCF
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+source-ing /lus/grand/projects/fallwkshp23/foremans/locations/polaris/projects/argonne-lcf/Megatron-DeepSpeed/ALCF/setup.sh
+Setting up MPI on Polaris from x3210c0s1b0n0
+++ SetupMPI() +++++++++++++++++++++++++++++++++
+Using HOSTFILE: /var/spool/pbs/aux/1126584.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov
+NHOSTS: 2
+NGPU_PER_HOST: 4
+NGPUS: 8
++++++++++++++++++++++++++++++++++++++++++++++++
+Skipping setupThetaGPU() on x3210c0s1b0n0
+Setting up MPI on Polaris from x3210c0s1b0n0
+USING PYTHON: /lus/grand/projects/fallwkshp23/foremans/locations/polaris/projects/argonne-lcf/Megatron-DeepSpeed/venvs/polaris/2023-10-04/bin/python3
+[...]
+```
+
+</details>
+
+
+# Running on ALCF {style="font-size: 0.8em;"}
+
+Once the text has _finally_ stopped printing, you should see output similar to
+the following:
+
+::: {.code style="font-size:0.8em;"}
+
+```bash
+Job started at: 2023-10-11-092906 on x3210c0s1b0n0
+[...]
+Writing logs to: /lus/grand/projects/fallwkshp23/foremans/locations/polaris/projects/argonne-lcf/Megatron-DeepSpeed/outputs/gpt_SP_actCkpt_GPT13B_z1_seqlen1024_mp8_pp1_sp1_nl40_hs5120_gb1_mb1
+to view output: tail -f $(tail -1 logfiles)
+i.e. tail -f /lus/grand/projects/fallwkshp23/foremans/locations/polaris/projects/argonne-lcf/Megatron-DeepSpeed/outputs/gpt_SP_actCkpt_GPT13B_z1_seqlen1024_mp8_pp1_sp1_nl40_hs5120_gb1_mb1/logs/foremans-x3210c0s1b0n0-nhosts2-ngpu8-2023-10-11-092906.log
+```
+
+:::
+
+- To watch / view the output:
+
+  ```bash
+  tail -fn 1000 $(tail -1 logfiles) | less
+  ```
+  
+- will look like[^wbrun]:
+
+::: {.code style="font-size:0.8em;"}
+
+```bash
+Job started at: 2023-10-11-092906 on x3210c0s1b0n0
+Training GPT-3 with GPT13B parameters
+Writing logs to: /lus/grand/projects/fallwkshp23/foremans/locations/polaris/projects/argonne-lcf/Megatron-DeepSpeed/outputs/gpt_SP_actCkpt_GPT13B_z1_seqlen1024_mp8_pp1_sp1_nl40_hs5120_gb1_mb1
+to view output: tail -f $(tail -1 logfiles)
+i.e. tail -f /lus/grand/projects/fallwkshp23/foremans/locations/polaris/projects/argonne-lcf/Megatron-DeepSpeed/outputs/gpt_SP_actCkpt_GPT13B_z1_seqlen1024_mp8_pp1_sp1_nl40_hs5120_gb1_mb1/logs/foremans-x3210c0s1b0n0-nhosts2-ngpu8-2023-10-11-092906.log
+using: /lus/grand/projects/fallwkshp23/foremans/locations/polaris/projects/argonne-lcf/Megatron-DeepSpeed/venvs/polaris/2023-10-04/bin/python3
+[...]
+```
+:::
+
+[^wbrun]: [🚀 W&B Run: `soft-wave-264`](https://wandb.ai/l2hmc-qcd/GenSLM-Megatron-DS/runs/1uve3tdk?workspace=user-saforem2)
+
+
+# Getting Started at ALCF {.scrollable style="font-size: 0.85em;"}
+
+- We provide below the **details** for installing / getting started on ALCF
+  (Polaris)
 
 - Installation:
   1. {{< fa brands github >}} Clone GitHub repo:
@@ -533,8 +636,8 @@ models](https://www.microsoft.com/en-us/research/blog/deepspeed-extreme-scale-mo
 
 # Running
 
-- The
-  [`ALCF/`](https://github.com/argonne-lcf/Megatron-DeepSpeed/tree/main/ALCF)
+- The [{{< fa brands github >}}
+  `ALCF/`](https://github.com/argonne-lcf/Megatron-DeepSpeed/tree/main/ALCF)
   directory contains shell scripts for setting up the environment and
   specifying options to be used for training.
 
@@ -636,15 +739,17 @@ Latent space of biologically meaningful properties for SARS-CoV-2 genomes
 
 : Long sequence length support from [`microsoft/Megatron-DeepSpeed`](https://github.com/microsoft/Megatron-DeepSpeed) {#tbl-results .striped .hover}
 
-# Loooooooooong Sequence Lengths {style="height:100%; font-size:0.9em;" auto-animate=true}
+# Loooooooooong Sequence Lengths {style="height:100%; font-size:0.8em;" auto-animate=true}
 
 - Working with [{{< fa brands microsoft >}} Microsoft
   DeepSpeed](https://github.com/microsoft/DeepSpeed) team to enable longer
   sequence lengths (context windows) for LLMs[^long]  
+  - [Release: **DeepSpeed4Science Overview and
+    Tutorial**](https://www.deepspeed.ai/deepspeed4science/)
 
 ::: {#fig-ds4sci layout="[[1], [1,1]]" style="text-align:center;"}
 
-![](https://saforem2.github.io/assets/ds4sci.svg){width="100%"}
+![](https://saforem2.github.io/assets/ds4sci.svg){width="90%"}
 ![25B](https://saforem2.github.io/qmd/dsblog_files/figure-html/cell-4-output-1.svg){width="49%"}
 ![33B](https://saforem2.github.io/qmd/dsblog_files/figure-html/cell-4-output-2.svg){width="49%"}
 
@@ -660,13 +765,6 @@ Maximum (achievable) `SEQ_LEN` for both `25B` and `33B` models [$[$WIP$]$]{.red-
 [^long]: The described experiments were performed on 4 NVIDIA DGX A100-40GB
   nodes, all using TPSIZE=32[^tpsize], connected through 8 HDR InfiniBand
   (200Gb/s per HDR).↩︎
-
-
-# {}
-
-![25B](https://saforem2.github.io/qmd/dsblog_files/figure-html/cell-4-output-1.svg){width="49%"}
-![33B](https://saforem2.github.io/qmd/dsblog_files/figure-html/cell-4-output-2.svg){width="49%"}
-
 
 # Loooooooooong Sequence Lengths {.centeredslide style="height:100%; font-size:0.8em;" auto-animate=true}
 
@@ -695,7 +793,7 @@ Maximum (achievable) `SEQ_LEN` for both `25B` and `33B` models [$[$WIP$]$]{.red-
 
 [^tflops-scaling]: [`throughput/TFLOPS`](https://api.wandb.ai/links/l2hmc-qcd/awklywn7)
 
-# References
+# Links
 
 1. [{{< fa brands github >}} Hannibal046/Awesome-LLM](https://github.com/Hannibal046/Awesome-LLM/blob/main/README.md) [[![Awesome](https://awesome.re/badge.svg)](https://awesome.re)]{.inline-image}
 2. [{{< fa brands github >}} Mooler0410/LLMsPracticalGuide](https://github.com/Mooler0410/LLMsPracticalGuide)
@@ -706,4 +804,12 @@ Maximum (achievable) `SEQ_LEN` for both `25B` and `33B` models [$[$WIP$]$]{.red-
 7. [Better Language Models and their Implications](https://openai.com/research/better-language-models)  
 8. [{{< fa solid flask-vial >}}]{.green-text} [Progress / Artefacts / Outcomes from 🌸 Bloom BigScience](https://bigscience.notion.site/ebe3760ae1724dcc92f2e6877de0938f?v=2faf85dc00794321be14bc892539dd4f)
 
+::: {.callout-note title="Acknowledgements"}
+This research used resources of the Argonne Leadership Computing Facility,  
+which is a DOE Office of Science User Facility supported under Contract DE-AC02-06CH11357.
+:::
 
+# References
+
+::: {#refs}
+:::

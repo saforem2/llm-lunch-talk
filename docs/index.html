@@ -1066,50 +1066,135 @@
 </div>
 </section>
 
-<section id="d-parallelism" class="title-slide slide level1 center">
+<section id="d-parallelism" class="title-slide slide level1 center" style="font-size:0.9em;">
 <h1>3D Parallelism</h1>
 <ul>
 <li><code>DP</code> + <code>TP</code> + <code>PP</code> (3D) Parallelism</li>
 </ul>
-
-<img data-src="https://www.microsoft.com/en-us/research/uploads/prod/2020/09/Blog_DeepSpeed3_Figure-1_highres-2048x1230.png" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;8: <strong>?(caption)</strong></p></section>
+<div id="3dparallel-1" style="text-align:center!important; width:90%;">
+<p><img data-src="https://www.microsoft.com/en-us/research/uploads/prod/2020/09/Blog_DeepSpeed3_Figure-1_highres-2048x1230.png"></p>
+<p>3D Parallelism illustration. Figure from: <a href="https://www.deepspeed.ai/">https://www.deepspeed.ai/</a></p>
+</div>
+</section>
 
 <section id="d-parallelism-1" class="title-slide slide level1 center">
 <h1>3D Parallelism</h1>
 <ul>
 <li><code>DP</code> + <code>TP</code> + <code>PP</code> (3D) Parallelism</li>
 </ul>
-<div id="3dparallel">
+<div id="3dparallel" style="text-align:center!important;">
 <p><img data-src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-deepspeed-3d.png"></p>
 <p>Figure taken from <a href="https://www.microsoft.com/en-us/research/blog/deepspeed-extreme-scale-model-training-for-everyone/">3D parallelism: Scaling to trillion-parameter models</a></p>
 </div>
 </section>
 
-<section id="getting-started-at-alcf" class="title-slide slide level1 center" style="font-size: 0.85em;">
+<section id="running-on-alcf" class="title-slide slide level1 center" style="font-size: 0.8em; width:100%;">
+<h1>Running on ALCF</h1>
+<ul>
+<li><p>We’ve provided a virtual environment complete with all dependencies for running<br>
+<a href="https://github.com/argonne-lcf/Megatron-DeepSpeed"><i class="fa-brands fa-github" aria-label="github"></i> <code>argonne-lcf/Megatron-DeepSpeed</code></a></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># navigate to directory</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="va">WORKSHOP_DIR</span><span class="op">=</span><span class="st">"/lus/grand/projects/fallwkshp23/"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="va">PROJECTS_DIR</span><span class="op">=</span><span class="st">"</span><span class="va">${WORKSHOP_DIR}</span><span class="st">/foremans/locations/polaris/projects/"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="va">PROJECT_DIR</span><span class="op">=</span><span class="st">"</span><span class="va">${PROJECTS_DIR}</span><span class="st">/argonne-lcf/Megatron-DeepSpeed"</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="st">"</span><span class="va">${PROJECT_DIR}</span><span class="st">"</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># load conda module and activate venv</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load conda/2023-10-04<span class="kw">;</span> <span class="ex">conda</span> activate base</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> venvs/polaris/2023-10-04/bin/activate</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># set runtime environment variables</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">IBV_FORK_SAFE</span><span class="op">=</span>1</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">CUDA_DEVICE_MAX_CONNECTIONS</span><span class="op">=</span>1</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># set environment variables for running</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="va">MODEL_SIZE_KEY</span><span class="op">=</span><span class="st">"GPT1_5B"</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="va">SEQ_LEN</span><span class="op">=</span>1024</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="va">MICRO_BATCH</span><span class="op">=</span>1</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="va">SP_TYPE</span><span class="op">=</span><span class="st">"megatron"</span> </span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># launch training</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="ex">./ALCF/train-gpt3.sh</span> </span></code></pre></div></li>
+</ul>
+</section>
+
+<section id="running-on-alcf-1" class="title-slide slide level1 center" style="font-size: 0.8em;">
+<h1>Running on ALCF</h1>
+<ul>
+<li><p>Executable:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">MODEL_SIZE_KEY</span><span class="op">=</span><span class="st">"GPT1_5B"</span> <span class="va">SEQ_LEN</span><span class="op">=</span>1024 <span class="va">MICRO_BATCH</span><span class="op">=</span>1 <span class="va">SP_TYPE</span><span class="op">=</span><span class="st">"megatron"</span> <span class="ex">./ALCF/train-gpt3.sh</span></span></code></pre></div></li>
+</ul>
+<details open="">
+<summary>
+<b>Output</b>
+</summary>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ALCF_DIR:</span> /lus/grand/projects/fallwkshp23/foremans/locations/polaris/projects/argonne-lcf/Megatron-DeepSpeed/ALCF</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">source-ing</span> /lus/grand/projects/fallwkshp23/foremans/locations/polaris/projects/argonne-lcf/Megatron-DeepSpeed/ALCF/setup.sh</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">Setting</span> up MPI on Polaris from x3210c0s1b0n0</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="ex">++</span> SetupMPI<span class="er">(</span><span class="kw">)</span> <span class="ex">+++++++++++++++++++++++++++++++++</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="ex">Using</span> HOSTFILE: /var/spool/pbs/aux/1126584.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="ex">NHOSTS:</span> 2</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="ex">NGPU_PER_HOST:</span> 4</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="ex">NGPUS:</span> 8</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="ex">+++++++++++++++++++++++++++++++++++++++++++++++</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="ex">Skipping</span> setupThetaGPU<span class="er">(</span><span class="kw">)</span> <span class="ex">on</span> x3210c0s1b0n0</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="ex">Setting</span> up MPI on Polaris from x3210c0s1b0n0</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="ex">USING</span> PYTHON: /lus/grand/projects/fallwkshp23/foremans/locations/polaris/projects/argonne-lcf/Megatron-DeepSpeed/venvs/polaris/2023-10-04/bin/python3</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="ex">[...]</span></span></code></pre></div>
+</details>
+</section>
+
+<section id="running-on-alcf-2" class="title-slide slide level1 center" style="font-size: 0.8em;">
+<h1>Running on ALCF</h1>
+<p>Once the text has <em>finally</em> stopped printing, you should see output similar to the following:</p>
+<div class="code" style="font-size:0.8em;">
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Job</span> started at: 2023-10-11-092906 on x3210c0s1b0n0</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">[...]</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Writing</span> logs to: /lus/grand/projects/fallwkshp23/foremans/locations/polaris/projects/argonne-lcf/Megatron-DeepSpeed/outputs/gpt_SP_actCkpt_GPT13B_z1_seqlen1024_mp8_pp1_sp1_nl40_hs5120_gb1_mb1</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">to</span> view output: tail <span class="at">-f</span> <span class="va">$(</span><span class="fu">tail</span> <span class="at">-1</span> logfiles<span class="va">)</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">i.e.</span> tail <span class="at">-f</span> /lus/grand/projects/fallwkshp23/foremans/locations/polaris/projects/argonne-lcf/Megatron-DeepSpeed/outputs/gpt_SP_actCkpt_GPT13B_z1_seqlen1024_mp8_pp1_sp1_nl40_hs5120_gb1_mb1/logs/foremans-x3210c0s1b0n0-nhosts2-ngpu8-2023-10-11-092906.log</span></code></pre></div>
+</div>
+<ul>
+<li><p>To watch / view the output:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span> <span class="at">-fn</span> 1000 <span class="va">$(</span><span class="fu">tail</span> <span class="at">-1</span> logfiles<span class="va">)</span> <span class="kw">|</span> <span class="fu">less</span></span></code></pre></div></li>
+<li><p>will look like<sup>1</sup>:</p></li>
+</ul>
+<div class="code" style="font-size:0.8em;">
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Job</span> started at: 2023-10-11-092906 on x3210c0s1b0n0</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Training</span> GPT-3 with GPT13B parameters</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Writing</span> logs to: /lus/grand/projects/fallwkshp23/foremans/locations/polaris/projects/argonne-lcf/Megatron-DeepSpeed/outputs/gpt_SP_actCkpt_GPT13B_z1_seqlen1024_mp8_pp1_sp1_nl40_hs5120_gb1_mb1</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="ex">to</span> view output: tail <span class="at">-f</span> <span class="va">$(</span><span class="fu">tail</span> <span class="at">-1</span> logfiles<span class="va">)</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">i.e.</span> tail <span class="at">-f</span> /lus/grand/projects/fallwkshp23/foremans/locations/polaris/projects/argonne-lcf/Megatron-DeepSpeed/outputs/gpt_SP_actCkpt_GPT13B_z1_seqlen1024_mp8_pp1_sp1_nl40_hs5120_gb1_mb1/logs/foremans-x3210c0s1b0n0-nhosts2-ngpu8-2023-10-11-092906.log</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="ex">using:</span> /lus/grand/projects/fallwkshp23/foremans/locations/polaris/projects/argonne-lcf/Megatron-DeepSpeed/venvs/polaris/2023-10-04/bin/python3</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="ex">[...]</span></span></code></pre></div>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn7"><p><a href="https://wandb.ai/l2hmc-qcd/GenSLM-Megatron-DS/runs/1uve3tdk?workspace=user-saforem2">🚀 W&amp;B Run: <code>soft-wave-264</code></a></p></li></ol></aside></section>
+
+
+<section id="getting-started-at-alcf" class="title-slide slide level1 scrollable center" style="font-size: 0.85em;">
 <h1>Getting Started at ALCF</h1>
 <ul>
-<li>Installation:
+<li><p>We provide below the <strong>details</strong> for installing / getting started on ALCF (Polaris)</p></li>
+<li><p>Installation:</p>
 <ol type="1">
 <li><i class="fa-brands fa-github" aria-label="github"></i> Clone GitHub repo:</li>
 </ol>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/argonne-lcf/Megatron-DeepSpeed</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/argonne-lcf/Megatron-DeepSpeed</span></code></pre></div>
 <ol start="2" type="1">
 <li>Load Conda module:
 <ul>
 <li><p>Polaris:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">[[</span> <span class="st">"</span><span class="va">$(</span><span class="fu">hostname</span><span class="va">)</span><span class="st">==x3*"</span> <span class="kw">]];</span> <span class="cf">then</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">export</span> <span class="va">MACHINE</span><span class="op">=</span><span class="st">"Polaris"</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">export</span> <span class="va">CONDA_DATE</span><span class="op">=</span><span class="st">"2023-10-04"</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">module</span> load conda/<span class="va">${CONDA_DATE}</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">conda</span> activate base</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">[[</span> <span class="st">"</span><span class="va">$(</span><span class="fu">hostname</span><span class="va">)</span><span class="st">==x3*"</span> <span class="kw">]];</span> <span class="cf">then</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">export</span> <span class="va">MACHINE</span><span class="op">=</span><span class="st">"Polaris"</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">export</span> <span class="va">CONDA_DATE</span><span class="op">=</span><span class="st">"2023-10-04"</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">module</span> load conda/<span class="va">${CONDA_DATE}</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">conda</span> activate base</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span></code></pre></div></li>
 <li><p>ThetaGPU:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">[[</span> <span class="st">"</span><span class="va">$(</span><span class="fu">hostname</span><span class="va">)</span><span class="st">==theta*"</span> <span class="kw">]];</span> <span class="cf">then</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">export</span> <span class="va">MACHINE</span><span class="op">=</span><span class="st">"ThetaGPU"</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">export</span> <span class="va">CONDA_DATE</span><span class="op">=</span><span class="st">"2023-01-10"</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">module</span> load conda/<span class="va">${CONDA_DATE}</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">conda</span> activate base</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">[[</span> <span class="st">"</span><span class="va">$(</span><span class="fu">hostname</span><span class="va">)</span><span class="st">==theta*"</span> <span class="kw">]];</span> <span class="cf">then</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">export</span> <span class="va">MACHINE</span><span class="op">=</span><span class="st">"ThetaGPU"</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">export</span> <span class="va">CONDA_DATE</span><span class="op">=</span><span class="st">"2023-01-10"</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">module</span> load conda/<span class="va">${CONDA_DATE}</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">conda</span> activate base</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span></code></pre></div></li>
 </ul></li>
 </ol></li>
 </ul>
@@ -1119,16 +1204,16 @@
 <h1>Getting Started</h1>
 <ol start="3" type="1">
 <li><p>Setup virtual environment<sup>1</sup>:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> Megatron-DeepSpeed</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># create a new virtual environment</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> <span class="st">"venvs/</span><span class="va">${MACHINE}</span><span class="st">/</span><span class="va">${CONDA_DATE}</span><span class="st">"</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span>  venv <span class="st">"venvs/</span><span class="va">${MACHINE}</span><span class="st">/</span><span class="va">${CONDA_DATE}</span><span class="st">"</span> <span class="at">--system-site-packages</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> <span class="st">"venvs/</span><span class="va">${MACHINE}</span><span class="st">/</span><span class="va">${CONDA_DATE}</span><span class="st">/bin/activate"</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> Megatron-DeepSpeed</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># create a new virtual environment</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> <span class="st">"venvs/</span><span class="va">${MACHINE}</span><span class="st">/</span><span class="va">${CONDA_DATE}</span><span class="st">"</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span>  venv <span class="st">"venvs/</span><span class="va">${MACHINE}</span><span class="st">/</span><span class="va">${CONDA_DATE}</span><span class="st">"</span> <span class="at">--system-site-packages</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> <span class="st">"venvs/</span><span class="va">${MACHINE}</span><span class="st">/</span><span class="va">${CONDA_DATE}</span><span class="st">/bin/activate"</span></span></code></pre></div></li>
 <li><p>Create a new folder where we’ll install dependencies:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> <span class="st">"deps/</span><span class="va">${MACHINE}</span><span class="st">"</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="st">"deps/</span><span class="va">${MACHINE}</span><span class="st">"</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> <span class="st">"deps/</span><span class="va">${MACHINE}</span><span class="st">"</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="st">"deps/</span><span class="va">${MACHINE}</span><span class="st">"</span></span></code></pre></div></li>
 </ol>
-<aside><ol class="aside-footnotes"><li id="fn7"><p><strong>On-top of</strong> the base <code>conda</code> environment (<code>--system-site-packages</code>)</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn8"><p><strong>On-top of</strong> the base <code>conda</code> environment (<code>--system-site-packages</code>)</p></li></ol></aside></section>
 
 
 <section id="install-dependencies" class="title-slide slide level1 centerdedslide center" style="height:100%;" data-auto-animate="true">
@@ -1143,16 +1228,16 @@
 <li><p><a href="https://github.com/Dao-AILab/flash-attention"><i class="fa-brands fa-github" aria-label="github"></i> <code>Dao-AILab/flash-attention</code></a>:</p>
 <ul>
 <li><p><code>v1.0.4</code>:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span> pip install flash-attn==1.0.4</span></code></pre></div></li>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span> pip install flash-attn==1.0.4</span></code></pre></div></li>
 <li><p><code>v2.x</code>:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/Dao-AILab/flash-attention</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> flash-attention</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> setup.py install</span></code></pre></div></li>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/Dao-AILab/flash-attention</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> flash-attention</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> setup.py install</span></code></pre></div></li>
 <li><p><code>openai/triton</code>:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="at">-b</span> legacy-backend https://github.com/openai/triton</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> triton/python</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span> pip install cmake pybind11</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span> pip install .</span></code></pre></div></li>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="at">-b</span> legacy-backend https://github.com/openai/triton</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> triton/python</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span> pip install cmake pybind11</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span> pip install .</span></code></pre></div></li>
 </ul></li>
 </ul>
 </div>
@@ -1160,7 +1245,7 @@
 <div id="ezpz">
 <ul>
 <li><p><a href="https://github.com/saforem2/ezpz"><i class="fa-brands fa-github" aria-label="github"></i> <code>saforem2/ezpz</code></a></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span> pip install <span class="at">-e</span> <span class="st">"git+https://github.com/saforem2/ezpz.git#egg=ezpz"</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span> pip install <span class="at">-e</span> <span class="st">"git+https://github.com/saforem2/ezpz.git#egg=ezpz"</span></span></code></pre></div></li>
 </ul>
 </div>
 </div>
@@ -1170,16 +1255,16 @@
 <div id="column-one" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <ul>
 <li><p><a href="https://github.com/NVIDIA/apex"><i class="fa-brands fa-github" aria-label="github"></i> <code>NVIDIA/apex</code></a></p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/NVIDIA/apex</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../apex/</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-v</span> <span class="dt">\ </span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">--disable-pip-version-check</span> <span class="dt">\</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--no-cache-dir</span> <span class="dt">\</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--no-build-isolation</span> <span class="dt">\</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--global-option</span><span class="op">=</span><span class="st">"--cpp_ext"</span> <span class="dt">\</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--global-option</span><span class="op">=</span><span class="st">"--cuda_ext"</span> <span class="dt">\</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">-e</span> <span class="dt">\</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  ./</span></code></pre></div></li>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/NVIDIA/apex</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../apex/</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-v</span> <span class="dt">\ </span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">--disable-pip-version-check</span> <span class="dt">\</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--no-cache-dir</span> <span class="dt">\</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--no-build-isolation</span> <span class="dt">\</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--global-option</span><span class="op">=</span><span class="st">"--cpp_ext"</span> <span class="dt">\</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--global-option</span><span class="op">=</span><span class="st">"--cuda_ext"</span> <span class="dt">\</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">-e</span> <span class="dt">\</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  ./</span></code></pre></div></li>
 </ul>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
@@ -1205,7 +1290,7 @@
 <section id="running" class="title-slide slide level1 center">
 <h1>Running</h1>
 <ul>
-<li>The <a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/tree/main/ALCF"><code>ALCF/</code></a> directory contains shell scripts for setting up the environment and specifying options to be used for training.</li>
+<li>The <a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/tree/main/ALCF"><i class="fa-brands fa-github" aria-label="github"></i> <code>ALCF/</code></a> directory contains shell scripts for setting up the environment and specifying options to be used for training.</li>
 </ul>
 <div class="quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-top">
@@ -1229,16 +1314,16 @@
 <div id="column-one" class="quarto-layout-cell" style="flex-basis: 58.4%;justify-content: center;">
 <ul>
 <li><p>Various options can be specified dynamically at runtime by setting them in your environment, e.g.:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set env. vars to use:</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="va">MODEL_SIZE_KEY</span><span class="op">=</span><span class="st">"GPT25B"</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="va">SEQ_LEN</span><span class="op">=</span>1024</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="va">USE_FLASH_ATTN</span><span class="op">=</span>1</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="va">MICRO_BATCH</span><span class="op">=</span>1</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="va">GAS</span><span class="op">=</span>1</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="va">SP_TYPE</span><span class="op">=</span><span class="st">"megatron"</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="va">ZERO_STAGE</span><span class="op">=</span>1</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Launch training:</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="ex">./ALCF/train-gpt3.sh</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set env. vars to use:</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="va">MODEL_SIZE_KEY</span><span class="op">=</span><span class="st">"GPT25B"</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="va">SEQ_LEN</span><span class="op">=</span>1024</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="va">USE_FLASH_ATTN</span><span class="op">=</span>1</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="va">MICRO_BATCH</span><span class="op">=</span>1</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="va">GAS</span><span class="op">=</span>1</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="va">SP_TYPE</span><span class="op">=</span><span class="st">"megatron"</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="va">ZERO_STAGE</span><span class="op">=</span>1</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Launch training:</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="ex">./ALCF/train-gpt3.sh</span></span></code></pre></div></li>
 </ul>
 </div>
 </div>
@@ -1337,31 +1422,29 @@
 </div>
 </section>
 
-<section id="loooooooooong-sequence-lengths-1" class="title-slide slide level1 center" style="height:100%; font-size:0.9em;" data-auto-animate="true">
+<section id="loooooooooong-sequence-lengths-1" class="title-slide slide level1 center" style="height:100%; font-size:0.8em;" data-auto-animate="true">
 <h1 data-id="quarto-animate-title">Loooooooooong Sequence Lengths</h1>
 <ul>
-<li>Working with <a href="https://github.com/microsoft/DeepSpeed"><i class="fa-brands fa-microsoft" aria-label="microsoft"></i> Microsoft DeepSpeed</a> team to enable longer sequence lengths (context windows) for LLMs<sup>1</sup></li>
+<li>Working with <a href="https://github.com/microsoft/DeepSpeed"><i class="fa-brands fa-microsoft" aria-label="microsoft"></i> Microsoft DeepSpeed</a> team to enable longer sequence lengths (context windows) for LLMs<sup>1</sup>
+<ul>
+<li><a href="https://www.deepspeed.ai/deepspeed4science/">Release: <strong>DeepSpeed4Science Overview and Tutorial</strong></a></li>
+</ul></li>
 </ul>
 <div id="fig-ds4sci" class="quarto-layout-panel" style="text-align:center;">
 <figure>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
-<p><img data-src="https://saforem2.github.io/assets/ds4sci.svg" style="width:100.0%"> <img data-src="https://saforem2.github.io/qmd/dsblog_files/figure-html/cell-4-output-1.svg" style="width:49.0%" alt="25B"> <img data-src="https://saforem2.github.io/qmd/dsblog_files/figure-html/cell-4-output-2.svg" style="width:49.0%" alt="33B"></p>
+<p><img data-src="https://saforem2.github.io/assets/ds4sci.svg" style="width:90.0%"> <img data-src="https://saforem2.github.io/qmd/dsblog_files/figure-html/cell-4-output-1.svg" style="width:49.0%" alt="25B"> <img data-src="https://saforem2.github.io/qmd/dsblog_files/figure-html/cell-4-output-2.svg" style="width:49.0%" alt="33B"></p>
 </div>
 </div>
-<p></p><figcaption>Figure&nbsp;9: Maximum (achievable) <code>SEQ_LEN</code> for both <code>25B</code> and <code>33B</code> models <span class="red-text"><span class="math inline">[</span>WIP<span class="math inline">]</span></span></figcaption><p></p>
+<p></p><figcaption>Figure&nbsp;8: Maximum (achievable) <code>SEQ_LEN</code> for both <code>25B</code> and <code>33B</code> models <span class="red-text"><span class="math inline">[</span>WIP<span class="math inline">]</span></span></figcaption><p></p>
 </figure>
 </div>
 <div class="footer">
 <p><a href="https://github.com/argonne-lcf/Megatron-DeepSpeed"><i class="fa-brands fa-github" aria-label="github"></i> <code>argonne-lcf/Megatron-DeepSpeed</code></a></p>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn8"><p>The described experiments were performed on 4 NVIDIA DGX A100-40GB nodes, all using TPSIZE=32[^tpsize], connected through 8 HDR InfiniBand (200Gb/s per HDR).↩︎</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn9"><p>The described experiments were performed on 4 NVIDIA DGX A100-40GB nodes, all using TPSIZE=32[^tpsize], connected through 8 HDR InfiniBand (200Gb/s per HDR).↩︎</p></li></ol></aside></section>
 
-
-<section id="section-1" class="title-slide slide level1 center">
-<h1></h1>
-<p><img data-src="https://saforem2.github.io/qmd/dsblog_files/figure-html/cell-4-output-1.svg" style="width:49.0%" alt="25B"> <img data-src="https://saforem2.github.io/qmd/dsblog_files/figure-html/cell-4-output-2.svg" style="width:49.0%" alt="33B"></p>
-</section>
 
 <section id="loooooooooong-sequence-lengths-2" class="title-slide slide level1 centeredslide center" style="height:100%; font-size:0.8em;" data-auto-animate="true">
 <h1 data-id="quarto-animate-title">Loooooooooong Sequence Lengths</h1>
@@ -1440,11 +1523,11 @@ performance: (<code>81 / 105 ~ 77%</code>)<sup>1</sup>.</li>
 </table>
 </div>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn9"><p><a href="https://api.wandb.ai/links/l2hmc-qcd/awklywn7"><code>throughput/TFLOPS</code></a></p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn10"><p><a href="https://api.wandb.ai/links/l2hmc-qcd/awklywn7"><code>throughput/TFLOPS</code></a></p></li></ol></aside></section>
 
 
-<section id="references" class="title-slide slide level1 smaller scrollable">
-<h1>References</h1>
+<section id="links" class="title-slide slide level1 center">
+<h1>Links</h1>
 <ol type="1">
 <li><a href="https://github.com/Hannibal046/Awesome-LLM/blob/main/README.md"><i class="fa-brands fa-github" aria-label="github"></i> Hannibal046/Awesome-LLM</a> <span class="inline-image"><a href="https://awesome.re"><img data-src="https://awesome.re/badge.svg" alt="Awesome"></a></span></li>
 <li><a href="https://github.com/Mooler0410/LLMsPracticalGuide"><i class="fa-brands fa-github" aria-label="github"></i> Mooler0410/LLMsPracticalGuide</a></li>
@@ -1456,11 +1539,24 @@ performance: (<code>81 / 105 ~ 77%</code>)<sup>1</sup>.</li>
 </li>
 <li><span class="green-text"><i class="fa-solid fa-flask-vial" aria-label="flask-vial"></i></span> <a href="https://bigscience.notion.site/ebe3760ae1724dcc92f2e6877de0938f?v=2faf85dc00794321be14bc892539dd4f">Progress / Artefacts / Outcomes from 🌸 Bloom BigScience</a></li>
 </ol>
-
-<p><img src="assets/anl.svg" class="slide-logo"></p>
-<div class="footer footer-default">
-
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
+<p><strong>Acknowledgements</strong></p>
+</div>
+<div class="callout-content">
+<p>This research used resources of the Argonne Leadership Computing Facility,<br>
+which is a DOE Office of Science User Facility supported under Contract DE-AC02-06CH11357.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section id="references" class="title-slide slide level1 smaller scrollable">
+<h1>References</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-vaswani2017attention" class="csl-entry" role="listitem">
 Vaswani, Ashish, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, and Illia Polosukhin. 2017. <span>“Attention Is All You Need.”</span> <a href="https://arxiv.org/abs/1706.03762">https://arxiv.org/abs/1706.03762</a>.
@@ -1471,6 +1567,11 @@ Yang, Jingfeng, Hongye Jin, Ruixiang Tang, Xiaotian Han, Qizhang Feng, Haoming J
 <div id="ref-yao2023tree" class="csl-entry" role="listitem">
 Yao, Shunyu, Dian Yu, Jeffrey Zhao, Izhak Shafran, Thomas L. Griffiths, Yuan Cao, and Karthik Narasimhan. 2023. <span>“Tree of Thoughts: Deliberate Problem Solving with Large Language Models.”</span> <a href="https://arxiv.org/abs/2305.10601">https://arxiv.org/abs/2305.10601</a>.
 </div>
+</div>
+
+
+<img src="assets/anl.svg" class="slide-logo r-stretch"><div class="footer footer-default">
+
 </div>
 </section>
     </div>
