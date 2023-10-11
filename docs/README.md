@@ -382,12 +382,11 @@ models](https://www.microsoft.com/en-us/research/blog/deepspeed-extreme-scale-mo
 - Installation:
   1.   Clone GitHub repo:
 
-      ``` bash
-      git clone https://github.com/argonne-lcf/Megatron-DeepSpeed
-      ```
+  ``` bash
+  git clone https://github.com/argonne-lcf/Megatron-DeepSpeed
+  ```
 
   2.  Load Conda module:
-
       - Polaris:
 
         ``` bash
