@@ -80,21 +80,24 @@ format:
 
 :::
 
+::: footer
+
+::: {style="text-shadow: 2px 2px 3px rgba(0,0,0,0.8); color: #FFFFFF; text-align: left; margin-left: 7%;"}
+
+Sam Foreman  
+[[LLMs on Polaris]{style="color: #227D61"}](https://saforem2.github.io/llm-lunch-talk)
+
+:::
+
+:::
+
 
 # [{{< fa regular id-badge >}}]{.dim-text} [Sam Foreman](https://samforeman.me) {style="font-size: 0.9em;"}
-
-<!-- I use ML and HPC to accelerate scientific discovery[^1] @ [ALCF](https://alcf.anl.gov). -->
 
 - I'm currently an associate computational scientist in the [Data Science
 Group](https://www.alcf.anl.gov/about/people/group/506) at [ALCF](https://alcf.anl.gov)[^1].
   - Personal Website: [samforeman.me](https://samforeman.me)
   - Background: [`{HEP, Lattice QCD, ML + Generative Modeling, Large Scale Training, LLMs, MCMC, ...}`]{style="font-size:0.9em;"}
-
-<!-- My [current research](https://saforem2.github.io/l2hmc-qcd) focuses on using -->
-<!-- deep generative modeling to help build better sampling algorithms in lattice -->
-<!-- gauge theory. In particular, I'm interested in building gauge equivariant -->
-<!-- neural network architectures and using inductive priors to incorporate physical -->
-<!-- symmetries into machine learning models. -->
 
 [^1]: Mostly getting supercomputers to stop yelling at each other {{< fa solid network-wired >}}
 
@@ -132,15 +135,7 @@ Ongoing / recent work:
 
 ::::
 
-<!-- # Even More {.centeredslide width="100%" style="height:100%;"} -->
-<!---->
-<!-- ::: {width="100%"} -->
-<!---->
-<!-- <iframe data-src="https://samforeman.me" width="100%" height="500" title="Sam Foreman"></iframe> -->
-<!---->
-<!-- ::: -->
-
-# Status of Large Language Models
+# Status of Large Language Models[^slides-gh]
 
 ::: {#fig-llms}
 
@@ -151,6 +146,7 @@ Large Language Models have (LLM)s have taken the ~~NLP community~~ **world** by 
 :::
 
 [^llm-animation]: [{{< fa brands github >}} `Hannibal046/Awesome-LLM`](https://github.com/Hannibal046/Awesome-LLM)
+[^slides-gh]: [{{< fa brands github >}} `saforem2/llm-lunch-talk`](https://github.com/Hannibal046/Awesome-LLM) [(slides)](https://saforem2.github.io/llm-lunch-talk)
 
 
 # Emergent Abilities {background-color="#FBFBFD"}
@@ -317,8 +313,6 @@ Visualization from @yang2023harnessing
 [^ill-transf1]: Figure from [The Illustrated Transformer](http://jalammar.github.io/illustrated-transformer/)
 
 # Transformer Architecture {.centeredslide height="100%" style="height:100%; font-size: 0.8em;"}
-
-<!-- # {.centeredslide} -->
 
 ![](https://raw.githubusercontent.com/saforem2/llm-lunch-talk/main/docs/assets/diagrams/transformer.svg)
 
@@ -619,13 +613,6 @@ using: /lus/grand/projects/fallwkshp23/foremans/locations/polaris/projects/argon
 
 ::: {.panel-tabset style="font-size: 0.8em; width: 100%!important; height: 100%!important;"}
 
-<!-- ### pybind/pybind11 -->
-<!---->
-<!-- - [{{< fa brands github >}} `pybind/PyBind11`](https://github.com/pybind/pybind11) -->
-<!--   ```bash -->
-<!--   pip install pybind11 -->
-<!--   ``` -->
-
 ### {{< fa brands github >}} Dao-AILab/flash-attention
 
 - The [new release]() supports three different implementations of
@@ -686,7 +673,6 @@ using: /lus/grand/projects/fallwkshp23/foremans/locations/polaris/projects/argon
 :::
 
 ::: {.callout-important icon=false title="{{< fa brands python >}} `conda/2023-10-04`" collapse="false" style="text-align: left!important; width:100%!important; border-color: var(--dim-color)!important; background-color: var(--bg-transparent)!important;"}
-<!-- [{{< fa solid person-chalkboard size=fa-lg >}}]{style='color:var(--dim-text);'} $\hspace{1pt}$ [Recent Talks]{.dim-text} -->
 
 **Note**: `apex` is **already installed** in the base `conda/2023-10-04` environment on Polaris.
 
@@ -752,9 +738,6 @@ Explicitly:
 - [{{< fa brands github >}} `ALCF/train-gpt3.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/train-gpt3.sh):
   **Main entry point for training**. This script will:
   - Source the rest of the required [`ALCF/*.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/) scripts below
-    <!-- - Launch `mpiexec <mpiexec-args> python3` -->
-    <!--   [`pretrain_gpt.py`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/pretrain_gpt.py`) -->
-    <!--   `<gpt-args>` -->
 
 - [{{< fa brands github >}} `ALCF/models.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/models.sh): Contains some example model architectures for GPT3-style models
 - [{{< fa brands github >}} `ALCF/args.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/args.sh): Logic for parsing / setting up runtime options for Megatron and DeepSpeed

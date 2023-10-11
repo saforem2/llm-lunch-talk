@@ -494,11 +494,16 @@
 <p><span style="font-size: 3.0em; font-weight: 700; color: white">ALCF Hands-on</span><br>
 <br> <span style="font-size: 3.0em; font-weight: 700; color: #FFFFFF">HPC Workshop</span></p>
 </div>
+<div class="footer">
+<div style="text-shadow: 2px 2px 3px rgba(0,0,0,0.8); color: #FFFFFF; text-align: left; margin-left: 7%;">
+<p>Sam Foreman<br>
+<a href="https://saforem2.github.io/llm-lunch-talk"><span style="color: #227D61">LLMs on Polaris</span></a></p>
+</div>
+</div>
 </section>
 
 <section id="fa-regular-id-badge-sam-foreman" class="title-slide slide level1 center" style="font-size: 0.9em;">
 <h1><span class="dim-text"><i class="fa-regular fa-id-badge" aria-label="id-badge"></i></span> <a href="https://samforeman.me">Sam Foreman</a></h1>
-<!-- I use ML and HPC to accelerate scientific discovery[^1] @ [ALCF](https://alcf.anl.gov). -->
 <ul>
 <li>I’m currently an associate computational scientist in the <a href="https://www.alcf.anl.gov/about/people/group/506">Data Science Group</a> at <a href="https://alcf.anl.gov">ALCF</a><sup>1</sup>.
 <ul>
@@ -506,11 +511,6 @@
 <li>Background: <span style="font-size:0.9em;"><code>{HEP, Lattice QCD, ML + Generative Modeling, Large Scale Training, LLMs, MCMC, ...}</code></span></li>
 </ul></li>
 </ul>
-<!-- My [current research](https://saforem2.github.io/l2hmc-qcd) focuses on using -->
-<!-- deep generative modeling to help build better sampling algorithms in lattice -->
-<!-- gauge theory. In particular, I'm interested in building gauge equivariant -->
-<!-- neural network architectures and using inductive priors to incorporate physical -->
-<!-- symmetries into machine learning models. -->
 <p>Ongoing / recent work:</p>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -531,25 +531,18 @@
 </ul>
 </div>
 </div>
-<!-- # Even More {.centeredslide width="100%" style="height:100%;"} -->
-<!---->
-<!-- ::: {width="100%"} -->
-<!---->
-<!-- <iframe data-src="https://samforeman.me" width="100%" height="500" title="Sam Foreman"></iframe> -->
-<!---->
-<!-- ::: -->
 <aside><ol class="aside-footnotes"><li id="fn1"><p>Mostly getting supercomputers to stop yelling at each other <i class="fa-solid fa-network-wired" aria-label="network-wired"></i></p></li></ol></aside></section>
 
 
-<section id="status-of-large-language-models" class="title-slide slide level1 center">
-<h1>Status of Large Language Models</h1>
+<section id="status-of-large-language-modelsslides-gh" class="title-slide slide level1 center">
+<h1>Status of Large Language Models<sup>1</sup></h1>
 <div id="fig-llms" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="https://github.com/Hannibal046/Awesome-LLM/raw/main/resources/image8.gif"></p>
-<figcaption>Figure&nbsp;1: Large Language Models have (LLM)s have taken the <del>NLP community</del> <strong>world</strong> by storm<sup>1</sup></figcaption>
+<figcaption>Figure&nbsp;1: Large Language Models have (LLM)s have taken the <del>NLP community</del> <strong>world</strong> by storm<sup>2</sup></figcaption>
 </figure>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn2"><p><a href="https://github.com/Hannibal046/Awesome-LLM"><i class="fa-brands fa-github" aria-label="github"></i> <code>Hannibal046/Awesome-LLM</code></a></p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn2"><p><a href="https://github.com/Hannibal046/Awesome-LLM"><i class="fa-brands fa-github" aria-label="github"></i> <code>saforem2/llm-lunch-talk</code></a> <a href="https://saforem2.github.io/llm-lunch-talk">(slides)</a></p></li><li id="fn3"><p><a href="https://github.com/Hannibal046/Awesome-LLM"><i class="fa-brands fa-github" aria-label="github"></i> <code>Hannibal046/Awesome-LLM</code></a></p></li></ol></aside></section>
 
 
 <section id="emergent-abilities" class="title-slide slide level1 center" data-background-color="#FBFBFD">
@@ -974,7 +967,7 @@
 </div>
 </div>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn3"><p>Figure from <a href="http://jalammar.github.io/illustrated-transformer/">The Illustrated Transformer</a></p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn4"><p>Figure from <a href="http://jalammar.github.io/illustrated-transformer/">The Illustrated Transformer</a></p></li></ol></aside></section>
 
 
 <section id="life-cycle-of-the-llm-pre-training" class="title-slide slide level1 center" data-auto-animate="true">
@@ -990,12 +983,11 @@
 <figcaption>Figure&nbsp;5: <strong>Fine-tuning</strong><sup>1</sup>: Fine-tuning actually updates the model’s weights to make the model better at a certain task.</figcaption>
 </figure>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn4"><p>Figure from <a href="http://jalammar.github.io/illustrated-transformer/">The Illustrated Transformer</a></p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn5"><p>Figure from <a href="http://jalammar.github.io/illustrated-transformer/">The Illustrated Transformer</a></p></li></ol></aside></section>
 
 
 <section id="transformer-architecture" class="title-slide slide level1 centeredslide center" height="100%" style="height:100%; font-size: 0.8em;">
 <h1>Transformer Architecture</h1>
-<!-- # {.centeredslide} -->
 
 <img data-src="https://raw.githubusercontent.com/saforem2/llm-lunch-talk/main/docs/assets/diagrams/transformer.svg" class="r-stretch"><p><span class="citation" data-cites="vaswani2017attention">Vaswani et al. (<a href="#/references" role="doc-biblioref" onclick="">2017</a>)</span></p>
 </section>
@@ -1047,7 +1039,7 @@
 </ul></li>
 </ul></li>
 </ul>
-<aside><ol class="aside-footnotes"><li id="fn5"><p><a href="https://huggingface.co/docs/transformers/v4.15.0/parallelism">🤗 Model Parallelism</a></p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn6"><p><a href="https://huggingface.co/docs/transformers/v4.15.0/parallelism">🤗 Model Parallelism</a></p></li></ol></aside></section>
 
 
 <section id="parallelism-conceptshf-mp1" class="title-slide slide level1 center" style="font-size: 0.9em;">
@@ -1070,7 +1062,7 @@
 <li>Another name for the foundational ZeRO concept as used by various other implementations of ZeRO.</li>
 </ul></li>
 </ul>
-<aside><ol class="aside-footnotes"><li id="fn6"><p><a href="https://huggingface.co/docs/transformers/v4.15.0/parallelism">🤗 Model Parallelism</a></p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn7"><p><a href="https://huggingface.co/docs/transformers/v4.15.0/parallelism">🤗 Model Parallelism</a></p></li></ol></aside></section>
 
 
 <section id="data-parallelism" class="title-slide slide level1 center" style="font-size: 0.9em;">
@@ -1089,7 +1081,7 @@
 <div style="text-align: center;">
 <p><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-zero.png" width="75%"></p>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn7"><p><a href="https://www.microsoft.com/en-us/research/blog/zero-deepspeed-new-system-optimizations-enable-training-models-with-over-100-billion-parameters/">Blog Post</a></p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn8"><p><a href="https://www.microsoft.com/en-us/research/blog/zero-deepspeed-new-system-optimizations-enable-training-models-with-over-100-billion-parameters/">Blog Post</a></p></li></ol></aside></section>
 
 
 <section id="tensor-parallelismefficient-large-scale" class="title-slide slide level1 center">
@@ -1104,7 +1096,7 @@
 <li><p>If we look at the computation in matrix form, it’s easy to see how the matrix multiplication can be split between multiple GPUs:</p></li>
 </ul></li>
 </ul>
-<aside><ol class="aside-footnotes"><li id="fn8"><p><a href="https://arxiv.org/abs/2104.04473">Efficient Large-Scale Language Model Training on GPU Clusters</a></p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn9"><p><a href="https://arxiv.org/abs/2104.04473">Efficient Large-Scale Language Model Training on GPU Clusters</a></p></li></ol></aside></section>
 
 
 <section id="tensor-parallelism" class="title-slide slide level1 center" style="font-size: 0.9em;">
@@ -1217,7 +1209,7 @@
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="ex">using:</span> /lus/grand/projects/fallwkshp23/foremans/locations/polaris/projects/argonne-lcf/Megatron-DeepSpeed/venvs/polaris/2023-10-04/bin/python3</span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="ex">[...]</span></span></code></pre></div>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn9"><p><a href="https://wandb.ai/l2hmc-qcd/GenSLM-Megatron-DS/runs/1uve3tdk?workspace=user-saforem2">🚀 W&amp;B Run: <code>soft-wave-264</code></a></p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn10"><p><a href="https://wandb.ai/l2hmc-qcd/GenSLM-Megatron-DS/runs/1uve3tdk?workspace=user-saforem2">🚀 W&amp;B Run: <code>soft-wave-264</code></a></p></li></ol></aside></section>
 
 
 <section id="getting-started-at-alcf" class="title-slide slide level1 scrollable center" style="font-size: 0.85em;">
@@ -1264,7 +1256,7 @@
 <div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> <span class="st">"deps/</span><span class="va">${MACHINE}</span><span class="st">"</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="st">"deps/</span><span class="va">${MACHINE}</span><span class="st">"</span></span></code></pre></div></li>
 </ol>
-<aside><ol class="aside-footnotes"><li id="fn10"><p><strong>On-top of</strong> the base <code>conda</code> environment (<code>--system-site-packages</code>)</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn11"><p><strong>On-top of</strong> the base <code>conda</code> environment (<code>--system-site-packages</code>)</p></li></ol></aside></section>
 
 
 <section id="install-dependencies" class="title-slide slide level1 centerdedslide center" style="height:100%;" data-auto-animate="true">
@@ -1325,7 +1317,6 @@
 <p><strong><i class="fa-brands fa-python" aria-label="python"></i> <code>conda/2023-10-04</code></strong></p>
 </div>
 <div class="callout-content">
-<!-- []{style='color:var(--dim-text);'} $\hspace{1pt}$ [Recent Talks]{.dim-text} -->
 <p><strong>Note</strong>: <code>apex</code> is <strong>already installed</strong> in the base <code>conda/2023-10-04</code> environment on Polaris.</p>
 </div>
 </div>
@@ -1387,7 +1378,7 @@
 <ul>
 <li><a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/train-gpt3.sh"><i class="fa-brands fa-github" aria-label="github"></i> <code>ALCF/train-gpt3.sh</code></a>: <strong>Main entry point for training</strong>. This script will:
 <ul>
-<li>Source the rest of the required <a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/"><code>ALCF/*.sh</code></a> scripts below <!-- - Launch `mpiexec <mpiexec-args> python3` --> <!--   [`pretrain_gpt.py`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/pretrain_gpt.py`) --> <!--   `<gpt-args>` --></li>
+<li>Source the rest of the required <a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/"><code>ALCF/*.sh</code></a> scripts below</li>
 </ul></li>
 <li><a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/models.sh"><i class="fa-brands fa-github" aria-label="github"></i> <code>ALCF/models.sh</code></a>: Contains some example model architectures for GPT3-style models</li>
 <li><a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/args.sh"><i class="fa-brands fa-github" aria-label="github"></i> <code>ALCF/args.sh</code></a>: Logic for parsing / setting up runtime options for Megatron and DeepSpeed</li>
@@ -1494,7 +1485,7 @@
 <div class="footer">
 <p><a href="https://github.com/argonne-lcf/Megatron-DeepSpeed"><i class="fa-brands fa-github" aria-label="github"></i> <code>argonne-lcf/Megatron-DeepSpeed</code></a></p>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn11"><p>The described experiments were performed on 4 NVIDIA DGX A100-40GB nodes, all using TPSIZE=32[^tpsize], connected through 8 HDR InfiniBand (200Gb/s per HDR).↩︎</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn12"><p>The described experiments were performed on 4 NVIDIA DGX A100-40GB nodes, all using TPSIZE=32[^tpsize], connected through 8 HDR InfiniBand (200Gb/s per HDR).↩︎</p></li></ol></aside></section>
 
 
 <section id="loooooooooong-sequence-lengths-2" class="title-slide slide level1 centeredslide center" style="height:100%; font-size:0.8em;" data-auto-animate="true">
@@ -1574,7 +1565,7 @@ performance: (<code>81 / 105 ~ 77%</code>)<sup>1</sup>.</li>
 </table>
 </div>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn12"><p><a href="https://api.wandb.ai/links/l2hmc-qcd/awklywn7"><code>throughput/TFLOPS</code></a></p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn13"><p><a href="https://api.wandb.ai/links/l2hmc-qcd/awklywn7"><code>throughput/TFLOPS</code></a></p></li></ol></aside></section>
 
 
 <section id="links" class="title-slide slide level1 center">

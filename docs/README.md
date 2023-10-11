@@ -29,9 +29,19 @@ Workshop</span>
 
 </div>
 
-# <span class="dim-text"></span> [Sam Foreman](https://samforeman.me)
+<div class="footer">
 
-<!-- I use ML and HPC to accelerate scientific discovery[^1] @ [ALCF](https://alcf.anl.gov). -->
+<div style="text-shadow: 2px 2px 3px rgba(0,0,0,0.8); color: #FFFFFF;">
+
+Sam Foreman  
+[<span style="color: #227D61">LLMs on
+Polaris</span>](https://saforem2.github.io/llm-lunch-talk)
+
+</div>
+
+</div>
+
+# <span class="dim-text"></span> [Sam Foreman](https://samforeman.me)
 
 - I’m currently an associate computational scientist in the [Data
   Science Group](https://www.alcf.anl.gov/about/people/group/506) at
@@ -39,12 +49,6 @@ Workshop</span>
   - Personal Website: [samforeman.me](https://samforeman.me)
   - Background:
     <span style="font-size:0.9em;">`{HEP, Lattice QCD, ML + Generative Modeling, Large Scale Training, LLMs, MCMC, ...}`</span>
-
-<!-- My [current research](https://saforem2.github.io/l2hmc-qcd) focuses on using -->
-<!-- deep generative modeling to help build better sampling algorithms in lattice -->
-<!-- gauge theory. In particular, I'm interested in building gauge equivariant -->
-<!-- neural network architectures and using inductive priors to incorporate physical -->
-<!-- symmetries into machine learning models. -->
 
 Ongoing / recent work:
 
@@ -82,22 +86,14 @@ Ongoing / recent work:
 
 </div>
 
-<!-- # Even More {.centeredslide width="100%" style="height:100%;"} -->
-<!---->
-<!-- ::: {width="100%"} -->
-<!---->
-<!-- <iframe data-src="https://samforeman.me" width="100%" height="500" title="Sam Foreman"></iframe> -->
-<!---->
-<!-- ::: -->
-
-# Status of Large Language Models
+# Status of Large Language Models[^2]
 
 <div id="fig-llms">
 
 ![](https://github.com/Hannibal046/Awesome-LLM/raw/main/resources/image8.gif)
 
 Figure 1: Large Language Models have (LLM)s have taken the ~~NLP
-community~~ **world** by storm[^2]
+community~~ **world** by storm[^3]
 
 </div>
 
@@ -294,14 +290,12 @@ pretraining phase
 
 ![](https://jalammar.github.io/images/gpt3/10-gpt3-fine-tuning.gif)
 
-Figure 5: **Fine-tuning**: Fine-tuning actually updates the model’s
+Figure 5: **Fine-tuning**[^4]: Fine-tuning actually updates the model’s
 weights to make the model better at a certain task.
 
 </div>
 
 # Transformer Architecture
-
-<!-- # {.centeredslide} -->
 
 ![](https://raw.githubusercontent.com/saforem2/llm-lunch-talk/main/docs/assets/diagrams/transformer.svg)
 
@@ -338,7 +332,7 @@ LLMs](https://huggingface.co/docs/transformers/main/en/llm_tutorial)
 > ***Modern parallelism techniques** enable the training of large
 > language models*
 
-# Parallelism Concepts[^3]
+# Parallelism Concepts[^5]
 
 - **DataParallel (DP)**:
   - The same setup is replicated multiple times, and each being fed a
@@ -356,7 +350,7 @@ LLMs](https://huggingface.co/docs/transformers/main/en/llm_tutorial)
     - This is what one may call horizontal parallelism, as he splitting
       happens on horizontal level.
 
-# Parallelism Concepts[^4]
+# Parallelism Concepts[^6]
 
 - **PipelineParallel (PP)**:
   - Model is split up vertically (layer-level) across multiple GPUs, so
@@ -383,7 +377,7 @@ LLMs](https://huggingface.co/docs/transformers/main/en/llm_tutorial)
     the data*.
   - `DDP` supported in PyTorch native.
 - ZeRO Data Parallel
-  - ZeRO powered data parallelism is shown below[^5]
+  - ZeRO powered data parallelism is shown below[^7]
 
 <div style="text-align: center;">
 
@@ -391,7 +385,7 @@ LLMs](https://huggingface.co/docs/transformers/main/en/llm_tutorial)
 
 </div>
 
-# Tensor Parallelism[^6]
+# Tensor Parallelism[^8]
 
 - In **Tensor Paralleism** each GPU processes only a slice of a tensor
   and only aggregates the full tensor for operations that require the
@@ -531,7 +525,7 @@ i.e. tail -f /lus/grand/projects/fallwkshp23/foremans/locations/polaris/projects
   tail -fn 1000 $(tail -1 logfiles) | less
   ```
 
-- will look like[^7]:
+- will look like[^9]:
 
 <div class="code" style="font-size:0.8em;">
 
@@ -585,7 +579,7 @@ using: /lus/grand/projects/fallwkshp23/foremans/locations/polaris/projects/argon
 
 # Getting Started
 
-3.  Setup virtual environment[^8]:
+3.  Setup virtual environment[^10]:
 
     ``` bash
     cd Megatron-DeepSpeed
@@ -687,7 +681,6 @@ data-layout-align="center">
 <div>
 <blockquote>
 <p><strong> <code>conda/2023-10-04</code></strong></p>
-<!-- []{style='color:var(--dim-text);'} $\hspace{1pt}$ [Recent Talks]{.dim-text} -->
 <p><strong>Note</strong>: <code>apex</code> is <strong>already
 installed</strong> in the base <code>conda/2023-10-04</code> environment
 on Polaris.</p>
@@ -780,9 +773,7 @@ Explicitly:
   **Main entry point for training**. This script will:
   - Source the rest of the required
     [`ALCF/*.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/)
-    scripts below <!-- - Launch `mpiexec <mpiexec-args> python3` -->
-    <!--   [`pretrain_gpt.py`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/pretrain_gpt.py`) -->
-    <!--   `<gpt-args>` -->
+    scripts below
 - [
   `ALCF/models.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/models.sh):
   Contains some example model architectures for GPT3-style models
@@ -851,7 +842,7 @@ Table 2: Long sequence length support from
 
 - Working with [ Microsoft
   DeepSpeed](https://github.com/microsoft/DeepSpeed) team to enable
-  longer sequence lengths (context windows) for LLMs[^9]
+  longer sequence lengths (context windows) for LLMs[^11]
   - [Release: **DeepSpeed4Science Overview and
     Tutorial**](https://www.deepspeed.ai/deepspeed4science/)
 
@@ -895,7 +886,7 @@ Figure 8: Maximum (achievable) `SEQ_LEN` for both `25B` and `33B` models
   - Explicitly, we see that we are able to scale up to significantly
     longer sequences:  
     (`420k / 128k ~ 3.3x`) with only a minimal impact on throughput  
-    performance: (`81 / 105 ~ 77%`)[^10].
+    performance: (`81 / 105 ~ 77%`)[^12].
 
 <div style="font-size:0.8em;">
 
@@ -986,28 +977,35 @@ Problem Solving with Large Language Models.”
 [^1]: Mostly getting supercomputers to stop yelling at each other
 
 [^2]: [
+    `saforem2/llm-lunch-talk`](https://github.com/Hannibal046/Awesome-LLM)
+    [(slides)](https://saforem2.github.io/llm-lunch-talk)
+
+[^3]: [
     `Hannibal046/Awesome-LLM`](https://github.com/Hannibal046/Awesome-LLM)
 
-[^3]: [🤗 Model
+[^4]: Figure from [The Illustrated
+    Transformer](http://jalammar.github.io/illustrated-transformer/)
+
+[^5]: [🤗 Model
     Parallelism](https://huggingface.co/docs/transformers/v4.15.0/parallelism)
 
-[^4]: [🤗 Model
+[^6]: [🤗 Model
     Parallelism](https://huggingface.co/docs/transformers/v4.15.0/parallelism)
 
-[^5]: [Blog
+[^7]: [Blog
     Post](https://www.microsoft.com/en-us/research/blog/zero-deepspeed-new-system-optimizations-enable-training-models-with-over-100-billion-parameters/)
 
-[^6]: [Efficient Large-Scale Language Model Training on GPU
+[^8]: [Efficient Large-Scale Language Model Training on GPU
     Clusters](https://arxiv.org/abs/2104.04473)
 
-[^7]: [🚀 W&B Run:
+[^9]: [🚀 W&B Run:
     `soft-wave-264`](https://wandb.ai/l2hmc-qcd/GenSLM-Megatron-DS/runs/1uve3tdk?workspace=user-saforem2)
 
-[^8]: **On-top of** the base `conda` environment
+[^10]: **On-top of** the base `conda` environment
     (`--system-site-packages`)
 
-[^9]: The described experiments were performed on 4 NVIDIA DGX A100-40GB
-    nodes, all using TPSIZE=32\[^tpsize\], connected through 8 HDR
-    InfiniBand (200Gb/s per HDR).↩︎
+[^11]: The described experiments were performed on 4 NVIDIA DGX
+    A100-40GB nodes, all using TPSIZE=32\[^tpsize\], connected through 8
+    HDR InfiniBand (200Gb/s per HDR).↩︎
 
-[^10]: [`throughput/TFLOPS`](https://api.wandb.ai/links/l2hmc-qcd/awklywn7)
+[^12]: [`throughput/TFLOPS`](https://api.wandb.ai/links/l2hmc-qcd/awklywn7)
