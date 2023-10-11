@@ -82,6 +82,11 @@ data-layout-align="center">
 
 # Recent Work (2017 – Now)
 
+<details closed>
+<summary>
+<b>Recent Work</b>
+</summary>
+
 <div class="table-responsive" width="100%"
 style="max-height: 550px!important; font-size: 0.7rem;"
 data-quarto-disable-processing="true">
@@ -144,6 +149,8 @@ Table 1: Papers, 2017–\*
 </div>
 
 </div>
+
+</details>
 
 <div class="footer">
 

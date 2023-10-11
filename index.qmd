@@ -126,8 +126,10 @@ Visualization from @yang2023harnessing
 
 :::
 
-# Recent Work (2017 -- Now) {.scrollable style="max-height: 90%;"}
+# Recent Work (2017 -- Now) {.scrollable style="max-height: 90%; height: 100%;"}
 
+
+<details closed><summary><b>Recent Work</b></summary>
 
 ::: {.table-responsive width="100%" style="max-height: 550px!important; font-size: 0.7rem;" data-quarto-disable-processing="true"}
 
@@ -185,6 +187,9 @@ Visualization from @yang2023harnessing
 : Papers, 2017--* {#tbl-papers .striped .hover}
 
 :::
+
+</details>
+
 
 ::: footer
 
