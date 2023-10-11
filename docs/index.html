@@ -487,7 +487,7 @@
 <!-- # {.centeredslide background-image="./assets/tribology_cover_test_image_06m.png" loading="lazy"} -->
 <!-- # {.centeredslide background-image="./assets/6120702714_c9a4cf5d78_o.jpg" loading="lazy"} -->
 <!-- # {.centeredslide background-image="./assets/ccm_s23-50_Ye_03B.png" loading="lazy"} -->
-<div style="text-shadow: 0px 0px 10px RGBA(0, 0, 0, 0.35); background-color: rgba(8, 42, 123, 0.7); border-radius: 10px; text-align:left; padding: 1.5rem; margin-left: auto; margin-right: auto; line-height: 1.5em!important; box-shadow: RGBA(0, 0, 0, 0.25) 0px 5px 15px;">
+<div style="background-color: rgba(8, 42, 123, 0.7); border-radius: 10px; text-align:left; padding: 1.5rem; margin-left: auto; margin-right: auto; line-height: 1.5em!important;">
 <div style="display:flex;">
 <p><span style="font-size: 1.75em; font-weight: 600; border-bottom: 1px solid white; color: #F8F8F8">October 10 – 12, 2023 <span class="math inline">\hspace{5pt}</span> <i class="fa-solid fa-shapes" aria-label="shapes"></i></span> <span style="display:inline-block;"><img data-src="./assets/anl_logo.svg"></span></p>
 </div>
@@ -932,8 +932,8 @@
 
 <img data-src="https://jalammar.github.io/images/gpt3/03-gpt3-training-step-back-prop.gif" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;4: <strong>Pre-training</strong>: Virtually all of the compute used during pretraining phase</p></section>
 
-<section id="life-cycle-of-the-llm-fine-tuning" class="title-slide slide level1 center">
-<h1>Life-Cycle of the LLM: Fine-Tuning</h1>
+<section id="life-cycle-of-the-llm-fine-tuning" class="title-slide slide level1 center" data-auto-animate="true">
+<h1 data-id="quarto-animate-title">Life-Cycle of the LLM: Fine-Tuning</h1>
 
 <img data-src="https://jalammar.github.io/images/gpt3/10-gpt3-fine-tuning.gif" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;5: <strong>Fine-tuning</strong>: Fine-tuning actually updates the model’s weights to make the model better at a certain task.</p></section>
 
@@ -963,6 +963,120 @@
 </video>
 <figcaption>Figure&nbsp;7: Language Model trained for causal language modeling. Video from: <a href="https://huggingface.co/docs/transformers/main/en/llm_tutorial">🤗 Generation with LLMs</a></figcaption>
 </figure>
+</div>
+</section>
+
+<section id="parallelism-overview" class="title-slide slide level1 center">
+<h1>Parallelism Overview</h1>
+<blockquote>
+<p><em><strong>Modern parallelism techniques</strong> enable the training of large language models</em></p>
+</blockquote>
+</section>
+
+<section id="parallelism-conceptshf-mp" class="title-slide slide level1 center" style="font-size: 0.9em;">
+<h1>Parallelism Concepts<sup>1</sup></h1>
+<ul>
+<li><strong>DataParallel (DP)</strong>:
+<ul>
+<li><p>The same setup is replicated multiple times, and each being fed a slice of the data.</p></li>
+<li><p>The processing is done in parallel and all setups are synchronized at the end of each training step.</p></li>
+</ul></li>
+<li><strong>TensorParallel (TP)</strong>:
+<ul>
+<li>Each tensor is split up into multiple chunks.</li>
+<li>So, instead of having the whole tensor reside on a single gpu, each shard of the tensor resides on its designated gpu.
+<ul>
+<li>During processing each shard gets processed separately and in parallel on different GPUs and the results are synced at the end of the step.</li>
+<li>This is what one may call horizontal parallelism, as he splitting happens on horizontal level.</li>
+</ul></li>
+</ul></li>
+</ul>
+<aside><ol class="aside-footnotes"><li id="fn3"><p><a href="https://huggingface.co/docs/transformers/v4.15.0/parallelism">🤗 Model Parallelism</a></p></li></ol></aside></section>
+
+
+<section id="parallelism-conceptshf-mp1" class="title-slide slide level1 center" style="font-size: 0.9em;">
+<h1>Parallelism Concepts<sup>1</sup></h1>
+<ul>
+<li><strong>PipelineParallel (PP)</strong>:
+<ul>
+<li>Model is split up vertically (layer-level) across multiple GPUs, so that only one or several layers of the model are places on a single gpu.
+<ul>
+<li>Each gpu processes in parallel different stages of the pipeline and working on a small chunk of the batch.</li>
+</ul></li>
+</ul></li>
+<li><strong>Zero Redundancy Optimizer (ZeRO)</strong>:
+<ul>
+<li>Also performs sharding of the tensors somewhat similar to TP, except the whole tensor gets reconstructed in time for a forward or backward computation, therefore the model doesn’t need to be modified.</li>
+<li>It also supports various offloading techniques to compensate for limited GPU memory.</li>
+</ul></li>
+<li><strong>Sharded DDP</strong>:
+<ul>
+<li>Another name for the foundational ZeRO concept as used by various other implementations of ZeRO.</li>
+</ul></li>
+</ul>
+<aside><ol class="aside-footnotes"><li id="fn4"><p><a href="https://huggingface.co/docs/transformers/v4.15.0/parallelism">🤗 Model Parallelism</a></p></li></ol></aside></section>
+
+
+<section id="data-parallelism" class="title-slide slide level1 center" style="font-size: 0.9em;">
+<h1>Data Parallelism</h1>
+<ul>
+<li><strong>Data Parallelism</strong>:
+<ul>
+<li>The simplest and most common parallelism technique. Workers maintain <em>identical copies</em> of the <em>complete</em> model and work on a <em>subset of the data</em>.</li>
+<li><code>DDP</code> supported in PyTorch native.</li>
+</ul></li>
+<li>ZeRO Data Parallel
+<ul>
+<li>ZeRO powered data parallelism is shown below<sup>1</sup></li>
+</ul></li>
+</ul>
+<div style="text-align: center;">
+<p><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-zero.png" width="75%"></p>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn5"><p><a href="https://www.microsoft.com/en-us/research/blog/zero-deepspeed-new-system-optimizations-enable-training-models-with-over-100-billion-parameters/">Blog Post</a></p></li></ol></aside></section>
+
+
+<section id="tensor-parallelismefficient-large-scale" class="title-slide slide level1 center">
+<h1>Tensor Parallelism<sup>1</sup></h1>
+<ul>
+<li><p>In <strong>Tensor Paralleism</strong> each GPU processes only a slice of a tensor and only aggregates the full tensor for operations that require the whole thing.</p>
+<ul>
+<li><p>The main building block of any transformer is a fully connected nn.Linear followed by a nonlinear activation GeLU.</p>
+<ul>
+<li><code>Y = GeLU(XA)</code>, where X and Y are the input and output vectors, and A is the weight matrix.</li>
+</ul></li>
+<li><p>If we look at the computation in matrix form, it’s easy to see how the matrix multiplication can be split between multiple GPUs:</p></li>
+</ul></li>
+</ul>
+<aside><ol class="aside-footnotes"><li id="fn6"><p><a href="https://arxiv.org/abs/2104.04473">Efficient Large-Scale Language Model Training on GPU Clusters</a></p></li></ol></aside></section>
+
+
+<section id="tensor-parallelism" class="title-slide slide level1 center" style="font-size: 0.9em;">
+<h1>Tensor Parallelism</h1>
+<div style="text-align: center;">
+<p><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-tp-parallel_gemm.png" width="66%" style="text-align: center;"></p>
+</div>
+<div class="footer">
+<p>This information is based on (the much more in-depth) <a href="https://github.com/huggingface/transformers/issues/10321#issuecomment-783543530">TP Overview</a> by <a href="https://github.com/anton-l">@anton-l</a></p>
+</div>
+</section>
+
+<section id="d-parallelism" class="title-slide slide level1 center">
+<h1>3D Parallelism</h1>
+<ul>
+<li><code>DP</code> + <code>TP</code> + <code>PP</code> (3D) Parallelism</li>
+</ul>
+
+<img data-src="https://www.microsoft.com/en-us/research/uploads/prod/2020/09/Blog_DeepSpeed3_Figure-1_highres-2048x1230.png" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;8: <strong>?(caption)</strong></p></section>
+
+<section id="d-parallelism-1" class="title-slide slide level1 center">
+<h1>3D Parallelism</h1>
+<ul>
+<li><code>DP</code> + <code>TP</code> + <code>PP</code> (3D) Parallelism</li>
+</ul>
+<div id="3dparallel">
+<p><img data-src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-deepspeed-3d.png"></p>
+<p>Figure taken from <a href="https://www.microsoft.com/en-us/research/blog/deepspeed-extreme-scale-model-training-for-everyone/">3D parallelism: Scaling to trillion-parameter models</a></p>
 </div>
 </section>
 
@@ -1007,7 +1121,7 @@
 <div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> <span class="st">"deps/</span><span class="va">${MACHINE}</span><span class="st">"</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="st">"deps/</span><span class="va">${MACHINE}</span><span class="st">"</span></span></code></pre></div></li>
 </ol>
-<aside><ol class="aside-footnotes"><li id="fn3"><p><strong>On-top of</strong> the base <code>conda</code> environment (<code>--system-site-packages</code>)</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn7"><p><strong>On-top of</strong> the base <code>conda</code> environment (<code>--system-site-packages</code>)</p></li></ol></aside></section>
 
 
 <section id="install-dependencies" class="title-slide slide level1 centerdedslide center" style="height:100%;" data-auto-animate="true">
@@ -1084,7 +1198,29 @@
 <section id="running" class="title-slide slide level1 center">
 <h1>Running</h1>
 <ul>
-<li><p>The <a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/tree/main/ALCF"><code>ALCF/</code></a> directory contains shell scripts for setting up the environment and specifying options to be used for training.</p></li>
+<li>The <a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/tree/main/ALCF"><code>ALCF/</code></a> directory contains shell scripts for setting up the environment and specifying options to be used for training.</li>
+</ul>
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div id="column-two" class="quarto-layout-cell" style="flex-basis: 39.0%;justify-content: center;">
+<div style="line-height: 1.1em;">
+<ul>
+<li><i class="fa-solid fa-folder-open" aria-label="folder-open"></i> <a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/tree/main/ALCF"><code>ALCF/</code></a><br>
+<code>├──</code> <a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/models.sh"><code>args.sh</code></a><br>
+<code>├──</code> <a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/launch.sh"><code>launch.sh</code></a><br>
+<code>├──</code> <a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/model.sh"><code>model.sh</code></a><br>
+<code>├──</code> <a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/setup.sh"><code>setup.sh</code></a><br>
+<code>├──</code> <a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/submit-pbs.sh"><code>submit-pbs.sh</code></a><br>
+<code>├──</code> <a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/submit.sh"><code>submit.sh</code></a><br>
+<code>└──</code> <a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/train-gpt3.sh"><code>train-gpt3.sh</code></a></li>
+</ul>
+</div>
+</div>
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 2.6%;justify-content: center;">
+<p>&nbsp;</p>
+</div>
+<div id="column-one" class="quarto-layout-cell" style="flex-basis: 58.4%;justify-content: center;">
+<ul>
 <li><p>Various options can be specified dynamically at runtime by setting them in your environment, e.g.:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set env. vars to use:</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="va">MODEL_SIZE_KEY</span><span class="op">=</span><span class="st">"GPT25B"</span></span>
@@ -1097,6 +1233,9 @@
 <span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Launch training:</span></span>
 <span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="ex">./ALCF/train-gpt3.sh</span></span></code></pre></div></li>
 </ul>
+</div>
+</div>
+</div>
 </section>
 
 <section id="details" class="title-slide slide level1 center" style="font-size: 0.9em;">
@@ -1116,110 +1255,6 @@
 <li>then, use this to launch <code>mpiexec &lt;mpiexec-args&gt; python3</code> <a href="https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/pretrain_gpt.py%60"><code>pretrain_gpt.py</code></a> <code>&lt;gpt-args&gt;</code></li>
 </ul></li>
 </ul>
-</section>
-
-<section id="parallelism-overview" class="title-slide slide level1 center">
-<h1>Parallelism Overview</h1>
-<blockquote>
-<p><em><strong>Modern parallelism techniques</strong> enable the training of large language models</em></p>
-</blockquote>
-</section>
-
-<section id="parallelism-conceptshf-mp" class="title-slide slide level1 center" style="font-size: 0.9em;">
-<h1>Parallelism Concepts<sup>1</sup></h1>
-<ul>
-<li><strong>DataParallel (DP)</strong>:
-<ul>
-<li>The same setup is replicated multiple times, and each being fed a slice of the data. The processing is done in parallel and all setups are synchronized at the end of each training step.</li>
-</ul></li>
-<li><strong>TensorParallel (TP)</strong>:
-<ul>
-<li>Each tensor is split up into multiple chunks, so instead of having the whole tensor reside on a single gpu, each shard of the tensor resides on its designated gpu. During processing each shard gets processed separately and in parallel on different GPUs and the results are synced at the end of the step. This is what one may call horizontal parallelism, as the splitting happens on horizontal level.</li>
-</ul></li>
-</ul>
-<aside><ol class="aside-footnotes"><li id="fn4"><p><a href="https://huggingface.co/docs/transformers/v4.15.0/parallelism">🤗 Model Parallelism</a></p></li></ol></aside></section>
-
-
-<section id="parallelism-conceptshf-mp1" class="title-slide slide level1 center" style="font-size: 0.9em;">
-<h1>Parallelism Concepts<sup>1</sup></h1>
-<ul>
-<li><strong>PipelineParallel (PP)</strong>:
-<ul>
-<li>Model is split up vertically (layer-level) across multiple GPUs, so that only one or several layers of the model are places on a single gpu. Each gpu processes in parallel different stages of the pipeline and working on a small chunk of the batch.</li>
-</ul></li>
-<li><strong>Zero Redundancy Optimizer (ZeRO)</strong>:
-<ul>
-<li>Also performs sharding of the tensors somewhat similar to TP, except the whole tensor gets reconstructed in time for a forward or backward computation, therefore the model doesn’t need to be modified. It also supports various offloading techniques to compensate for limited GPU memory.</li>
-</ul></li>
-<li><strong>Sharded DDP</strong>:
-<ul>
-<li>Another name for the foundational ZeRO concept as used by various other implementations of ZeRO.</li>
-</ul></li>
-</ul>
-<aside><ol class="aside-footnotes"><li id="fn5"><p><a href="https://huggingface.co/docs/transformers/v4.15.0/parallelism">🤗 Model Parallelism</a></p></li></ol></aside></section>
-
-
-<section id="data-parallelism" class="title-slide slide level1 center" style="font-size: 0.9em;">
-<h1>Data Parallelism</h1>
-<ul>
-<li><strong>Data Parallelism</strong>:
-<ul>
-<li>The simplest and most common parallelism technique. Workers maintain <em>identical copies</em> of the <em>complete</em> model and work on a <em>subset of the data</em>.</li>
-<li><code>DDP</code> supported in PyTorch native.</li>
-</ul></li>
-<li>ZeRO Data Parallel
-<ul>
-<li>ZeRO powered data parallelism is shown below<sup>1</sup></li>
-</ul></li>
-</ul>
-<div style="text-align: center;">
-<p><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-zero.png" width="75%"></p>
-</div>
-<aside><ol class="aside-footnotes"><li id="fn6"><p><a href="https://www.microsoft.com/en-us/research/blog/zero-deepspeed-new-system-optimizations-enable-training-models-with-over-100-billion-parameters/">Blog Post</a></p></li></ol></aside></section>
-
-
-<section id="tensor-parallelismefficient-large-scale" class="title-slide slide level1 center">
-<h1>Tensor Parallelism<sup>1</sup></h1>
-<ul>
-<li><p>In <strong>Tensor Paralleism</strong> each GPU processes only a slice of a tensor and only aggregates the full tensor for operations that require the whole thing.</p>
-<ul>
-<li><p>The main building block of any transformer is a fully connected nn.Linear followed by a nonlinear activation GeLU.</p>
-<ul>
-<li><code>Y = GeLU(XA)</code>, where X and Y are the input and output vectors, and A is the weight matrix.</li>
-</ul></li>
-<li><p>If we look at the computation in matrix form, it’s easy to see how the matrix multiplication can be split between multiple GPUs:</p></li>
-</ul></li>
-</ul>
-<aside><ol class="aside-footnotes"><li id="fn7"><p><a href="https://arxiv.org/abs/2104.04473">Efficient Large-Scale Language Model Training on GPU Clusters</a></p></li></ol></aside></section>
-
-
-<section id="tensor-parallelism" class="title-slide slide level1 center" style="font-size: 0.9em;">
-<h1>Tensor Parallelism</h1>
-<div style="text-align: center;">
-<p><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-tp-parallel_gemm.png" width="66%" style="text-align: center;"></p>
-</div>
-<div class="footer">
-<p>This information is based on (the much more in-depth) <a href="https://github.com/huggingface/transformers/issues/10321#issuecomment-783543530">TP Overview</a> by <a href="https://github.com/anton-l">@anton-l</a></p>
-</div>
-</section>
-
-<section id="d-parallelism" class="title-slide slide level1 center">
-<h1>3D Parallelism</h1>
-<ul>
-<li><code>DP</code> + <code>TP</code> + <code>PP</code> (3D) Parallelism</li>
-</ul>
-
-<img data-src="https://www.microsoft.com/en-us/research/uploads/prod/2020/09/Blog_DeepSpeed3_Figure-1_highres-2048x1230.png" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;8: <strong>?(caption)</strong></p></section>
-
-<section id="d-parallelism-1" class="title-slide slide level1 center">
-<h1>3D Parallelism</h1>
-<ul>
-<li><code>DP</code> + <code>TP</code> + <code>PP</code> (3D) Parallelism</li>
-</ul>
-<div id="3dparallel">
-<p><img data-src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-deepspeed-3d.png"></p>
-<p>Figure taken from <a href="https://www.microsoft.com/en-us/research/blog/deepspeed-extreme-scale-model-training-for-everyone/">3D parallelism: Scaling to trillion-parameter models</a></p>
-</div>
 </section>
 
 <section id="deepspeed4science" class="title-slide slide level1 center" data-background-color="#000000" height="100%" style="height: 100%!important; font-size: 0.9em;">

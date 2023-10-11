@@ -86,6 +86,61 @@ format:
     footnotes-hover: true
     header-includes: |
       <link href="https://pvinis.github.io/iosevka-webfont/3.4.1/iosevka.css" rel="stylesheet" />
+  revealjs:
+    code-line-numbers: false
+    code-link: false
+    code-copy: false
+    # callout-appearance: simple
+    # syntax-definitions:
+    #   - ./docs/python.xml
+    scrollable: true
+    title-block-style: none
+    slide-number: c
+    title-slide-style: default
+    chalkboard:
+      buttons: false
+    auto-animate: true
+    reference-location: section
+    touch: true
+    pause: false
+    footnotes-hover: true
+    citations-hover: true
+    preview-links: true
+    controls-tutorial: true
+    controls: false
+    logo: "assets/anl.svg"
+    history: false
+    highlight-style: "atom-one"
+    # theme: [dark, css/dark.scss]
+    # css: [css/default.css, css/callouts-html.css]
+    css:
+      - css/default.css
+      - css/callouts-html.css
+    # theme: [css/light.scss, css/common.scss, css/syntax-light.scss]
+    theme:
+      - white
+      # - css/light.scss
+      - css/common.scss
+      - css/syntax-light.scss
+      - css/pdf.scss
+      # dark:
+      #   - css/dark.scss
+      #   - css/common.scss
+      #   - css/syntax-dark.scss
+    # css: [css/default.css, css/callouts.css, css/code-callout.css]
+    self-contained: false
+    embed-resources: false
+    self-contained-math: false
+    center: true
+    default-image-extension: svg
+    code-overflow: scroll
+    html-math-method: katex
+    fig-align: center
+    mermaid:
+      theme: dark
+  gfm:
+    author: Sam Foreman
+    output-file: "README.md"
 # include-in-header:
 #   text: |
 #     <script src="https://unpkg.com/shiki"></script>
