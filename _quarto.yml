@@ -26,7 +26,7 @@ google-analytics: G-XVM2Y822Y1
 #
 website:
   favicon: "./favicon.svg"
-  description: "My ramblings about science and computers"
+  description: "LLMs on Polaris (2023-10-11)"
   twitter-card:
     image: "https://github.com/saforem2/llm-lunch-talk/blob/main/docs/assets/thumbnail.png?raw=true"
     site: "@saforem2"

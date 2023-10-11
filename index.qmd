@@ -107,7 +107,7 @@ Large Language Models have (LLM)s have taken the ~~NLP community~~ **world** by 
 # Training LLMs
 
 
-::: {layout="[ 60, 40 ]" layout-valign="bottom"}
+::: {layout="[ 55, 45 ]" layout-valign="bottom"}
 
 ::: {#fig-evolution}
 
