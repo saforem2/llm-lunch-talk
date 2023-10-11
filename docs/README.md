@@ -17,7 +17,7 @@ Sam Foreman
 
 <span style="font-size: 1.75em; font-weight: 600; border-bottom: 1px solid white; color: #F8F8F8">October
 10 – 12, 2023 $\hspace{5pt}$ </span>
-<span style="display:inline-block;">![](./assets/anl_logo.svg)</span>
+<span style="display:inline-block;">![](https://raw.githubusercontent.com/saforem2/llm-lunch-talk/main/docs/assets/anl_logo.svg)</span>
 
 </div>
 
@@ -44,7 +44,7 @@ community~~ **world** by storm[^1]
 
 <div width="66%" style="text-align: center;">
 
-<img src="./assets/emergent-abilities.gif" height="75%" />
+<img src="https://github.com/saforem2/llm-lunch-talk/blob/main/docs/assets/emergent-abilities.gif?raw=true" height="75%" />
 
 [Emergent abilities of Large Language
 Models](https://arxiv.org/abs/2206.07682) Yao et al. (2023)
@@ -72,7 +72,9 @@ data-cites="yang2023harnessing">Yang et al. (2023)</span></p>
 </div></td>
 <td style="text-align: center;"><div width="45.0%"
 data-layout-align="center">
-<p><img src="./assets/it_hungers.jpeg" data-fig.extended="false" /></p>
+<p><img
+src="https://github.com/saforem2/llm-lunch-talk/blob/main/docs/assets/it_hungers.jpeg?raw=true"
+data-fig.extended="false" /></p>
 </div></td>
 </tr>
 </tbody>
@@ -240,7 +242,7 @@ weights to make the model better at a certain task.
 
 <!-- # {.centeredslide} -->
 
-![](./assets/diagrams/transformer.svg)
+![](https://raw.githubusercontent.com/saforem2/llm-lunch-talk/main/docs/assets/diagrams/transformer.svg)
 
 Vaswani et al. (2017)
 
@@ -363,17 +365,19 @@ by [@anton-l](https://github.com/anton-l)
 
 - `DP` + `TP` + `PP` (3D) Parallelism
 
-::: {style=“text-align:center!important; width: 90%;}
+<div id="3dparallel-1" style="text-align:center!important; width:90%;">
 
-<img src="https://www.microsoft.com/en-us/research/uploads/prod/2020/09/Blog_DeepSpeed3_Figure-1_highres-2048x1230.png" align="center" />
+![](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/Blog_DeepSpeed3_Figure-1_highres-2048x1230.png)
 
-:::
+3D Parallelism illustration. Figure from: <https://www.deepspeed.ai/>
+
+</div>
 
 # 3D Parallelism
 
 - `DP` + `TP` + `PP` (3D) Parallelism
 
-<div id="3dparallel">
+<div id="3dparallel" style="text-align:center!important;">
 
 ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-deepspeed-3d.png)
 
