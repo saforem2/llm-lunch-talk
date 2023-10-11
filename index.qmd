@@ -1,6 +1,4 @@
 ---
-# callout-appearance: simple
-# favicon: "./favicon.svg"
 format:
   revealjs:
     code-line-numbers: false
@@ -27,22 +25,14 @@ format:
     logo: "https://raw.githubusercontent.com/saforem2/llm-lunch-talk/main/docs/assets/anl.svg"
     history: false
     highlight-style: "atom-one"
-    # theme: [dark, css/dark.scss]
-    # css: [css/default.css, css/callouts-html.css]
     css:
       - css/default.css
       - css/callouts-html.css
-    # theme: [css/light.scss, css/common.scss, css/syntax-light.scss]
     theme:
       - white
       - css/light.scss
       - css/common.scss
       - css/syntax-light.scss
-      # dark:
-      #   - css/dark.scss
-      #   - css/common.scss
-      #   - css/syntax-dark.scss
-    # css: [css/default.css, css/callouts.css, css/code-callout.css]
     self-contained: false
     embed-resources: false
     self-contained-math: false
@@ -59,6 +49,7 @@ format:
 ---
 
 # {.centeredslide background-image="https://github.com/saforem2/llm-lunch-talk/blob/main/docs/assets/image2.png?raw=true" loading="lazy"}
+
 <!-- # {.centerdslide background-image="https://www.alcf.anl.gov/sites/default/files/2023-08/ALCF-HandsOnHPCWksp-LL.png?itok=6qi5GY6y" height="80%"} -->
 <!-- # {.centeredslide background-image="./assets/massstar_science_highlights_2017_01.png" loading="lazy"} -->
 <!-- # {.centeredslide background-image="./assets/p62_cover-edit_CMYK.jpg" loading="lazy"} -->
@@ -109,12 +100,9 @@ Ongoing / recent work:
 ::: {.column width="50%"}
 
 - [AI + Science](https://github.com/saforem2/)
-
   - [Building better sampling methods for Lattice
   QCD](https://github.com/saforem2/l2hmc-qcd)
-
   - [GenSLMs: Genome-scale language models reveal SARS-CoV-2 evolutionary dynamics](https://www.biorxiv.org/content/10.1101/2022.10.10.511571v2)
-
   - [Foundation models for long term climate
   forecasting](https://saforem2.github.io/climate-analysis)
 
@@ -123,12 +111,8 @@ Ongoing / recent work:
 ::: {.column width="50%"}
 
 - [Scaling Large Language Models](https://github.com/saforem2/Megatron-DS-Benchmarking)
-
 - [Optimizing distibuted training across thousands of GPUs](https://github.com/argonne-lcf/mlprof)
-
-
 - Building new parallelism techniques for efficient scaling
-
 - Generative modeling (esp. for physical systems)
 
 :::

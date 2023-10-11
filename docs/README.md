@@ -31,7 +31,7 @@ Workshop</span>
 
 <div class="footer">
 
-<div style="text-shadow: 2px 2px 3px rgba(0,0,0,0.8); color: #FFFFFF;">
+<div style="text-shadow: 2px 2px 3px rgba(0,0,0,0.8); color: #FFFFFF; text-align: left; margin-left: 7%;">
 
 Sam Foreman  
 [<span style="color: #227D61">LLMs on
