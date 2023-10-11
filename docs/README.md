@@ -1,16 +1,17 @@
 # LLMs on Polaris
 Sam Foreman
-2023-10-10
+2023-10-11
 
 # 
 
+<!-- # {.centerdslide background-image="https://www.alcf.anl.gov/sites/default/files/2023-08/ALCF-HandsOnHPCWksp-LL.png?itok=6qi5GY6y" height="80%"} -->
 <!-- # {.centeredslide background-image="./assets/massstar_science_highlights_2017_01.png" loading="lazy"} -->
 <!-- # {.centeredslide background-image="./assets/p62_cover-edit_CMYK.jpg" loading="lazy"} -->
 <!-- # {.centeredslide background-image="./assets/tribology_cover_test_image_06m.png" loading="lazy"} -->
 <!-- # {.centeredslide background-image="./assets/6120702714_c9a4cf5d78_o.jpg" loading="lazy"} -->
 <!-- # {.centeredslide background-image="./assets/ccm_s23-50_Ye_03B.png" loading="lazy"} -->
 
-<div style="text-shadow: 0px 0px 10px RGBA(0, 0, 0, 0.45); background-color: rgba(8, 42, 123, 0.7); border-radius: 10px; text-align:left; padding: 1.5rem; margin-left: auto; margin-right: auto; line-height: 1.5em!important; box-shadow: RGBA(0, 0, 0, 0.25) 0px 5px 15px;">
+<div style="text-shadow: 0px 0px 10px RGBA(0, 0, 0, 0.35); background-color: rgba(8, 42, 123, 0.7); border-radius: 10px; text-align:left; padding: 1.5rem; margin-left: auto; margin-right: auto; line-height: 1.5em!important; box-shadow: RGBA(0, 0, 0, 0.25) 0px 5px 15px;">
 
 <div style="display:flex;">
 
@@ -79,10 +80,10 @@ data-layout-align="center">
 
 </div>
 
-# Landmark Papers (2017 – Now)
+# Recent Work (2017 – Now)
 
 <div class="table-responsive" width="100%"
-style="max-height: 550px!important; font-size: 0.9rem;"
+style="max-height: 550px!important; font-size: 0.7rem;"
 data-quarto-disable-processing="true">
 
 <div id="tbl-papers">
@@ -144,6 +145,14 @@ Table 1: Papers, 2017–\*
 
 </div>
 
+<div class="footer">
+
+1.  [
+    Hannibal046/Awesome-LLM](https://github.com/Hannibal046/Awesome-LLM/blob/main/README.md)
+    <span class="inline-image">[![Awesome](https://awesome.re/badge.svg)](https://awesome.re)</span>
+
+</div>
+
 # Life-Cycle of the LLM
 
 <div layout-valign="center">
@@ -179,25 +188,22 @@ data-layout-align="center" data-fig.extended="false">
 src="https://jalammar.github.io/images/gpt3/03-gpt3-training-step-back-prop.gif"
 data-fig.extended="false" /></p>
 <p>Figure 3: <strong>Pre-training</strong>: Virtually all of the compute
-used during pretraining phase.</p>
+used during pretraining phase<a href="#fn1" class="footnote-ref"
+id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
 </div></td>
 </tr>
 </tbody>
 </table>
-
-</div>
-
-<div class="footer">
-
-<div style="font-size: 0.7em;">
-
-1.  [Better Language Models and their
-    Implications](https://openai.com/research/better-language-models)  
-2.  <span class="green-text"></span> [Progress / Artefacts / Outcomes
-    from 🌸 Bloom
-    BigScience](https://bigscience.notion.site/ebe3760ae1724dcc92f2e6877de0938f?v=2faf85dc00794321be14bc892539dd4f)
-
-</div>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Figure from <a
+href="http://jalammar.github.io/illustrated-transformer/">The
+Illustrated Transformer</a><a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 
 </div>
 
@@ -231,36 +237,195 @@ weights to make the model better at a certain task.
 
 Vaswani et al. (2017)
 
-# Transformer Architecture
+# Forward Pass
 
-<div layout-valign="center">
+<div id="fig-forward-pass">
+
+<video data-autoplay src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/assisted-generation/gif_1_1080p.mov">
+</video>
+
+Figure 6: Language Model trained for causal language modeling. Video
+from: [🤗 Generation with
+LLMs](https://huggingface.co/docs/transformers/main/en/llm_tutorial)
+
+</div>
+
+# Generating Text
+
+<div id="fig-generating-text">
+
+<video data-autoplay src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/assisted-generation/gif_2_1080p.mov">
+</video>
+
+Figure 7: Language Model trained for causal language modeling. Video
+from: [🤗 Generation with
+LLMs](https://huggingface.co/docs/transformers/main/en/llm_tutorial)
+
+</div>
+
+# Getting Started at ALCF
+
+- Installation:
+  1.   Clone GitHub repo:
+
+      ``` bash
+      git clone https://github.com/argonne-lcf/Megatron-DeepSpeed
+      ```
+
+  2.  Load Conda module:
+
+      - Polaris:
+
+        ``` bash
+        if [[ "$(hostname)==x3*" ]]; then
+            export MACHINE="Polaris"
+            export CONDA_DATE="2023-10-04"
+            module load conda/${CONDA_DATE}
+            conda activate base
+        fi
+        ```
+
+      - ThetaGPU:
+
+        ``` bash
+        if [[ "$(hostname)==theta*" ]]; then
+            export MACHINE="ThetaGPU"
+            export CONDA_DATE="2023-01-10"
+            module load conda/${CONDA_DATE}
+            conda activate base
+        fi
+        ```
+
+# Getting Started
+
+3.  Setup virtual environment[^2]:
+
+    ``` bash
+    cd Megatron-DeepSpeed
+    # create a new virtual environment
+    mkdir -p "venvs/${MACHINE}/${CONDA_DATE}"
+    python3 -m  venv "venvs/${MACHINE}/${CONDA_DATE}" --system-site-packages
+    source "venvs/${MACHINE}/${CONDA_DATE}/bin/activate"
+    ```
+
+4.  Create a new folder where we’ll install dependencies:
+
+    ``` bash
+    mkdir -p "deps/${MACHINE}"
+    cd "deps/${MACHINE}"
+    ```
+
+# Install Dependencies
+
+::: {.panel-tabset style=“font-size: 0.8em; width: 100%!important;
+height: 100%!important;”}
+
+<!-- ### pybind/pybind11 -->
+<!---->
+<!-- - [ `pybind/PyBind11`](https://github.com/pybind/pybind11) -->
+<!--   ```bash -->
+<!--   pip install pybind11 -->
+<!--   ``` -->
+
+###  Dao-AILab/flash-attention
+
+- The [new release]() supports three different implementations of
+  FlashAttention: (`v1.0.4`, `v2.x`, `triton`)
+
+- FlashAttention `v2.x` may have numerical instability issues. For the
+  best performance, we recommend using FlashAttention + Triton
+
+- [
+  `Dao-AILab/flash-attention`](https://github.com/Dao-AILab/flash-attention):
+
+  - `v1.0.4`:
+
+    ``` bash
+    python3 -m pip install flash-attn==1.0.4
+    ```
+
+  - `v2.x`:
+
+    ``` bash
+    git clone https://github.com/Dao-AILab/flash-attention
+    cd flash-attention
+    python3 setup.py install
+    ```
+
+  - `openai/triton`:
+
+    ``` bash
+    git clone -b legacy-backend https://github.com/openai/triton
+    cd triton/python
+    python3 -m pip install cmake pybind11
+    python3 -m pip install .
+    ```
+
+###  saforem2/ezpz
+
+<div id="ezpz">
+
+- [ `saforem2/ezpz`](https://github.com/saforem2/ezpz)
+
+  ``` bash
+  python3 -m pip install -e "git+https://github.com/saforem2/ezpz.git#egg=ezpz"
+  ```
+
+</div>
+
+###  NVIDIA/apex
+
+<div layout-valign="top">
 
 <table>
 <colgroup>
-<col style="width: 43%" />
-<col style="width: 2%" />
-<col style="width: 54%" />
+<col style="width: 50%" />
+<col style="width: 50%" />
 </colgroup>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;"><div id="column-one" width="43.5%"
+<td style="text-align: center;"><div width="50.0%"
+data-layout-align="center">
+<div>
+<blockquote>
+<p><strong> <code>conda/2023-10-04</code></strong></p>
+<!-- []{style='color:var(--dim-text);'} $\hspace{1pt}$ [Recent Talks]{.dim-text} -->
+<p>Note that <code>apex</code> is already installed in the base
+<code>conda/2023-10-04</code> environment on Polaris.</p>
+</blockquote>
+</div>
+</div></td>
+<td style="text-align: center;"><div width="50.0%"
+data-layout-align="center">
+<p><br></p>
+</div></td>
+</tr>
+</tbody>
+</table>
+
+<table style="width:50%;">
+<colgroup>
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><div id="column-two" width="50.0%"
 data-layout-align="center">
 <ul>
-<li><p>Sequence-to-sequence mapping with <code>matmul</code>s:</p>
+<li><p><a href="https://github.com/NVIDIA/apex">
+<code>NVIDIA/apex</code></a></p>
 <div class="sourceCode" id="cb1"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>inputs.shape  <span class="op">=</span> [batch, d_model, length]</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>outputs.shape <span class="op">=</span> [batch, d_model, length]</span></code></pre></div></li>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/NVIDIA/apex</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../apex/</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-v</span> <span class="dt">\ </span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">--disable-pip-version-check</span> <span class="dt">\</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--no-cache-dir</span> <span class="dt">\</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--no-build-isolation</span> <span class="dt">\</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--global-option</span><span class="op">=</span><span class="st">&quot;--cpp_ext&quot;</span> <span class="dt">\</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--global-option</span><span class="op">=</span><span class="st">&quot;--cuda_ext&quot;</span> <span class="dt">\</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">-e</span> <span class="dt">\</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  ./</span></code></pre></div></li>
 </ul>
-</div></td>
-<td style="text-align: center;"><div class="quarto-figure-spacer"
-width="2.2%" data-layout-align="center">
-<p> </p>
-</div></td>
-<td style="text-align: center;"><div id="column-two" width="54.4%"
-data-layout-align="center">
-<p><img src="./assets/diagrams/transformer.svg" /> Transformer
-Architecture (<span class="citation"
-data-cites="vaswani2017attention">Vaswani et al. (2017)</span>)</p>
 </div></td>
 </tr>
 </tbody>
@@ -268,148 +433,67 @@ data-cites="vaswani2017attention">Vaswani et al. (2017)</span>)</p>
 
 </div>
 
-# Data: Input / Output[^2]
+# Running
 
-- Inputs:
-  - text represented by a sequence of integers that map the **tokens**
-    in the text
+- The
+  [`ALCF/`](https://github.com/argonne-lcf/Megatron-DeepSpeed/tree/main/ALCF)
+  directory contains shell scripts for setting up the environment and
+  specifying options to be used for training.
 
-    ``` python
-    # integers represent tokens in our text, e.g.
-    # text = "not all heroes wear capes"
-    # tokens = ["not", "all", "heroes", "wear", "capes"]
-    inputs =   [1,     0,     4,        4,      6      ]
-    ```
+- Various options can be specified dynamically at runtime by setting
+  them in your environment, e.g.:
 
-# Data: Input / Output
-
-- Tokens are sub-pieces of the text, which are produced using some kind
-  of **tokenizer**[^3].
-
-- We can map tokens to integers using a **vocabulary**:
-
-  ``` python
-  vocab = ["all", "not", "heroes", "the", "wear", ".", "capes"]
-  # a pretend tokenizer that tokenizes on whitespace
-  tokenizer = WhitespaceTokenizer(vocab)
-  # encode(s: str) -> list[int]
-  ids = tokenizer.encode("not all heroes wear") # ids = [1, 0, 2, 4]
-  # we can see what the actual tokens are via our vocab mapping
-  # tokens = ["not", "all", "heroes", "wear"]
-  tokens = [tokenizer.vocab[i] for i in ids]
-  # the decode() method converts back a list[int] -> str
-  text = tokenizer.decode(ids) # text = "not all heroes wear"
+  ``` bash
+  # Set env. vars to use:
+  MODEL_SIZE_KEY="GPT25B"
+  SEQ_LEN=1024
+  USE_FLASH_ATTN=1
+  MICRO_BATCH=1
+  GAS=1
+  SP_TYPE="megatron"
+  ZERO_STAGE=1
+  # Launch training:
+  ./ALCF/train-gpt3.sh
   ```
 
-# Data: Input / Output
+# Details
 
-- In short:
-  - There is a `vocab` that maps string tokens to integer indicees
-  - There is an `encode: str -> list[int]`
-  - There is a `decode: list[int] -> str`
-- Output:
-  - The output is a **2D Array** where `output[i][j]` is the model’s
-    **predicted probability** that the token at `vocab[j]` is the next
-    token `inputs[i+1]`
+Explicitly:
 
-# Data: Output
-
-``` python
-vocab = ["all", "not", "heroes", "the", "wear", ".", "capes"]
-inputs = [1, 0, 2, 4] # "not" "all" "heroes" "wear"
-output = gpt(inputs)
-# ------------ ["all", "not", "heroes", "the", "wear", ".", "capes"]
-# output[0] =  [0.75    0.1     0.0       0.15    0.0   0.0    0.0  ]
-# • given just "not", the model predicts the word
-#   "all" with the highest probability
-# ------------ ["all", "not", "heroes", "the", "wear", ".", "capes"]
-# output[1] =  [0.0     0.0      0.8     0.1    0.0    0.0   0.1  ]
-# • given the sequence ["not", "all"], the model predicts the word
-#   "heroes" with the highest probability
-# ------------ ["all", "not", "heroes", "the", "wear", ".", "capes"]
-# output[-1] = [0.0     0.0     0.0     0.1     0.0    0.05  0.85  ]
-# • given the whole sequence ["not", "all", "heroes", "wear"],
-#   the model predicts the word
-#   "capes" with the highest probability
-```
-
-# Data: Output
-
-- To get a **next token prediction** for the whole sequence, we simply
-  take the token with the highest probability in `output[-1]`[^4]:
-
-  ``` python
-  vocab = ["all", "not", "heroes", "the", "wear", ".", "capes"]
-  inputs = [1, 0, 2, 4] # "not" "all" "heroes" "wear"
-  output = gpt(inputs)
-  next_token_id = np.argmax(output[-1]) # next_token_id = 6
-  next_token = vocab[next_token_id] # next_token = "capes"
-  ```
-
-# Generating Text
-
-- Auto-regressive
-  - We can generate complete sentences by iteratively generating the
-    next token prediction from our model.
-  - At each iteration,we append the predicted token back into the input:
-
-``` python
-def generate(inputs, n_tokens_to_generate):
-# auto-regressive decode loop
-for _ in range(n_tokens_to_generate):
-# model forward pass
-output = gpt(inputs)
-# greedy sampling
-next_id = np.argmax(output[-1])
-# append prediction to input
-inputs.append(int(next_id))
-# only return generated ids
-return inputs[len(inputs) - n_tokens_to_generate :]
-```
-
-# Generating Text (cont’d)
-
-``` python
-# "not" "all"
-input_ids = [1, 0]
-# output_ids = [2, 4, 6]
-output_ids = generate(input_ids, 3)
-# "heroes" "wear" "capes"
-output_tokens = [vocab[i] for i in output_ids]
-```
-
-# Training
-
-``` python
-def lm_loss(inputs: list[int], params) -> float:
-    # the labels y are just the input shifted 1 to the left
-    #
-    # inputs = [not,     all,   heros,   wear,   capes]
-    #      x = [not,     all,   heroes,  wear]
-    #      y = [all,  heroes,     wear,  capes]
-    #
-    # of course, we don't have a label for inputs[-1], so we exclude it from x
-    #
-    # as such, for N inputs, we have N - 1 langauge modeling example pairs
-    x, y = inputs[:-1], inputs[1:]
-
-    # forward pass
-    # all the predicted next token probability distributions at each position
-    output = gpt(x, params)
-
-    # cross entropy loss
-    # we take the average over all N-1 examples
-    loss = np.mean(-np.log(output[y]))
-
-    return loss
-```
+- [
+  `ALCF/train-gpt3.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/train-gpt3.sh):
+  **Main entry point for training**. This script will:
+  - Source the rest of the required
+    [`ALCF/*.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/)
+    scripts below <!-- - Launch `mpiexec <mpiexec-args> python3` -->
+    <!--   [`pretrain_gpt.py`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/pretrain_gpt.py`) -->
+    <!--   `<gpt-args>` -->
+- [
+  `ALCF/models.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/models.sh):
+  Contains some example model architectures for GPT3-style models
+- [
+  `ALCF/args.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/args.sh):
+  Logic for parsing / setting up runtime options for Megatron and
+  DeepSpeed
+- [
+  `ALCF/setup.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/args.sh):
+  Locate and activate virtual environment to be used, ensure MPI
+  variables are set properly
+- [
+  `ALCF/launch.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/launch.sh):
+  Identify available resources and build the command to be executed
+  - i.e. figure out how many: `{nodes, GPUs per node, GPUs total}`, to
+    pass to `mpi{run,exec}`
+  - then, use this to launch `mpiexec <mpiexec-args> python3`
+    [`pretrain_gpt.py`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/pretrain_gpt.py%60)
+    `<gpt-args>`
 
 # Parallelism Overview
 
-> ***Modern parallelism techniques** enables the training of large
+> ***Modern parallelism techniques** enable the training of large
 > language models*
 
-# Parallelism Concepts[^5]
+# Parallelism Concepts[^3]
 
 - **DataParallel (DP)**:
   - The same setup is replicated multiple times, and each being fed a
@@ -424,7 +508,7 @@ def lm_loss(inputs: list[int], params) -> float:
     horizontal parallelism, as the splitting happens on horizontal
     level.
 
-# Parallelism Concepts[^6]
+# Parallelism Concepts[^4]
 
 - **PipelineParallel (PP)**:
   - Model is split up vertically (layer-level) across multiple GPUs, so
@@ -449,7 +533,7 @@ def lm_loss(inputs: list[int], params) -> float:
     the data*.
   - `DDP` supported in PyTorch native.
 - ZeRO Data Parallel
-  - ZeRO powered data parallelism is shown below[^7]
+  - ZeRO powered data parallelism is shown below[^5]
 
 <div style="text-align: center;">
 
@@ -457,7 +541,7 @@ def lm_loss(inputs: list[int], params) -> float:
 
 </div>
 
-# Tensor Parallelism[^8]
+# Tensor Parallelism[^6]
 
 - In **Tensor Paralleism** each GPU processes only a slice of a tensor
   and only aggregates the full tensor for operations that require the
@@ -496,7 +580,7 @@ by [@anton-l](https://github.com/anton-l)
 
 ![](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/Blog_DeepSpeed3_Figure-1_highres-2048x1230.png)
 
-Figure 6: **?(caption)**
+Figure 8: **?(caption)**
 
 </div>
 
@@ -510,6 +594,27 @@ Figure 6: **?(caption)**
 
 Figure taken from [3D parallelism: Scaling to trillion-parameter
 models](https://www.microsoft.com/en-us/research/blog/deepspeed-extreme-scale-model-training-for-everyone/)
+
+</div>
+
+# [DeepSpeed4Science](https://deepspeed4science.ai/)
+
+- [Long Sequence Support for GenSLM
+  Model](https://deepspeed4science.ai/2023/09/18/model-showcase-genslms/)
+
+<div id="ds4sci-logo" style="text-align: center;">
+
+<img src="https://saforem2.github.io/assets/ds4sci.svg"
+style="width:80.0%" data-align="center" />
+
+</div>
+
+<div id="genslm" style="text-align: center; font-size: 0.8em;">
+
+<img src="https://deepspeed4science.ai/wp-content/uploads/2023/09/Figure-8.gif" width="75%" align="center" />
+
+Latent space of biologically meaningful properties for SARS-CoV-2
+genomes
 
 </div>
 
@@ -540,7 +645,7 @@ Table 2: Long sequence length support from
 
 - Working with [ Microsoft
   DeepSpeed](https://github.com/microsoft/DeepSpeed) team to enable
-  longer sequence lengths (context windows) for LLMs[^9]
+  longer sequence lengths (context windows) for LLMs[^7]
 
 <div id="fig-ds4sci" style="text-align:center;">
 
@@ -563,7 +668,7 @@ style="width:49.0%" alt="33B" /></p>
 </tbody>
 </table>
 
-Figure 7: Maximum (achievable) `SEQ_LEN` for both `25B` and `33B` models
+Figure 9: Maximum (achievable) `SEQ_LEN` for both `25B` and `33B` models
 <span class="red-text">$[$WIP$]$</span>
 
 </div>
@@ -590,7 +695,7 @@ style="width:49.0%" alt="33B" />
   - Explicitly, we see that we are able to scale up to significantly
     longer sequences:  
     (`420k / 128k ~ 3.3x`) with only a minimal impact on throughput  
-    performance: (`81 / 105 ~ 77%`)[^10].
+    performance: (`81 / 105 ~ 77%`)[^8].
 
 <div style="font-size:0.8em;">
 
@@ -614,182 +719,6 @@ Table from:
 
 </div>
 
-# Getting Started
-
-- Installation:
-  1.  Clone GitHub repo:
-
-      ``` bash
-      git clone https://github.com/argonne-lcf/Megatron-DeepSpeed
-      ```
-
-  2.  Load Conda module:
-
-      - ThetaGPU:
-
-        ``` bash
-        if [[ "$(hostname)==theta*" ]]; then
-            export MACHINE="ThetaGPU"
-            export CONDA_DATE="2023-01-10"
-            module load conda/${CONDA_DATE}
-            conda activate base
-        fi
-        ```
-
-      - Polaris:
-
-        ``` bash
-        if [[ "$(hostname)==x3*" ]]; then
-            export MACHINE="ThetaGPU"
-            export CONDA_DATE="2023-10-04"
-            module load conda/${CONDA_DATE}
-            conda activate base
-        fi
-        ```
-
-# Getting Started
-
-3.  Setup virtual environment:
-
-    ``` bash
-    cd Megatron-DeepSpeed
-    # create a new virtual environment
-    mkdir -p "venvs/${MACHINE}/${CONDA_DATE}"
-    python3 -m  venv "venvs/${MACHINE}/${CONDA_DATE}" --system-site-packages
-    source "venvs/${MACHINE}/${CONDA_DATE}/bin/activate"
-    ```
-
-4.  Create a new folder where we’ll install dependencies:
-
-    ``` bash
-    mkdir -p "deps/${MACHINE}"
-    cd "deps/${MACHINE}"
-    ```
-
-# Install Dependencies
-
-<div class="panel-tabset"
-style="font-size: 0.8em; width: 100%!important; height: 100%!important;">
-
-### saforem2/ezpz
-
-<div id="ezpz">
-
-- [ `saforem2/ezpz`](https://github.com/saforem2/ezpz)
-
-  ``` bash
-  pip install -e "git+https://github.com/saforem2/ezpz.git#egg=ezpz"
-  ```
-
-</div>
-
-### NVIDIA/apex
-
-- [ `NVIDIA/apex`](https://github.com/NVIDIA/apex)
-
-  ``` bash
-  git clone https://github.com/NVIDIA/apex
-  cd ../apex/
-  pip install -v --disable-pip-version-check --no-cache-dir --no-build-isolation --global-option="--cpp_ext" --global-option="--cuda_ext" -e ./
-  ```
-
-### pybind/pybind11
-
-- [ `pybind/PyBind11`](https://github.com/pybind/pybind11)
-
-  ``` bash
-  pip install pybind11
-  ```
-
-### Dao-AILab/flash-attention
-
-- [
-  `Dao-AILab/flash-attention`](https://github.com/Dao-AILab/flash-attention)
-
-- The new release supports three different implementations of
-  FlashAttention: (`v1.0.4`, `v2.x`, `triton`)
-
-- FlashAttention `v2.x` may have numerical instability issues. For the
-  best performance, we recommend using FlashAttention + Triton
-
-- [
-  `Dao-AILab/flash-attention`](https://github.com/Dao-AILab/flash-attention):
-
-  - `v1.0.4`:
-
-    ``` bash
-    python3 -m pip install flash-attn==1.0.4
-    ```
-
-  - `v2.x`:
-
-    ``` bash
-    git clone https://github.com/Dao-AILab/flash-attention
-    cd flash-attention
-    python3 setup.py install
-    ```
-
-  - `openai/triton`:
-
-    ``` bash
-    git clone -b legacy-backend https://github.com/openai/triton
-    cd triton/python
-    python3 -m pip install cmake
-    python3 -m pip install .
-    ```
-
-</div>
-
-# Running
-
-- The
-  [`ALCF/`](https://github.com/argonne-lcf/Megatron-DeepSpeed/tree/main/ALCF)
-  directory contains shell scripts for setting up the environment and
-  specifying options to be used for training.
-
-- Various options can be specified dynamically at runtime by setting
-  them in your environment, e.g.:
-
-  ``` bash
-  # Set env. vars to use:
-  MODEL_SIZE_KEY="GPT25B" SEQ_LEN=128000 USE_FLASH_ATTN=1
-  MICRO_BATCH=1 GAS=1 SP_TYPE="megatron" ZERO_STAGE=1
-  # Launch training:
-  ./ALCF/train-gpt3.sh
-  ```
-
-# Details
-
-Explicitly:
-
-- [
-  `ALCF/train-gpt3.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/train-gpt3.sh):
-  **Main entry point for training**. This script will:
-  - Source the rest of the required
-    [`ALCF/*.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/)
-    scripts below <!-- - Launch `mpiexec <mpiexec-args> python3` -->
-    <!--   [`pretrain_gpt.py`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/pretrain_gpt.py`) -->
-    <!--   `<gpt-args>` -->
-- [
-  `ALCF/models.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/models.sh):
-  Contains some example model architectures for GPT3-style models
-- [
-  `ALCF/args.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/args.sh):
-  Logic for parsing / setting up runtime options for Megatron and
-  DeepSpeed
-- [
-  `ALCF/setup.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/args.sh):
-  Locate and activate virtual environment to be used, ensure MPI
-  variables are set properly
-- [
-  `ALCF/launch.sh`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/launch.sh):
-  Identify available resources and build the command to be executed
-  - i.e. figure out how many: `{nodes, GPUs per node, GPUs total}`, to
-    pass to `mpi{run,exec}`
-  - then, use this to launch `mpiexec <mpiexec-args> python3`
-    [`pretrain_gpt.py`](https://github.com/argonne-lcf/Megatron-DeepSpeed/blob/main/ALCF/pretrain_gpt.py%60)
-    `<gpt-args>`
-
 # References
 
 1.  [
@@ -805,63 +734,13 @@ Explicitly:
     Transformer](https://ig.ft.com/generative-ai/)
 6.  [GPT in 60 Lines of
     Numpy](https://jaykmody.com/blog/gpt-from-scratch/)
-
-# Backup Slides
-
-# Background
-
-::: {layout=“\[ 40, -5, 35 \]”}
-
-<div id="first-column">
-
-- Large Language models work *autoregressively*
-
-  :::
-
-<div id="second-column">
-
-<div id="fig-autoregression">
-
-![](https://miro.medium.com/v2/resize:fit:640/1*3S_Td7UNBT-u8pRnNiZ53w.gif)
-
-Figure 8: Autoregressive generation of tokens by a language model. GIF
-by [Echo Lu](https://www.linkedin.com/in/echoxlu/), containing a
-modification of an image by [Annie
-Surla](https://developer.nvidia.com/blog/author/anniesurla/), adapted
-from Montgomery (2023)
-
-</div>
-
-</div>
-
-</div>
-
-## Training
-
-- Let’s assume our output vocab has only six words:
-  <img src="http://jalammar.github.io/images/t/vocabulary.png" width="80%">
-
-- How do you compare two probability distributions?
-
-  - `[cross_entropy, KL-Divergence, ...]`
-
-- One-hot encoding of the word “am”:
-  <img src="http://jalammar.github.io/images/t/one-hot-vocabulary-example.png" width="80%" />
-
-## Training: Loss Function
-
-- Output:  
-  <img src="http://jalammar.github.io/images/t/transformer_logits_output_and_label.png" width="80%" />
+7.  [Better Language Models and their
+    Implications](https://openai.com/research/better-language-models)  
+8.  <span class="green-text"></span> [Progress / Artefacts / Outcomes
+    from 🌸 Bloom
+    BigScience](https://bigscience.notion.site/ebe3760ae1724dcc92f2e6877de0938f?v=2faf85dc00794321be14bc892539dd4f)
 
 <div id="refs" class="references csl-bib-body hanging-indent">
-
-<div id="ref-Montgomery_2023" class="csl-entry">
-
-Montgomery, Samuel. 2023. “Mastering Language Models.” *Medium*. Towards
-Data Science.
-<https://towardsdatascience.com/mastering-language-models-32e1d891511a>.
-
-</div>
 
 <div id="ref-vaswani2017attention" class="csl-entry">
 
@@ -894,31 +773,23 @@ Problem Solving with Large Language Models.”
 [^1]: [
     `Hannibal046/Awesome-LLM`](https://github.com/Hannibal046/Awesome-LLM)
 
-[^2]: [GPT in 60 Lines of
-    Numpy](https://jaykmody.com/blog/gpt-from-scratch/)
+[^2]: **On-top of** the base `conda` environment
+    (`--system-site-packages`)
 
-[^3]: The task of predicting the next logical word in a sequence is
-    called **language modeling**.
-
-[^4]: Taking the token with the highest probability as our prediction is
-    known as [*greedy
-    decoding*](https://docs.cohere.ai/docs/controlling-generation-with-top-k-top-p#1-pick-the-top-token-greedy-decoding)
-    or *greedy sampling*.
-
-[^5]: [🤗 Model
+[^3]: [🤗 Model
     Parallelism](https://huggingface.co/docs/transformers/v4.15.0/parallelism)
 
-[^6]: [🤗 Model
+[^4]: [🤗 Model
     Parallelism](https://huggingface.co/docs/transformers/v4.15.0/parallelism)
 
-[^7]: [Blog
+[^5]: [Blog
     Post](https://www.microsoft.com/en-us/research/blog/zero-deepspeed-new-system-optimizations-enable-training-models-with-over-100-billion-parameters/)
 
-[^8]: [Efficient Large-Scale Language Model Training on GPU
+[^6]: [Efficient Large-Scale Language Model Training on GPU
     Clusters](https://arxiv.org/abs/2104.04473)
 
-[^9]: The described experiments were performed on 4 NVIDIA DGX A100-40GB
+[^7]: The described experiments were performed on 4 NVIDIA DGX A100-40GB
     nodes, all using TPSIZE=32\[^tpsize\], connected through 8 HDR
     InfiniBand (200Gb/s per HDR).↩︎
 
-[^10]: [`throughput/TFLOPS`](https://api.wandb.ai/links/l2hmc-qcd/awklywn7)
+[^8]: [`throughput/TFLOPS`](https://api.wandb.ai/links/l2hmc-qcd/awklywn7)

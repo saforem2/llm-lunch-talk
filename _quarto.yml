@@ -26,6 +26,11 @@ google-analytics: G-XVM2Y822Y1
 #
 website:
   favicon: "./favicon.svg"
+  description: "My ramblings about science and computers"
+  twitter-card:
+    image: "./assets/thumbnail.png"
+    site: "@saforem2"
+    creator: "@saforem2"
 
 author:
   name: Sam Foreman
