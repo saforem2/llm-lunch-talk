@@ -1,6 +1,9 @@
 project:
   type: website
   output-dir: docs
+  # render:
+  #   - slides.qmd
+  #   # - index.qmd
   preview:
     port: 4269
 
@@ -27,18 +30,66 @@ google-analytics: G-XVM2Y822Y1
 website:
   favicon: "./favicon.svg"
   description: "LLMs on Polaris (2023-10-11)"
+  page-navigation: true
+  title: "LLMs on Polaris"
+  site-url: "https://saforem2.github.io/llm-lunch-talk"
+  # favicon: "./favicon.svg"
+  back-to-top-navigation: true
+  # reader-mode: true
+  open-graph: true
+  repo-url: https://github.com/saforem2/llm-lunch-talk
+  repo-actions: [source, edit, issue]
+  google-analytics: G-XVM2Y822Y1
+  sidebar: false
+  navbar:
+    logo: "./favicon.svg"
+    background: "#222222"
+    foregound: "#777777"
+    right:
+      - icon: github
+        href: https://github.com/saforem2/llm-lunch-talk
+        aria-label: GitHub
+  page-footer:
+    left: "[samforeman.me](https://samforeman.me)"
+    right: "Copyright 2023, Sam Foreman" 
+    center:
+      - href: https://samforeman.me
+        text: "{{< fa solid home >}}"
+      - icon: github
+        href: https://github.com/saforem2
+      - icon: twitter
+        href: https://twitter.com/saforem2
+      - href: "mailto:///foremans@anl.gov"
+        text: "{{< fa regular paper-plane >}}"
+      - href: https://www.twitter.com/saforem2
+        text: "{{< fa brands twitter >}}"
+      - href: https://scholar.google.com/citations?user=vV_1zDwAAAAJ&hl=en
+        text: "{{< ai google-scholar >}}"
+      - href: https://orcid.org/0000-0002-9981-0876
+        text: "{{< ai orcid >}}"
+      - href: https://www.last.fm/user/saforem2
+        text: "{{< fa brands lastfm >}}"
+      - href: https://open.spotify.com/user/saforem2
+        text: "{{< fa brands spotify >}}"
+      - href: https://www.instagram.com/saforem2
+        text: "{{< fa brands instagram >}}"
+      - href: https://linkedin.com/in/saforem2
+        text: "{{< fa brands linkedin >}}"
   twitter-card:
     image: "https://github.com/saforem2/llm-lunch-talk/blob/main/docs/assets/thumbnail.png?raw=true"
     site: "@saforem2"
     creator: "@saforem2"
 
 author:
-  name: Sam Foreman
+  # name: Sam Foreman
+  name: "Sam Foreman [[{{< ai orcid >}}]{.orcid-green}](https://orcid.org/0000-0002-9981-0876)"
   url: https://samforeman.me
-  orcid: 0000-0002-9981-0876
+  # orcid: 0000-0002-9981-0876
   email: foremans@anl.gov
   affiliation: Argonne National Laboratory
   affiliation-url: https://alcf.anl.gov/about/people/sam-foreman
+  # affiliation: Argonne National Laboratory
+  # affiliation-url: https://alcf.anl.gov/about/people/sam-foreman
 citation:
    author: Sam Foreman
    type: speech
@@ -84,8 +135,8 @@ format:
     smooth-scroll: false
     citations-hover: true
     footnotes-hover: true
-    header-includes: |
-      <link href="https://pvinis.github.io/iosevka-webfont/3.4.1/iosevka.css" rel="stylesheet" />
+    # header-includes: |
+    #   <link href="https://pvinis.github.io/iosevka-webfont/3.4.1/iosevka.css" rel="stylesheet" />
   revealjs:
     code-line-numbers: false
     code-link: false
@@ -101,33 +152,24 @@ format:
       buttons: false
     auto-animate: true
     reference-location: section
-    touch: true
-    pause: false
-    footnotes-hover: true
-    citations-hover: true
+    # touch: true
+    # pause: false
+    # footnotes-hover: true
+    # citations-hover: true
     preview-links: true
     controls-tutorial: true
     controls: false
-    logo: "assets/anl.svg"
+    logo: "https://raw.githubusercontent.com/saforem2/llm-lunch-talk/main/docs/assets/anl.svg"
     history: false
     highlight-style: "atom-one"
-    # theme: [dark, css/dark.scss]
-    # css: [css/default.css, css/callouts-html.css]
     css:
       - css/default.css
       - css/callouts-html.css
-    # theme: [css/light.scss, css/common.scss, css/syntax-light.scss]
     theme:
       - white
-      # - css/light.scss
+      - css/light.scss
       - css/common.scss
       - css/syntax-light.scss
-      - css/pdf.scss
-      # dark:
-      #   - css/dark.scss
-      #   - css/common.scss
-      #   - css/syntax-dark.scss
-    # css: [css/default.css, css/callouts.css, css/code-callout.css]
     self-contained: false
     embed-resources: false
     self-contained-math: false
@@ -139,8 +181,62 @@ format:
     mermaid:
       theme: dark
   gfm:
-    author: Sam Foreman
     output-file: "README.md"
+  # revealjs:
+  #   code-line-numbers: false
+  #   code-link: false
+  #   code-copy: false
+  #   # callout-appearance: simple
+  #   # syntax-definitions:
+  #   #   - ./docs/python.xml
+  #   scrollable: true
+  #   title-block-style: none
+  #   slide-number: c
+  #   title-slide-style: default
+  #   chalkboard:
+  #     buttons: false
+  #   auto-animate: true
+  #   reference-location: section
+  #   touch: true
+  #   pause: false
+  #   footnotes-hover: true
+  #   citations-hover: true
+  #   preview-links: true
+  #   controls-tutorial: true
+  #   controls: false
+  #   logo: "assets/anl.svg"
+  #   history: false
+  #   highlight-style: "atom-one"
+  #   # theme: [dark, css/dark.scss]
+  #   # css: [css/default.css, css/callouts-html.css]
+  #   css:
+  #     - css/default.css
+  #     - css/callouts-html.css
+  #   # theme: [css/light.scss, css/common.scss, css/syntax-light.scss]
+  #   theme:
+  #     - white
+  #     # - css/light.scss
+  #     - css/common.scss
+  #     - css/syntax-light.scss
+  #     - css/pdf.scss
+  #     # dark:
+  #     #   - css/dark.scss
+  #     #   - css/common.scss
+  #     #   - css/syntax-dark.scss
+  #   # css: [css/default.css, css/callouts.css, css/code-callout.css]
+  #   self-contained: false
+  #   embed-resources: false
+  #   self-contained-math: false
+  #   center: true
+  #   default-image-extension: svg
+  #   code-overflow: scroll
+  #   html-math-method: katex
+  #   fig-align: center
+  #   mermaid:
+  #     theme: dark
+  # gfm:
+  #   author: Sam Foreman
+  #   output-file: "README.md"
 # include-in-header:
 #   text: |
 #     <script src="https://unpkg.com/shiki"></script>

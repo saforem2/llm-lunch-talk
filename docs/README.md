@@ -1,5 +1,6 @@
 # LLMs on Polaris
 Sam Foreman
+[<span class="orcid-green">{{< ai orcid >}}</span>](https://orcid.org/0000-0002-9981-0876)
 2023-10-11
 
 # 
@@ -57,14 +58,11 @@ Ongoing / recent work:
 <div class="column" width="50%">
 
 - [AI + Science](https://github.com/saforem2/)
-
   - [Building better sampling methods for Lattice
     QCD](https://github.com/saforem2/l2hmc-qcd)
-
   - [GenSLMs: Genome-scale language models reveal SARS-CoV-2
     evolutionary
     dynamics](https://www.biorxiv.org/content/10.1101/2022.10.10.511571v2)
-
   - [Foundation models for long term climate
     forecasting](https://saforem2.github.io/climate-analysis)
 
@@ -74,12 +72,9 @@ Ongoing / recent work:
 
 - [Scaling Large Language
   Models](https://github.com/saforem2/Megatron-DS-Benchmarking)
-
 - [Optimizing distibuted training across thousands of
   GPUs](https://github.com/argonne-lcf/mlprof)
-
 - Building new parallelism techniques for efficient scaling
-
 - Generative modeling (esp. for physical systems)
 
 </div>
@@ -597,6 +592,15 @@ using: /lus/grand/projects/fallwkshp23/foremans/locations/polaris/projects/argon
     ```
 
 # Install Dependencies
+
+<div>
+
+> ** `conda/2023-10-04`**
+>
+> **Note**: The following instructions *should be* unnecessary on
+> Polaris.
+
+</div>
 
 <div class="panel-tabset"
 style="font-size: 0.8em; width: 100%!important; height: 100%!important;">
