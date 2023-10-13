@@ -21,6 +21,21 @@ bibliography: references.bib
 appendix-cite-as: display
 google-scholar: true
 google-analytics: G-XVM2Y822Y1
+author:
+  # name: Sam Foreman
+  name: "Sam Foreman [[{{< ai orcid >}}]{.orcid-green}](https://orcid.org/0000-0002-9981-0876)"
+  url: https://samforeman.me
+  # orcid: 0000-0002-9981-0876
+  email: foremans@anl.gov
+  affiliation: Argonne National Laboratory
+  affiliation-url: https://alcf.anl.gov/about/people/sam-foreman
+  # affiliation: Argonne National Laboratory
+  # affiliation-url: https://alcf.anl.gov/about/people/sam-foreman
+citation:
+   author: Sam Foreman
+   type: speech
+   title: "LLMs at ALCF"
+   url: https://saforem2.github.io/llm-lunch-talk
 # favicon: "./assets/favicon.svg"
 # format:
 #   html:
@@ -80,21 +95,6 @@ website:
     site: "@saforem2"
     creator: "@saforem2"
 
-author:
-  # name: Sam Foreman
-  name: "Sam Foreman [[{{< ai orcid >}}]{.orcid-green}](https://orcid.org/0000-0002-9981-0876)"
-  url: https://samforeman.me
-  # orcid: 0000-0002-9981-0876
-  email: foremans@anl.gov
-  affiliation: Argonne National Laboratory
-  affiliation-url: https://alcf.anl.gov/about/people/sam-foreman
-  # affiliation: Argonne National Laboratory
-  # affiliation-url: https://alcf.anl.gov/about/people/sam-foreman
-citation:
-   author: Sam Foreman
-   type: speech
-   title: "LLMs at ALCF"
-   url: https://saforem2.github.io/llm-lunch-talk
 format:
   html:
     callout-appearance: simple
@@ -137,51 +137,51 @@ format:
     footnotes-hover: true
     # header-includes: |
     #   <link href="https://pvinis.github.io/iosevka-webfont/3.4.1/iosevka.css" rel="stylesheet" />
-  revealjs:
-    code-line-numbers: false
-    code-link: false
-    code-copy: false
-    # callout-appearance: simple
-    # syntax-definitions:
-    #   - ./docs/python.xml
-    scrollable: true
-    title-block-style: none
-    slide-number: c
-    title-slide-style: default
-    chalkboard:
-      buttons: false
-    auto-animate: true
-    reference-location: section
-    # touch: true
-    # pause: false
-    # footnotes-hover: true
-    # citations-hover: true
-    preview-links: true
-    controls-tutorial: true
-    controls: false
-    logo: "https://raw.githubusercontent.com/saforem2/llm-lunch-talk/main/docs/assets/anl.svg"
-    history: false
-    highlight-style: "atom-one"
-    css:
-      - css/default.css
-      - css/callouts-html.css
-    theme:
-      - white
-      - css/light.scss
-      - css/common.scss
-      - css/syntax-light.scss
-    self-contained: false
-    embed-resources: false
-    self-contained-math: false
-    center: true
-    default-image-extension: svg
-    code-overflow: scroll
-    html-math-method: katex
-    fig-align: center
-    mermaid:
-      theme: dark
-  gfm:
-    output-file: "README.md"
+  # revealjs:
+  #   code-line-numbers: false
+  #   code-link: false
+  #   code-copy: false
+  #   # callout-appearance: simple
+  #   # syntax-definitions:
+  #   #   - ./docs/python.xml
+  #   scrollable: true
+  #   title-block-style: none
+  #   slide-number: c
+  #   title-slide-style: default
+  #   chalkboard:
+  #     buttons: false
+  #   auto-animate: true
+  #   reference-location: section
+  #   # touch: true
+  #   # pause: false
+  #   # footnotes-hover: true
+  #   # citations-hover: true
+  #   preview-links: true
+  #   controls-tutorial: true
+  #   controls: false
+  #   logo: "https://raw.githubusercontent.com/saforem2/llm-lunch-talk/main/docs/assets/anl.svg"
+  #   history: false
+  #   highlight-style: "atom-one"
+  #   css:
+  #     - css/default.css
+  #     - css/callouts-html.css
+  #   theme:
+  #     - white
+  #     - css/light.scss
+  #     - css/common.scss
+  #     - css/syntax-light.scss
+  #   self-contained: false
+  #   embed-resources: false
+  #   self-contained-math: false
+  #   center: true
+  #   default-image-extension: svg
+  #   code-overflow: scroll
+  #   html-math-method: katex
+  #   fig-align: center
+  #   mermaid:
+  #     theme: dark
+  # gfm:
+  #   output-file: "readme.md"
   # revealjs:
   #   code-line-numbers: false
   #   code-link: false
@@ -235,35 +235,35 @@ format:
   #   mermaid:
   #     theme: dark
   # gfm:
-  #   author: Sam Foreman
-  #   output-file: "README.md"
+  #   author: sam foreman
+  #   output-file: "readme.md"
 # include-in-header:
 #   text: |
 #     <script src="https://unpkg.com/shiki"></script>
 #     <script>
 #       shiki
-#         .getHighlighter({
+#         .gethighlighter({
 #           theme: 'dracula',
 #           langs: ['python', 'html', 'bash', 'markdown', 'js', 'css'],
 #         })
 #         .then(highlighter => {
-#           const code = highlighter.codeToHtml(`console.log('shiki');`, { lang: 'js' })
-#             document.getElementById('output').innerHTML = code
+#           const code = highlighter.codetohtml(`console.log('shiki');`, { lang: 'js' })
+#             document.getelementbyid('output').innerhtml = code
 #         })
 #     </script>
-   # genre: "Presentation at the 2023 International Symposium on Lattice Field Theory"
+   # genre: "presentation at the 2023 international symposium on lattice field theory"
    # container-title: https://indico.fnal.gov/event/57249/contributions/271305/
-   # title: "MLMC: Machine Learning Monte Carlo for Lattice Gauge Theory"
+   # title: "mlmc: machine learning monte carlo for lattice gauge theory"
    # url: https://saforem2.github.io/lattice23
    # abstract: | 
-   #   We present a trainable framework for efficiently generating gauge
-   #   configurations, and discuss ongoing work in this direction. In particular, we
-   #   consider the problem of sampling configurations from a 4D 𝑆𝑈(3) lattice gauge
+   #   we present a trainable framework for efficiently generating gauge
+   #   configurations, and discuss ongoing work in this direction. in particular, we
+   #   consider the problem of sampling configurations from a 4d 𝑆𝑈(3) lattice gauge
    #   theory, and consider a generalized leapfrog integrator in the molecular
    #   dynamics update that can be trained to improve sampling efficiency.
   # -----------------------
   # type: article-journal
-  # container-title: ACM Transactions on Embedded Computing Systems
+  # container-title: acm transactions on embedded computing systems
   # volume: 21
   # issue: 2
   # issued: 2022-03
@@ -271,7 +271,7 @@ format:
   # doi: 10.1145/3514174
   # -----------------------
   # type: speech
-  # container-title: "Journal of Data Science Software"
+  # container-title: "journal of data science software"
   # doi: "10.23915/reprodocs.00010"
   # url: https://example.com/summarizing-output
   # -----------------------
@@ -283,36 +283,36 @@ format:
 #
 # # website:
 # #   page-navigation: true
-# #   title: "MLMC: Machine Learning Monte Carlo"
+# #   title: "mlmc: machine learning monte carlo"
 # #   # site-url: "https://saforem2.github.io/mlmc"
 # #   # favicon: "./assets/favicon.svg"
 # appendix-cite-as: display	
 # citation:
 #    type: speech
-#    genre: "Presentation at the 2023 International Symposium on Lattice Field Theory"
+#    genre: "presentation at the 2023 international symposium on lattice field theory"
 #    container-title: https://indico.fnal.gov/event/57249/contributions/271305/
-#    title: "MLMC: Machine Learning Monte Carlo for Lattice Gauge Theory"
+#    title: "mlmc: machine learning monte carlo for lattice gauge theory"
 #    url: https://saforem2.github.io/lattice23
 # author:
-#   - name: Sam Foreman
+#   - name: sam foreman
 #     # id: sf
 #     url: https://samforeman.me
 #     orcid: 0000-0002-9981-0876
 #     email: foremans@anl.gov
-#     affiliation: "Argonne National Laboratory"
+#     affiliation: "argonne national laboratory"
 #     affiliation-url: https://alcf.anl.gov/about/people/sam-foreman
 #
 #     # affiliation: 
-#     #   - name: Argonne National Laboratory
-#     #     city: Chicago
-#     #     state: IL
+#     #   - name: argonne national laboratory
+#     #     city: chicago
+#     #     state: il
 #     #     url: https://alcf.anl.gov
 #     #
 # favicon: "./assets/favicon.svg"
-# google-analytics: G-XVM2Y822Y1
-# # title: A Published Conference Paper
+# google-analytics: g-xvm2y822y1
+# # title: a published conference paper
 # # author:
-# #   - name: Norah Jones
+# #   - name: norah jones
 # #     affiliation: School of Hard Knocks
 # #     orcid: 0000-0001-8715-9476
 # # citation:

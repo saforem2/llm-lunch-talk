@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://saforem2.github.io/llm-lunch-talk/index.html</loc>
-    <lastmod>2023-10-12T03:20:32.716Z</lastmod>
-  </url>
-  <url>
     <loc>https://saforem2.github.io/llm-lunch-talk/site.html</loc>
-    <lastmod>2023-10-12T03:20:28.325Z</lastmod>
-  </url>
-  <url>
-    <loc>https://saforem2.github.io/llm-lunch-talk/venvs/py310/lib/python3.10/site-packages/pipenv/vendor/markupsafe/LICENSE.html</loc>
-    <lastmod>2023-10-12T03:20:27.116Z</lastmod>
-  </url>
-  <url>
-    <loc>https://saforem2.github.io/llm-lunch-talk/venvs/py310/lib/python3.10/site-packages/pipenv/patched/pip/LICENSE.html</loc>
-    <lastmod>2023-10-12T03:20:26.468Z</lastmod>
+    <lastmod>2023-10-12T04:02:07.058Z</lastmod>
   </url>
   <url>
     <loc>https://saforem2.github.io/llm-lunch-talk/venvs/py310/lib/python3.10/site-packages/pipenv/vendor/click/LICENSE.html</loc>
-    <lastmod>2023-10-12T03:20:27.747Z</lastmod>
+    <lastmod>2023-10-12T04:02:04.409Z</lastmod>
+  </url>
+  <url>
+    <loc>https://saforem2.github.io/llm-lunch-talk/venvs/py310/lib/python3.10/site-packages/pipenv/patched/pip/LICENSE.html</loc>
+    <lastmod>2023-10-12T04:02:03.114Z</lastmod>
+  </url>
+  <url>
+    <loc>https://saforem2.github.io/llm-lunch-talk/venvs/py310/lib/python3.10/site-packages/pipenv/vendor/markupsafe/LICENSE.html</loc>
+    <lastmod>2023-10-12T04:02:03.774Z</lastmod>
+  </url>
+  <url>
+    <loc>https://saforem2.github.io/llm-lunch-talk/index.html</loc>
+    <lastmod>2023-10-13T15:19:14.995Z</lastmod>
   </url>
 </urlset>

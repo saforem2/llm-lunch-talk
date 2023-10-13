@@ -1,7 +1,6 @@
 # LLMs on Polaris
 Sam Foreman
-[<span class="orcid-green">{{< ai orcid >}}</span>](https://orcid.org/0000-0002-9981-0876)
-2023-10-11
+2023-10-13
 
 # 
 
@@ -32,11 +31,15 @@ Workshop</span>
 
 <div class="footer">
 
-<div style="text-shadow: 2px 2px 3px rgba(0,0,0,0.8); color: #FFFFFF; text-align: left; margin-left: 7%;">
+<div style="text-shadow: 2px 2px 3px rgba(0,0,0,0.8); color: #FFFFFF; text-align: left; margin-left: 11%; font-size: 0.9em;">
 
-Sam Foreman  
-[<span style="color: #227D61">LLMs on
+<!-- [[ Sam Foreman]{style="color:#757575;"}](https://samforeman.me)   -->
+
+[<span style="color: #757575"> LLMs on
 Polaris</span>](https://saforem2.github.io/llm-lunch-talk)
+<span class="dim-text">@</span> [<span style="color: #757575"> ALCF
+Hands-on HPC
+Workshop</span>](https://github.com/argonne-lcf/ALCF_Hands_on_HPC_Workshop)
 
 </div>
 
@@ -44,12 +47,12 @@ Polaris</span>](https://saforem2.github.io/llm-lunch-talk)
 
 # <span class="dim-text"></span> [Sam Foreman](https://samforeman.me)
 
-- I’m currently an associate computational scientist in the [Data
-  Science Group](https://www.alcf.anl.gov/about/people/group/506) at
+- I’m a Computational Scientist in the [Data Science
+  Group](https://www.alcf.anl.gov/about/people/group/506) at
   [ALCF](https://alcf.anl.gov)[^1].
   - Personal Website: [samforeman.me](https://samforeman.me)
   - Background:
-    <span style="font-size:0.9em;">`{HEP, Lattice QCD, ML + Generative Modeling, Large Scale Training, LLMs, MCMC, ...}`</span>
+    `{ML, LLMs, AI4Science, HEP, Lattice QCD, MCMC, Generative Modeling, ...}`
 
 Ongoing / recent work:
 
@@ -821,8 +824,7 @@ genomes
 
 # Loooooooooong Sequence Lengths
 
-<img src="https://saforem2.github.io/assets/ds4sci.svg"
-style="width:100.0%" />
+<img src="./assets/ds4sci.svg" style="width:100.0%" />
 
 <div id="tbl-results">
 
@@ -860,8 +862,7 @@ Table 2: Long sequence length support from
 <tr class="odd">
 <td style="text-align: center;"><div width="100.0%"
 data-layout-align="center">
-<p><img src="https://saforem2.github.io/assets/ds4sci.svg"
-style="width:90.0%" /> <img
+<p><img src="./assets/ds4sci.svg" style="width:90.0%" /> <img
 src="https://saforem2.github.io/qmd/dsblog_files/figure-html/cell-4-output-1.svg"
 style="width:49.0%" alt="25B" /> <img
 src="https://saforem2.github.io/qmd/dsblog_files/figure-html/cell-4-output-2.svg"
